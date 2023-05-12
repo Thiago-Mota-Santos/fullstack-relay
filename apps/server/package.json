@@ -1,27 +1,30 @@
 {
-    "name": "@monorepo-playground/relay",
-    "version": "1.0.0",
-    "scripts": {
-        "dev": "tsx watch src/app.ts",
-        "copy-env": "cp .env.example .env"
-    },
-    "dependencies": {
-        "bcryptjs": "^2.4.3",
-        "dotenv-safe": "^8.2.0",
-        "graphql": "^16.6.0",
-        "graphql-relay": "^0.10.0",
-        "kcors": "^2.2.2",
-        "koa": "^2.14.2",
-        "koa-bodyparser": "^4.4.0",
-        "koa-graphql": "^0.12.0",
-        "koa-router": "^12.0.0",
-        "mongoose": "^7.1.0"
-    },
-    "devDependencies": {
-        "@types/kcors": "^2.2.6",
-        "@types/koa": "^2.13.6",
-        "@types/koa-bodyparser": "^4.3.10",
-        "@types/koa-router": "^7.4.4",
-        "tsx": "^3.12.7"
-    }
+  "name": "@monorepo-playground/relay",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "tsx watch src/app.ts",
+    "copy-env": "cp .env.example .env",
+    "jest": "jest",
+    "test": "jest"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv-safe": "^8.2.0",
+    "graphql": "^16.6.0",
+    "graphql-relay": "^0.10.0",
+    "kcors": "^2.2.2",
+    "koa": "^2.14.2",
+    "koa-bodyparser": "^4.4.0",
+    "koa-graphql": "^0.12.0",
+    "koa-router": "^12.0.0",
+    "mongodb-memory-server": "^8.12.2",
+    "mongoose": "^7.1.0"
+  },
+  "devDependencies": {
+    "@types/kcors": "^2.2.6",
+    "@types/koa": "^2.13.6",
+    "@types/koa-bodyparser": "^4.3.10",
+    "@types/koa-router": "^7.4.4",
+    "tsx": "^3.12.7"
+  }
 }

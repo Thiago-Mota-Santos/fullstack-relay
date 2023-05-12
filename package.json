@@ -10,6 +10,7 @@
   "devDependencies": {
     "eslint": "^7.32.0",
     "eslint-config-custom": "*",
+    "jest": "^29.5.0",
     "prettier": "^2.7.1",
     "prettier-plugin-tailwindcss": "^0.1.11",
     "turbo": "^1.9.3"
