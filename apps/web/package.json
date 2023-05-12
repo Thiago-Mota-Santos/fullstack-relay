@@ -15,6 +15,9 @@
     "ui": "*"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.11.6",
+    "@testing-library/react": "^14.0.0",
+    "@testing-library/user-event": "^14.0.0",
     "@types/node": "^18.11.17",
     "@types/react": "^18.2.5",
     "@types/react-dom": "^18.2.4",

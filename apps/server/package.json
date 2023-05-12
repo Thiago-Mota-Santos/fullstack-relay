@@ -4,14 +4,14 @@
   "scripts": {
     "dev": "tsx watch src/app.ts",
     "copy-env": "cp .env.example .env",
-    "jest": "jest",
-    "test": "jest"
+    "jest": "jest"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "dotenv-safe": "^8.2.0",
     "graphql": "^16.6.0",
     "graphql-relay": "^0.10.0",
+    "jest-environment-node": "^29.5.0",
     "kcors": "^2.2.2",
     "koa": "^2.14.2",
     "koa-bodyparser": "^4.4.0",
