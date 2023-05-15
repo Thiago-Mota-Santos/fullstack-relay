@@ -16,6 +16,7 @@ const ENV = process.env;
 const config = {
     PORT: ENV.PORT ?? 4000,
     MONGO_URI: ENV.MONGO ?? '',
+    JWT_KEY: ENV.JWT_KEY ?? '',
 }
 
 export { config }

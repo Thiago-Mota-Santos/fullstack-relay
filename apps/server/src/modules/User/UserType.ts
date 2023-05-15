@@ -5,7 +5,7 @@ import { nodeInterface, registerTypeLoader } from '../../node/typeRegister';
 import { UserLoader } from './UserLoader';
 
 
-const UserType = new GraphQLObjectType<UserProps>({
+export const UserType = new GraphQLObjectType<UserProps>({
     name: "User",
     description: "Represents an authenticating user",
     fields: () =>  ({
