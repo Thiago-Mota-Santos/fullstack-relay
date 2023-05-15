@@ -15,7 +15,7 @@
     "jest": "^29.5.0",
     "prettier": "^2.7.1",
     "prettier-plugin-tailwindcss": "^0.1.11",
-    "turbo": "^1.9.3"
+    "turbo": "^1.9.5"
   },
   "packageManager": "yarn@1.22.19",
   "workspaces": [
