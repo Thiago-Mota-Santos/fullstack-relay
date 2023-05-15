@@ -3,4 +3,4 @@ import { mongooseConnection } from './mongooseConnection'
 
 beforeAll(mongooseConnection);
 
-afterAll(mongooseDisconnect);
+afterAll(moongoseDisconnect);

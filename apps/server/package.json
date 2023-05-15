@@ -7,6 +7,7 @@
     "jest": "jest"
   },
   "dependencies": {
+    "@entria/graphql-mongo-helpers": "^1.1.2",
     "bcryptjs": "^2.4.3",
     "dotenv-safe": "^8.2.0",
     "graphql": "^16.6.0",

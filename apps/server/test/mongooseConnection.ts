@@ -18,7 +18,7 @@ declare global {
     dbName: global.__MONGO_DB_NAME__,
   };
   
-  export const connectWithMongoose = async (): Promise<typeof mongoose> => {
+  export const mongooseConnection = async (): Promise<typeof mongoose> => {
     jest.setTimeout(20000);
     mongoose.set('strictQuery', true);
   

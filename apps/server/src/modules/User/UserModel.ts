@@ -1,11 +1,22 @@
 import mongoose, { Document, Model } from "mongoose";
 import bcrypt from 'bcryptjs'
 
-const UserSchema = new mongoose.Schema(
+export type UserProps = {
+  username: string;
+  email: string;
+  password: string;
+  authenticate: (password: string) => boolean;
+  encryptPassword: (password: string | undefined) => string;
+  createdAt: Date;
+} & Document 
+
+const UserSchema = new mongoose.Schema<UserProps>(
   {
     name: {
       type: String,
       required: true,
+      min: 3,
+      max: 30
     },
     email: {
       type: String,
@@ -13,7 +24,9 @@ const UserSchema = new mongoose.Schema(
       index: true,
     },
     password: {
+      required: true,
       type: String,
+      minlength: 7,
       hidden: true,
     },
   },
@@ -25,14 +38,6 @@ const UserSchema = new mongoose.Schema(
 );
 
 
-export type UserProps = {
-  name: string;
-  email: string;
-  password: string;
-  authenticate: (password: string) => boolean;
-  encryptPassword: (password: string | undefined) => string;
-  createdAt: Date;
-} & Document 
 
 UserSchema.pre<UserProps>('save', function encryptPasswordHook(next) {
   // Hash the password

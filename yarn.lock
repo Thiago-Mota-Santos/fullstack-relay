@@ -1051,6 +1051,18 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
+"@entria/graphql-mongo-helpers@^1.1.2":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@entria/graphql-mongo-helpers/-/graphql-mongo-helpers-1.1.2.tgz#89fba277efaf52f3f2ccba07f8349d741a6bda2d"
+  integrity sha512-MkQJdl4/FCAfRx0a5SmDuv+yT+ers9ZleIBYHswwVaCeTXbQQRJxLRQd13yawFfGS1XOZCEzvCsbjQididn/Gg==
+  dependencies:
+    "@entria/graphql-mongoose-loader" "^4.3.2"
+
+"@entria/graphql-mongoose-loader@^4.3.2":
+  version "4.4.0"
+  resolved "https://registry.yarnpkg.com/@entria/graphql-mongoose-loader/-/graphql-mongoose-loader-4.4.0.tgz#eb420b82f9889a7d916fc74d4a8437dfba7daabd"
+  integrity sha512-RcNdqPQf/GlnQch1IyUOTMTw13k+zE7zK9JeMd5cUGnShI/ih4k1JZEEtJDwyRwW1bOqAhlmP8dyY1CY8iPX8Q==
+
 "@esbuild-kit/cjs-loader@^2.4.2":
   version "2.4.2"
   resolved "https://registry.yarnpkg.com/@esbuild-kit/cjs-loader/-/cjs-loader-2.4.2.tgz#cb4dde00fbf744a68c4f20162ea15a8242d0fa54"
