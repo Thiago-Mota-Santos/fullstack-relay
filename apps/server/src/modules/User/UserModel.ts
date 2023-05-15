@@ -8,15 +8,17 @@ export type UserProps = {
   authenticate: (password: string) => boolean;
   encryptPassword: (password: string | undefined) => string;
   createdAt: Date;
-} & Document 
+} 
+
+type UserDocument = Document & UserProps
 
 const UserSchema = new mongoose.Schema<UserProps>(
   {
-    name: {
+    username: {
       type: String,
       required: true,
       min: 3,
-      max: 30
+      max: 30,
     },
     email: {
       type: String,
@@ -39,7 +41,7 @@ const UserSchema = new mongoose.Schema<UserProps>(
 
 
 
-UserSchema.pre<UserProps>('save', function encryptPasswordHook(next) {
+UserSchema.pre<UserDocument>('save', function encryptPasswordHook(next) {
   // Hash the password
   if (this.isModified('password')) {
     this.password = this.encryptPassword(this.password);
@@ -59,4 +61,5 @@ UserSchema.methods = {
 const UserModel = Model<UserProps> = mongoose.models["User"] || mongoose.model("user", UserSchema);
     
 export default UserModel;
+export type { UserDocument }
  
