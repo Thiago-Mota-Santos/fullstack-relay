@@ -21,7 +21,7 @@
     "koa-graphql": "^0.12.0",
     "koa-router": "^12.0.0",
     "mongodb-memory-server": "^8.12.2",
-    "mongoose": "^7.1.0"
+    "mongoose": "^7.2.1"
   },
   "devDependencies": {
     "@types/kcors": "^2.2.6",
