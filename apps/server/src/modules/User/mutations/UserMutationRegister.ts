@@ -30,8 +30,6 @@ export const UserRegisterMutation = mutationWithClientMutationId({
 
         const hasUser = (await UserModel.countDocuments({email: email.trim()})) > 0;
 
-
-
         if(hasUser){
            return fieldError("This user", "already exists")
         }
@@ -44,7 +42,13 @@ export const UserRegisterMutation = mutationWithClientMutationId({
 
         setAuthCookie(ctx, user)
 
-        const token = generateJwtToken(user)
+        const token = generateJwtToken(user);
+
+        return {
+            token,
+            id: user._id,
+            success: "User Successfully logged"
+        }
 
     },
     outputFields: {
