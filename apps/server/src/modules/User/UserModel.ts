@@ -42,7 +42,6 @@ const UserSchema = new mongoose.Schema<UserProps>(
 
 
 UserSchema.pre<UserDocument>('save', function encryptPasswordHook(next) {
-  // Hash the password
   if (this.isModified('password')) {
     this.password = this.encryptPassword(this.password);
   }

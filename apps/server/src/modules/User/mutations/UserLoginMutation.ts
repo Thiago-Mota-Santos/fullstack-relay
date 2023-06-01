@@ -8,13 +8,13 @@ import { fieldError } from "../../../utils/fieldError";
 import { successField } from "@entria/graphql-mongo-helpers";
 import { UserType } from '../UserType'
 
-interface UserSignin{
+interface UserLogin{
     email: string;
     password: string;
 }
 
-const UserSigninMutation = mutationWithClientMutationId({
-    name: "UserSigninMutation",
+const UserLoginMutation = mutationWithClientMutationId({
+    name: "UserLoginMutation",
     inputFields:{
         email:{
             type: new GraphQLNonNull(GraphQLString),
@@ -23,13 +23,13 @@ const UserSigninMutation = mutationWithClientMutationId({
             type: new GraphQLNonNull(GraphQLString),
         }
     },
-    mutateAndGetPayload: async(args: UserSignin, { ctx }: GraphQLContext) =>{
+    mutateAndGetPayload: async(args: UserLogin, { ctx }: GraphQLContext) =>{
         const { email, password } = {
             password: args.password.trim(),
             email: args.email.trim().toLowerCase(),
         };
 
-        const user = await UserModel.findOne ({ email});
+        const user = await UserModel.findOne ({ email });
 
         if(!user){
             return fieldError("email", "not found");
@@ -38,14 +38,14 @@ const UserSigninMutation = mutationWithClientMutationId({
         const passwordIsCorrect = user.authenticate(password);
 
         if(!passwordIsCorrect){
-            return fieldError("password", "not correct");
+            return fieldError("Password", "not correct");
         }
 
         setAuthCookie(ctx, user);
 
         return {
             id: user._id,
-        sucess: "Sign In sucessfully"
+            success: "Login In successfully"
         }
     },
     outputFields: {

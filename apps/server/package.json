@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "tsx watch src/index.tsx",
-    "schema": "tsx scripts/updateSchema.ts && cp shema/schema.graphql ..web/data",
+    "schema": "tsx scripts/updateSchema.ts && cp schema/schema.graphql ..web/data",
     "copy-env": "cp .env.example .env",
     "jest": "jest"
   },
