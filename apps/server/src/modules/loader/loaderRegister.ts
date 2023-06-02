@@ -1,5 +1,6 @@
 interface DataLoaders{
     UserLoader: ReturnType<typeof import('../User/UserLoader').UserLoader.getLoader>;
+    AppointmentLoader: ReturnType<typeof import('../Appointment/AppointmentLoader').AppointmentLoader.getLoader>;
 }
 
 type Loaders = {[Name in keyof DataLoaders]: () => DataLoaders[Name]} | Record<string, () => unknown>

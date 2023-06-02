@@ -1,4 +1,4 @@
-import mongoose, { Document, Types } from "mongoose";
+import mongoose, { Document, Model, Types } from "mongoose";
 
 export interface Appointment {
     clientName: string;
@@ -9,7 +9,7 @@ export interface Appointment {
     _id: Types.ObjectId;
 }
 
-type AppointmentDocument = Document & Appointment
+export type AppointmentDocument = Document & Appointment
 
 const AppointmentSchema = new mongoose.Schema<Appointment>(
     {
@@ -41,7 +41,6 @@ const AppointmentSchema = new mongoose.Schema<Appointment>(
     }
 )
 
-export const AppointmentModel = mongoose.model<AppointmentDocument>(
-    "Appointment",
-    AppointmentSchema
-)
+const AppointmentModel = Model<Appointment> = mongoose.models["Appointment"] || mongoose.model("Appointment", AppointmentSchema);
+    
+export default AppointmentModel;
