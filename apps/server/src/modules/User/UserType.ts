@@ -1,11 +1,11 @@
 import { GraphQLNonNull, GraphQLObjectType, GraphQLString } from 'graphql'
-import { UserProps } from './UserModel'
+import { User } from './UserModel'
 import { connectionDefinitions, globalIdField } from 'graphql-relay'
 import { nodeInterface, registerTypeLoader } from '../../node/typeRegister';
 import { UserLoader } from './UserLoader';
 
 
-export const UserType = new GraphQLObjectType<UserProps>({
+export const UserType = new GraphQLObjectType<User>({
     name: "User",
     description: "Represents an authenticating user",
     fields: () =>  ({

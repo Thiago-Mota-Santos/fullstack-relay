@@ -1,18 +1,19 @@
-import mongoose, { Document, Model } from "mongoose";
+import mongoose, { Document, Model, Types } from "mongoose";
 import bcrypt from 'bcryptjs'
 
-export type UserProps = {
+export type User = {
   username: string;
   email: string;
   password: string;
   authenticate: (password: string) => boolean;
   encryptPassword: (password: string | undefined) => string;
   createdAt: Date;
+  _id: Types.ObjectId;
 } 
 
-type UserDocument = Document & UserProps
+type UserDocument = Document & User
 
-const UserSchema = new mongoose.Schema<UserProps>(
+const UserSchema = new mongoose.Schema<User>(
   {
     username: {
       type: String,
@@ -57,7 +58,7 @@ UserSchema.methods = {
   }
 }
 
-const UserModel = Model<UserProps> = mongoose.models["User"] || mongoose.model("user", UserSchema);
+const UserModel = Model<User> = mongoose.models["User"] || mongoose.model("user", UserSchema);
     
 export default UserModel;
 export type { UserDocument }
