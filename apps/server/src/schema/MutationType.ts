@@ -1,7 +1,7 @@
 import { GraphQLObjectType } from "graphql";
 
 import * as UserLogin  from '../modules/User/mutations/UserLoginMutation';
-import * as UserRegister from '../modules/User/mutations/UserMutationRegister';
+import * as UserRegister from '../modules/User/mutations/UserRegisterMutation'
 
 export const MutationType = new GraphQLObjectType({
     name: "Mutation",

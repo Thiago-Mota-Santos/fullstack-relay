@@ -8,7 +8,7 @@ import { fieldError } from "../../../utils/fieldError";
 import { successField } from "@entria/graphql-mongo-helpers";
 import { UserType } from '../UserType'
 
-interface UserLogin{
+interface UserLogin {
     email: string;
     password: string;
 }
@@ -60,4 +60,4 @@ const UserLoginMutation = mutationWithClientMutationId({
       },
 })
 
-export { UserSigninMutation };
+export { UserLoginMutation };

@@ -1,4 +1,4 @@
-import { setAuthCookie } from './../../../Auth';
+import { setAuthCookie } from '../../../Auth';
 import { GraphQLNonNull, GraphQLString } from "graphql";
 import { mutationWithClientMutationId } from "graphql-relay";
 import { GraphQLContext } from "../../../graphql/Context";
