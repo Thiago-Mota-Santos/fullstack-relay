@@ -1,11 +1,43 @@
-import { Types } from "mongoose";
+import { GraphQLNonNull, GraphQLObjectType, GraphQLString } from "graphql";
+import { Appointment } from "./AppointmentModel";
+import { connectionDefinitions, globalIdField } from "graphql-relay";
+import { nodeInterface, registerTypeLoader } from "../../node/typeRegister";
+import { AppointmentLoader } from "./AppointmentLoader";
 
-export interface Appointment{
-    clientName: string;
-    date: string;
-    hour: string;
-    graphicLocation: string;
-    service: "Internet" | "Xerox" | "Other" | "Banner";
-    _id: Types.ObjectId;
-}
+export const AppointmentType = new GraphQLObjectType<Appointment>({
+    name: "Appointment",
+    description: "Represent an Appointment list",
+    fields: () => ({
+        id: globalIdField("Appointment"),
+        clientName: {
+            type: new GraphQLNonNull(GraphQLString),
+            resolve: appointment => appointment.clientName
+        },
 
+        service:{
+            type: new GraphQLNonNull(GraphQLString),
+            resolve: appointment => appointment.service
+        },
+
+        graphicLocation:{
+            type: new GraphQLNonNull(GraphQLString),
+            resolve: appointment => appointment.graphicLocation
+        },
+        date:{
+            type: new GraphQLNonNull(GraphQLString),
+            resolve: appointment => appointment.date
+        },
+        hour:{
+            type: new GraphQLNonNull(GraphQLString),
+            resolve: appointment => appointment.hour
+        }        
+    }),
+    interfaces: () => [nodeInterface],
+});
+
+export const AppointmentConnection = connectionDefinitions({
+    name: "Appointment",
+    nodeType: AppointmentType
+})
+
+registerTypeLoader(AppointmentType, AppointmentLoader.load);
