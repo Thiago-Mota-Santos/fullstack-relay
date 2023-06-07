@@ -1,9 +1,11 @@
 import { GraphQLNonNull, GraphQLString } from 'graphql';
-import { mutationWithClientMutationId } from "graphql-relay";
+import { mutationWithClientMutationId, toGlobalId } from "graphql-relay";
 import { GraphQLContext } from "../../../graphql/Context";
-import { Appointment } from "../AppointmentModel";
+import AppointmentModel, { Appointment } from "../AppointmentModel";
 import { fieldError } from '../../../utils/fieldError';
-
+import { AppointmentLoader } from '../AppointmentLoader';
+import { AppointmentConnection } from '../AppointmentType';
+import { successField } from '@entria/graphql-mongo-helpers';
 
 
 const AppointmentRegisterMutation = mutationWithClientMutationId({
@@ -24,10 +26,38 @@ const AppointmentRegisterMutation = mutationWithClientMutationId({
             return fieldError("user", "not logged in");
         }
 
-       const newAppointment = await new AppointmentModel
+       const newAppointment = await new AppointmentModel({
+            _id,
+            clientName,
+            date,
+            graphicLocation,
+            hour,
+            service,
+       }).save();
+
+       return {
+        id: newAppointment._id,
+        success: "New appointment has been created"
+       }
     
     },
     outputFields: {
+        me:{
+            type: AppointmentConnection.edgeType,
+            resolve: ({ id, _, context}) => {
+              const appointment = AppointmentLoader.load(context, id);
 
+              if(!appointment) return null;
+
+              return {
+                cursor: toGlobalId("Appointment", appointment._id),
+                node: appointment
+              }
+            
+        },
+        ...fieldError,
+        ...successField
     }
-})
+}});
+
+export default AppointmentRegisterMutation

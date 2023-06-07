@@ -3,6 +3,7 @@ import { Appointment } from "./AppointmentModel";
 import { connectionDefinitions, globalIdField } from "graphql-relay";
 import { nodeInterface, registerTypeLoader } from "../../node/typeRegister";
 import { AppointmentLoader } from "./AppointmentLoader";
+import { connectionArgs, withFilter } from '@entria/graphql-mongo-helpers'
 
 export const AppointmentType = new GraphQLObjectType<Appointment>({
     name: "Appointment",
@@ -19,10 +20,6 @@ export const AppointmentType = new GraphQLObjectType<Appointment>({
             resolve: appointment => appointment.service
         },
 
-        graphicLocation:{
-            type: new GraphQLNonNull(GraphQLString),
-            resolve: appointment => appointment.graphicLocation
-        },
         date:{
             type: new GraphQLNonNull(GraphQLString),
             resolve: appointment => appointment.date
@@ -30,7 +27,20 @@ export const AppointmentType = new GraphQLObjectType<Appointment>({
         hour:{
             type: new GraphQLNonNull(GraphQLString),
             resolve: appointment => appointment.hour
-        }        
+        },
+        graphicLocation:{
+            type: new GraphQLNonNull(GraphQLString),
+            args: { ...connectionArgs},
+            resolve: async (appointment, args, context) =>
+                await AppointmentLoader.loadAll(
+                    context,
+                    withFilter(args, { appointment: appointment._id }),
+                ),
+                description: 'List containing Id all appointment'
+        },
+        
+
+        
     }),
     interfaces: () => [nodeInterface],
 });

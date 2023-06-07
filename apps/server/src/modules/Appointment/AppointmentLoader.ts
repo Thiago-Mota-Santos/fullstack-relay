@@ -8,12 +8,13 @@ const { Wrapper, getLoader, clearCache, load, loadAll} = createLoader({
     loaderName: 'AppointmentLoader',
 });
 
-registerLoader("AppointmentLoader", getLoader);
 
 export const AppointmentLoader = {
-    User: Wrapper,
+    Appointment: Wrapper,
     getLoader,
     clearCache,
     load,
     loadAll
 }
+
+registerLoader("AppointmentLoader", getLoader);
