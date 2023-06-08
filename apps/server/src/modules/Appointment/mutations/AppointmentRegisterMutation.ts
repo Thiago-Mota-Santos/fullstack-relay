@@ -1,11 +1,11 @@
 import { GraphQLNonNull, GraphQLString } from 'graphql';
 import { mutationWithClientMutationId, toGlobalId } from "graphql-relay";
 import { GraphQLContext } from "../../../graphql/Context";
-import AppointmentModel, { Appointment } from "../AppointmentModel";
 import { fieldError } from '../../../utils/fieldError';
-import { AppointmentLoader } from '../AppointmentLoader';
 import { AppointmentConnection } from '../AppointmentType';
 import { successField } from '@entria/graphql-mongo-helpers';
+import { Appointment, AppointmentModel } from '../AppointmentModel';
+import { AppointmentLoader } from '../AppointmentLoader';
 
 
 const AppointmentRegisterMutation = mutationWithClientMutationId({
@@ -44,8 +44,8 @@ const AppointmentRegisterMutation = mutationWithClientMutationId({
     outputFields: {
         me:{
             type: AppointmentConnection.edgeType,
-            resolve: ({ id, _, context}) => {
-              const appointment = AppointmentLoader.load(context, id);
+            resolve: async ({ id, _, context}) => {
+              const appointment = await AppointmentLoader.load(context, id);
 
               if(!appointment) return null;
 
