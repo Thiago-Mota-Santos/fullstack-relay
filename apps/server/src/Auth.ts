@@ -3,8 +3,8 @@ import jwt from 'jsonwebtoken';
 
 import { config } from './config'
 
-import  UserModel, { UserDocument} from './modules/User/UserModel';
 import { Maybe } from '../../../packages/types/src/Maybe'
+import { UserDocument, UserModel } from "./modules/User/UserModel";
 const AUTH_COOKIE_NAME = "Application.jwt";
 
 export const getUser = async (ctx: ParameterizedContext): Promise<{user: Maybe<UserDocument>}> => {

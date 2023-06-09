@@ -1,5 +1,6 @@
 import mongoose, { Document, Model, Types } from "mongoose";
 import bcrypt from 'bcryptjs'
+import { Maybe } from "../../../../../packages/types/src/Maybe";
 
 export type User = {
   username: string;
@@ -11,7 +12,7 @@ export type User = {
   _id: Types.ObjectId;
 } 
 
-type UserDocument = Document & User
+type UserDocument = Maybe<Document> & User
 
 const UserSchema = new mongoose.Schema<User>(
   {
@@ -57,8 +58,7 @@ UserSchema.methods = {
   }
 }
 
-const UserModel = Model<User> = mongoose.models["User"] || mongoose.model("user", UserSchema);
+export const UserModel = mongoose.model<User>("User", UserSchema);
     
-export default UserModel;
 export type { UserDocument }
  

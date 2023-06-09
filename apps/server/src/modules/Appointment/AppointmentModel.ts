@@ -42,8 +42,5 @@ const AppointmentSchema = new mongoose.Schema<Appointment>(
     }
 )
 
-// const AppointmentModel = Model<Appointment> = mongoose.models["Appointment"] || mongoose.model("Appointment", AppointmentSchema);
-    
-// export default AppointmentModel;
 
 export const AppointmentModel = mongoose.model<AppointmentDocument>("Appointment", AppointmentSchema)
