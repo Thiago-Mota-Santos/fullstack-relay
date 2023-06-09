@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "tsx watch src/index.ts",
-    "schema": "tsx scripts/updateSchema.ts && cp schema/schema.graphql ..web/data",
+    "schema": "tsx scripts/updateSchema.ts",
     "copy-env": "cp .env.example .env",
     "jest": "jest"
   },
@@ -11,9 +11,13 @@
     "@entria/graphql-mongo-helpers": "^1.1.2",
     "@koa/cors": "^4.0.0",
     "@koa/router": "^12.0.0",
+    "@types/koa-logger": "^3.1.2",
+    "@types/koa__cors": "^4.0.0",
+    "@types/koa__router": "^12.0.0",
     "bcryptjs": "^2.4.3",
     "dotenv-safe": "^8.2.0",
     "graphql": "^16.6.0",
+    "graphql-playground-middleware-koa": "^1.6.22",
     "graphql-relay": "^0.10.0",
     "jest-environment-node": "^29.5.0",
     "jsonwebtoken": "^9.0.0",

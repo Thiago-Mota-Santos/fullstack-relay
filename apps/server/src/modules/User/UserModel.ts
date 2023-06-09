@@ -40,8 +40,6 @@ const UserSchema = new mongoose.Schema<User>(
   }
 );
 
-
-
 UserSchema.pre<UserDocument>('save', function encryptPasswordHook(next) {
   if (this.isModified('password')) {
     this.password = this.encryptPassword(this.password);
@@ -58,7 +56,7 @@ UserSchema.methods = {
   }
 }
 
-export const UserModel = mongoose.model<User>("User", UserSchema);
+export const UserModel = mongoose.model<UserDocument>("User", UserSchema);
     
 export type { UserDocument }
  
