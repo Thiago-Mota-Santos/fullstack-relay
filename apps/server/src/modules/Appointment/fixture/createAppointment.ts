@@ -3,7 +3,7 @@ import { DeepPartial } from "../../../../../../packages/types/src/DeepPartial";
 import { getCounter } from "../../../../test/counters";
 
 export const createAppointment = async (args?: DeepPartial<Appointment>): Promise<AppointmentDocument> =>{
-    const i = getCounter('Appointment');
+    const i = getCounter('appointment');
 
     return new AppointmentModel({
         clientName: `client#${i}`,
@@ -14,3 +14,4 @@ export const createAppointment = async (args?: DeepPartial<Appointment>): Promis
         ...args
     }).save()
 }
+

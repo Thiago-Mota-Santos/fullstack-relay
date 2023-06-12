@@ -2,12 +2,12 @@ import { setAuthCookie } from '../../../Auth';
 import { GraphQLNonNull, GraphQLString } from "graphql";
 import { mutationWithClientMutationId } from "graphql-relay";
 import { GraphQLContext } from "../../../graphql/Context";
-import UserModel from "../UserModel";
 import { fieldError } from "../../../utils/fieldError";
 import { generateJwtToken } from "../../../Auth";
 import { UserLoader } from '../UserLoader';
 import { successField } from '@entria/graphql-mongo-helpers';
 import { UserType } from '../UserType';
+import { UserModel } from '../UserModel';
 
 interface UserRegister{
     username: string;

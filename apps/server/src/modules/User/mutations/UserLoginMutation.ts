@@ -1,12 +1,12 @@
 import { GraphQLNonNull, GraphQLString } from "graphql";
 import { mutationWithClientMutationId } from "graphql-relay";
 import { GraphQLContext } from "../../../graphql/Context";
-import UserModel from "../UserModel";
 import { UserLoader } from "../UserLoader";
 import { setAuthCookie } from "../../../Auth";
 import { fieldError } from "../../../utils/fieldError";
 import { successField } from "@entria/graphql-mongo-helpers";
 import { UserType } from '../UserType'
+import { UserModel } from "../UserModel";
 
 interface UserLogin {
     email: string;

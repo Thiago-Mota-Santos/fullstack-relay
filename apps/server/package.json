@@ -5,7 +5,8 @@
     "dev": "tsx watch src/index.ts",
     "schema": "tsx scripts/updateSchema.ts",
     "copy-env": "cp .env.example .env",
-    "jest": "jest"
+    "jest": "jest",
+    "fixture": "tsx src/modules/Appointment/fixture/createAppointment.ts"
   },
   "dependencies": {
     "@entria/graphql-mongo-helpers": "^1.1.2",
@@ -32,10 +33,14 @@
     "types": "^0.1.1"
   },
   "devDependencies": {
+    "@types/jest": "^29.5.2",
     "@types/kcors": "^2.2.6",
     "@types/koa": "^2.13.6",
     "@types/koa-bodyparser": "^4.3.10",
     "@types/koa-router": "^7.4.4",
+    "@types/mocha": "^10.0.1",
+    "esbuild-jest": "^0.5.0",
+    "jest-environment-node": "^29.5.0",
     "ts-jest": "^29.1.0",
     "tsx": "^3.12.7"
   }

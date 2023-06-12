@@ -1,6 +1,6 @@
-import { moongoseDisconnect } from "./moongoseDisconnect";
 import { mongooseConnection } from './mongooseConnection'
+import { mongooseDisconnect } from './mongooseDisconnect';
 
 beforeAll(mongooseConnection);
 
-afterAll(moongoseDisconnect);
+afterAll(mongooseDisconnect);

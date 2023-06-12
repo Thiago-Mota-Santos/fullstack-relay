@@ -13,3 +13,4 @@ export const createUser = async(args?: DeepPartial<User>): Promise<UserDocument>
         ...args,
     }).save();
 }
+

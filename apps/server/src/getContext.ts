@@ -10,7 +10,7 @@ type ContextVars = {
     user: Maybe<UserDocument>
 }
 
-const getContext = async ({ ctx, user }: ContextVars): Promise<GraphQLContext> => {
+export const getContext = async ({ ctx, user }: ContextVars): Promise<GraphQLContext> => {
     const dataloaders = getDataLoaders();
 
     return{
@@ -20,4 +20,3 @@ const getContext = async ({ ctx, user }: ContextVars): Promise<GraphQLContext> =
     }
 }
 
-export { getContext }
