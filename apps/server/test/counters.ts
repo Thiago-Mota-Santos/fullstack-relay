@@ -1,5 +1,3 @@
-type Counters = Record<string, 0>;
-
 export const getCounter = (key: string): number => {
   if (key in global.__COUNTERS__) {
     global.__COUNTERS__[key]++;

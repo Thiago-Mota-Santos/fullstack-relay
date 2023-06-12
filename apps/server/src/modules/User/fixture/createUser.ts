@@ -1,6 +1,6 @@
 import { DeepPartial } from "../../../../../../packages/types/src/DeepPartial";
 import { getCounter } from "../../../../test/counters";
-import UserModel, { UserDocument, User } from "../UserModel";
+import { User, UserDocument, UserModel } from "../UserModel";
 
 export const createUser = async(args?: DeepPartial<User>): Promise<UserDocument> => {
 

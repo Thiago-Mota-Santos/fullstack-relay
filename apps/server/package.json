@@ -36,6 +36,7 @@
     "@types/koa": "^2.13.6",
     "@types/koa-bodyparser": "^4.3.10",
     "@types/koa-router": "^7.4.4",
+    "ts-jest": "^29.1.0",
     "tsx": "^3.12.7"
   }
 }
