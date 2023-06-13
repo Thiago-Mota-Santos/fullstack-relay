@@ -1,9 +1,9 @@
-import { graphql } from "graphql";
+import { graphql, ExecutionResult, GraphQLError } from "graphql";
 import { clearDatabaseAndRestartCounters } from "../../../../test/clearDatabase";
 import { mongooseConnection } from "../../../../test/mongooseConnection";
 import { mongooseDisconnect } from "../../../../test/mongooseDisconnect";
 import { schema } from "../../../schema/schema";
-import { getContext } from "../../../getContext";
+import { UserRegisterMutationResult } from "./types/UserMutationRegisterType";
 
 
 beforeAll(mongooseConnection);
@@ -21,32 +21,28 @@ it('Should create user', async () => {
                username
             }
         }
-    }
+  }
 `
     const variableValues = {
-        username: "thiago",
-        email: "poggers@email.com",
-        password: "noggers",
+        username: "kssnbek",
+        email: "joggesssrs@pog0igers.net",
+        password: "s313s18747s41",
 
     }
-
-    const context = getContext()
 
     const result = await graphql({
         schema,
         source: mutation,
         rootValue: {},
         variableValues,        
-        contextValue: context
-      });
-
+      }) as UserRegisterMutationResult;
+    
     expect(result.errors).toBeUndefined();
 
-    //@ts-ignore
     const { me, token } = result?.data?.UserRegisterMutation
 
-    expect(token).toBeUndefined();
-    expect(me.id).toBeUndefined();
+    expect(token).toBeDefined();
+    expect(me.id).toBeDefined();
 
 })
 
