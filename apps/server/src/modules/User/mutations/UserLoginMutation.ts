@@ -1,9 +1,7 @@
 import { GraphQLNonNull, GraphQLString } from "graphql";
 import { mutationWithClientMutationId } from "graphql-relay";
-import { GraphQLContext } from "../../../graphql/Context";
 import { UserLoader } from "../UserLoader";
 import { generateJwtToken} from "../../../Auth";
-import { fieldError } from "../../../utils/fieldError";
 import { successField } from "@entria/graphql-mongo-helpers";
 import { UserType } from '../UserType'
 import { UserModel } from "../UserModel";
@@ -23,7 +21,7 @@ const UserLoginMutation = mutationWithClientMutationId({
             type: new GraphQLNonNull(GraphQLString),
         }
     },
-    mutateAndGetPayload: async(args: UserLogin, { ctx }: GraphQLContext) =>{
+    mutateAndGetPayload: async(args: UserLogin) =>{
         const { email, password } = {
             password: args.password.trim(),
             email: args.email.trim().toLowerCase(),
@@ -32,13 +30,13 @@ const UserLoginMutation = mutationWithClientMutationId({
         const user = await UserModel.findOne ({ email });
 
         if(!user){
-            return fieldError("email", "not found");
+            throw new Error("User not found");
         }
 
         const passwordIsCorrect = user.authenticate(password);
 
         if(!passwordIsCorrect){
-            return fieldError("Password", "not correct");
+            throw new Error("Password is not correct");
         }
 
         const token = generateJwtToken(user._id)
@@ -60,7 +58,6 @@ const UserLoginMutation = mutationWithClientMutationId({
             return UserLoader.load(context, id);
           },
         },
-        ...fieldError,
         ...successField,
       },
 })

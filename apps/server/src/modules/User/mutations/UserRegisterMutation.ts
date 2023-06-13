@@ -1,19 +1,10 @@
-import { setAuthCookie } from '../../../Auth';
 import { GraphQLNonNull, GraphQLString } from "graphql";
 import { mutationWithClientMutationId } from "graphql-relay";
-import { GraphQLContext } from "../../../graphql/Context";
-import { fieldError } from "../../../utils/fieldError";
 import { generateJwtToken } from "../../../Auth";
 import { UserLoader } from '../UserLoader';
 import { successField } from '@entria/graphql-mongo-helpers';
 import { UserType } from '../UserType';
 import { UserModel } from '../UserModel';
-
-interface UserRegister{
-    username: string;
-    email: string;
-    password: string;
-}
 
 export const UserRegisterMutation = mutationWithClientMutationId({
     name: "UserRegister",
@@ -24,45 +15,41 @@ export const UserRegisterMutation = mutationWithClientMutationId({
         password: { type: new GraphQLNonNull(GraphQLString)},
     },
 
-    mutateAndGetPayload: async(args: UserRegister, { ctx }: GraphQLContext ) => {
+    mutateAndGetPayload: async({ username, email, password,  ...rest}) => {
 
-        const { username, email, password } = args;
 
         const hasUser = (await UserModel.countDocuments({email: email.trim()})) > 0;
 
         if(hasUser){
-           return fieldError("This user", "already exists")
+            throw new Error("This user already exists");
         }
 
         const user = await new UserModel({
             username,
             email,
             password,
+            ...rest
         }).save()
 
-        setAuthCookie(ctx, user)
 
         const token = generateJwtToken(user);
 
         return {
             token,
             id: user._id,
-            success: "User Successfully logged"
+            success: "User registered"
         }
 
     },
     outputFields: {
         me:{
           type: UserType,
-          resolve: async ({ id }, _, context) =>{
-            return UserLoader.load(context, id);
-          },
+          resolve: async ({ id }) => await UserModel.findById(id),
         },
         token:{
             type: GraphQLString,
             resolve: ({ token }) => token,
         },
-        ...fieldError,
         ...successField,
         
     }
