@@ -2,7 +2,7 @@ import { GraphQLNonNull, GraphQLString } from "graphql";
 import { mutationWithClientMutationId } from "graphql-relay";
 import { GraphQLContext } from "../../../graphql/Context";
 import { UserLoader } from "../UserLoader";
-import { setAuthCookie } from "../../../Auth";
+import { generateJwtToken} from "../../../Auth";
 import { fieldError } from "../../../utils/fieldError";
 import { successField } from "@entria/graphql-mongo-helpers";
 import { UserType } from '../UserType'
@@ -41,14 +41,19 @@ const UserLoginMutation = mutationWithClientMutationId({
             return fieldError("Password", "not correct");
         }
 
-        setAuthCookie(ctx, user);
+        const token = generateJwtToken(user._id)
 
         return {
             id: user._id,
+            token,
             success: "Login In successfully"
         }
     },
     outputFields: {
+        token:{
+            type: GraphQLString,
+            resolve: ( { token }) => token
+        },
         me: {
           type: UserType,
           resolve: ({ id }, _, context) => {

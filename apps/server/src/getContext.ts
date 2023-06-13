@@ -1,22 +1,20 @@
 import { GraphQLContext } from "./graphql/Context"
 import { getDataLoaders } from "./modules/loader/loaderRegister"
-import { ParameterizedContext } from 'koa';
 import { UserDocument } from "./modules/User/UserModel";
 import { Maybe } from "../../../packages/types/src/Maybe";
-
+import { Request } from 'koa'
 
 type ContextVars = {
-    ctx: ParameterizedContext
-    user: Maybe<UserDocument>
+    req?: Request
+    user?: Maybe<UserDocument>
 }
 
-export const getContext = async ({ ctx, user }: ContextVars): Promise<GraphQLContext> => {
-    const dataloaders = getDataLoaders();
+export const getContext = (ctx?: ContextVars) => {
+  const dataloaders = getDataLoaders();
 
-    return{
-        ctx,
-        user,
-        dataloaders,
-    }
-}
-
+  return {
+    req: ctx?.req,
+    dataloaders,
+    user: ctx?.user || null,
+  } as GraphQLContext;
+};

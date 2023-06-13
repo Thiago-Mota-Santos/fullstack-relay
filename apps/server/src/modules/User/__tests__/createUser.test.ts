@@ -3,6 +3,7 @@ import { clearDatabaseAndRestartCounters } from "../../../../test/clearDatabase"
 import { mongooseConnection } from "../../../../test/mongooseConnection";
 import { mongooseDisconnect } from "../../../../test/mongooseDisconnect";
 import { schema } from "../../../schema/schema";
+import { getContext } from "../../../getContext";
 
 
 beforeAll(mongooseConnection);
@@ -29,13 +30,14 @@ it('Should create user', async () => {
 
     }
 
+    const context = getContext()
 
     const result = await graphql({
         schema,
         source: mutation,
         rootValue: {},
-        variableValues,
-
+        variableValues,        
+        contextValue: context
       });
 
     expect(result.errors).toBeUndefined();
