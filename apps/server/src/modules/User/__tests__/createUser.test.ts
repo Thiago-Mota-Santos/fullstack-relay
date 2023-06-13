@@ -1,4 +1,4 @@
-import { graphql, ExecutionResult, GraphQLError } from "graphql";
+import { graphql } from "graphql";
 import { clearDatabaseAndRestartCounters } from "../../../../test/clearDatabase";
 import { mongooseConnection } from "../../../../test/mongooseConnection";
 import { mongooseDisconnect } from "../../../../test/mongooseDisconnect";
