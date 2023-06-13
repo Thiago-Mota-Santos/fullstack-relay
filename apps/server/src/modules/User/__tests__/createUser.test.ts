@@ -3,7 +3,7 @@ import { clearDatabaseAndRestartCounters } from "../../../../test/clearDatabase"
 import { mongooseConnection } from "../../../../test/mongooseConnection";
 import { mongooseDisconnect } from "../../../../test/mongooseDisconnect";
 import { schema } from "../../../schema/schema";
-import { UserRegisterMutationResult } from "./types/UserMutationRegisterType";
+import { UserRegisterMutationResult } from "./types/UserTestType";
 
 
 beforeAll(mongooseConnection);
