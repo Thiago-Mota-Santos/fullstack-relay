@@ -1,12 +1,11 @@
 import { GraphQLNonNull, GraphQLString } from "graphql";
 import { mutationWithClientMutationId } from "graphql-relay";
 import { generateJwtToken } from "../../../Auth";
-import { UserLoader } from '../UserLoader';
 import { successField } from '@entria/graphql-mongo-helpers';
 import { UserType } from '../UserType';
 import { UserModel } from '../UserModel';
 
-export const UserRegisterMutation = mutationWithClientMutationId({
+export const userRegisterMutation = mutationWithClientMutationId({
     name: "UserRegister",
     description: "Register a new user",
     inputFields: {

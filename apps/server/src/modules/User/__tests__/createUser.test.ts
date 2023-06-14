@@ -3,7 +3,7 @@ import { clearDatabaseAndRestartCounters } from "../../../../test/clearDatabase"
 import { mongooseConnection } from "../../../../test/mongooseConnection";
 import { mongooseDisconnect } from "../../../../test/mongooseDisconnect";
 import { schema } from "../../../schema/schema";
-import { UserRegisterMutationResult } from "./types/UserTestType";
+import { UserRegisterMutationResult } from "@fullstack/types";
 
 
 beforeAll(mongooseConnection);
@@ -14,7 +14,7 @@ afterAll(mongooseDisconnect);
 it('Should create user', async () => {
     const mutation = `
     mutation user($username: String!, $email: String!, $password: String!){
-        UserRegisterMutation(input: { username: $username, password: $password, email: $email }){
+        userRegisterMutation(input: { username: $username, password: $password, email: $email }){
             token
             me{
                id
@@ -39,10 +39,9 @@ it('Should create user', async () => {
     
     expect(result.errors).toBeUndefined();
 
-    const { me, token } = result?.data?.UserRegisterMutation
+    const { me, token } = result?.data?.userRegisterMutation
 
     expect(token).toBeDefined();
     expect(me.id).toBeDefined();
 
 })
-

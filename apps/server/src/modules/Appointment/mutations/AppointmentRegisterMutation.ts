@@ -1,14 +1,13 @@
 import { GraphQLNonNull, GraphQLString } from 'graphql';
 import { mutationWithClientMutationId, toGlobalId } from "graphql-relay";
 import { GraphQLContext } from "../../../graphql/Context";
-import { fieldError } from '../../../utils/fieldError';
 import { AppointmentConnection } from '../AppointmentType';
 import { successField } from '@entria/graphql-mongo-helpers';
 import { Appointment, AppointmentModel } from '../AppointmentModel';
 import { AppointmentLoader } from '../AppointmentLoader';
 
 
-const AppointmentRegisterMutation = mutationWithClientMutationId({
+const appointmentRegisterMutation = mutationWithClientMutationId({
     name: "AppointmentRegister",
     inputFields: {
         clientName: { type: new GraphQLNonNull(GraphQLString)},
@@ -23,7 +22,7 @@ const AppointmentRegisterMutation = mutationWithClientMutationId({
         const { _id, clientName, date, graphicLocation, hour, service } = args;
 
         if(!ctx?.user){
-            return fieldError("user", "not logged in");
+            throw new Error("User not logged in");
         }
 
        const newAppointment = await new AppointmentModel({
@@ -55,9 +54,8 @@ const AppointmentRegisterMutation = mutationWithClientMutationId({
               }
             
         },
-        ...fieldError,
         ...successField
     }
 }});
 
-export default AppointmentRegisterMutation
+export default appointmentRegisterMutation

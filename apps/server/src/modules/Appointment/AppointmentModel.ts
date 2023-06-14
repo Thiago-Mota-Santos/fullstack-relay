@@ -1,4 +1,5 @@
 import mongoose, { Document, Types } from "mongoose";
+import { Maybe } from "../../../../../packages/types/src/Maybe";
 
 export interface Appointment {
     clientName: string;
@@ -9,7 +10,7 @@ export interface Appointment {
     _id: Types.ObjectId;
 }
 
-export type AppointmentDocument = Appointment & Document;
+export type AppointmentDocument = Maybe<Appointment> & Document;
 
 
 const AppointmentSchema = new mongoose.Schema<Appointment>(

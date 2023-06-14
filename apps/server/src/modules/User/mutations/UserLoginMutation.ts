@@ -11,7 +11,7 @@ interface UserLogin {
     password: string;
 }
 
-const UserLoginMutation = mutationWithClientMutationId({
+const userLoginMutation = mutationWithClientMutationId({
     name: "UserLoginMutation",
     inputFields:{
         email:{
@@ -30,16 +30,16 @@ const UserLoginMutation = mutationWithClientMutationId({
         const user = await UserModel.findOne ({ email });
 
         if(!user){
-            throw new Error("User not found");
+            throw new Error("User not found!");
         }
 
         const passwordIsCorrect = user.authenticate(password);
 
         if(!passwordIsCorrect){
-            throw new Error("Password is not correct");
+            throw new Error("Password is incorrect!");
         }
 
-        const token = generateJwtToken(user._id)
+        const token = generateJwtToken(user._id);
 
         return {
             id: user._id,
@@ -50,16 +50,14 @@ const UserLoginMutation = mutationWithClientMutationId({
     outputFields: {
         token:{
             type: GraphQLString,
-            resolve: ( { token }) => token
+            resolve: ({ token }) => token
         },
         me: {
           type: UserType,
-          resolve: ({ id }, _, context) => {
-            return UserLoader.load(context, id);
-          },
+          resolve: async ({ id }) => await UserModel.findById(id),
         },
         ...successField,
       },
 })
 
-export { UserLoginMutation };
+export { userLoginMutation };

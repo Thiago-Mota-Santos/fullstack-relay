@@ -2,17 +2,18 @@ import mongoose, { Document, Model, Types } from "mongoose";
 import bcrypt from 'bcryptjs'
 import { Maybe } from "../../../../../packages/types/src/Maybe";
 
-export type User = {
+export interface User extends Document{
   username: string;
   email: string;
   password: string;
+  createdAt: Date;
   authenticate: (password: string) => boolean;
   encryptPassword: (password: string | undefined) => string;
-  createdAt: Date;
   _id: Types.ObjectId;
 } 
 
 type UserDocument = Maybe<Document> & User
+
 
 const UserSchema = new mongoose.Schema<User>(
   {
@@ -58,5 +59,4 @@ UserSchema.methods = {
 
 export const UserModel = mongoose.model<UserDocument>("User", UserSchema);
     
-export type { UserDocument }
- 
+ export type { UserDocument }
