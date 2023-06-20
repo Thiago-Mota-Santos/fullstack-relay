@@ -30,13 +30,7 @@ export const AppointmentType = new GraphQLObjectType<Appointment>({
         },
         graphicLocation:{
             type: new GraphQLNonNull(GraphQLString),
-            args: { ...connectionArgs},
-            resolve: async (appointment, args, context) =>
-                await AppointmentLoader.loadAll(
-                    context,
-                    withFilter(args, { appointment: appointment._id }),
-                ),
-                description: 'List containing Id all appointment'
+            resolve: appointment => appointment.graphicLocation
         },
     }),
     interfaces: () => [nodeInterface],
