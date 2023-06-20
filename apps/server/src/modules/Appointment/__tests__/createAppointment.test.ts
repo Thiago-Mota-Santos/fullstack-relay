@@ -15,20 +15,19 @@ it("should register a appointment", async() => {
 
     const user = await createUser()
 
-    const { clientName, graphicLocation, service, date, hour, _id } = await createAppointment({
+    const { clientName, graphicLocation, service, date, hour } = await createAppointment({
         clientName: 'Thiago',
         date: '23-01-2022',
         hour: '18:03',
-        graphicLocation: 'satelite iris 3',
+        graphicLocation: 'satelite-iris-3',
         service: 'Banner',
-        _id: "5fa07f5e2ac4c50984ceae20",
     })
 
 
     const mutation = `
     mutation appointment($clientName: String!, $date: String!, $hour: String!, $graphicLocation: String!, $service: String!){            
         appointmentRegisterMutation(input: { clientName: $clientName, date: $date, hour: $hour, graphicLocation: $graphicLocation, service: $service}){
-          me{
+          appointmentEdge{
             node{
               clientName
               service
@@ -47,7 +46,6 @@ it("should register a appointment", async() => {
         date,
         hour,
         graphicLocation,
-        _id
     }
 
 
@@ -55,15 +53,21 @@ it("should register a appointment", async() => {
         schema: schema,
         source: mutation,
         variableValues: variableValues,
-        contextValue: getContext ({ user })
-    })
-
-    console.log(getContext({ user }));
+        contextValue: getContext ({ user }),
+    }) as any;
 
 
     expect(result.errors).toBeUndefined();
 
-    const { me } = result?.data?.appointmentRegisterMutation
-    expect(me?.node.clientName).toBeDefined();
+    const { appointmentEdge } = result?.data?.appointmentRegisterMutation
+    expect(appointmentEdge.node.clientName).toBe(variableValues.clientName);
+    expect(appointmentEdge.node.service).toBe(variableValues.service);
+    expect(appointmentEdge.node.date).toBe(variableValues.date);
+    expect(appointmentEdge.node.hour).toBe(variableValues.hour);
+    expect(appointmentEdge.node.graphicLocation).toBe(variableValues.graphicLocation);
+
+
+
+
 
 })
