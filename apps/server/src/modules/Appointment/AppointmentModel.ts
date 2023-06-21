@@ -1,5 +1,6 @@
-import mongoose, { Document, Types } from "mongoose";
+import mongoose, { Document, Schema, Types } from "mongoose";
 import { Maybe } from "../../../../../packages/types/src/Maybe";
+
 
 export interface Appointment {
     clientName: string;
@@ -39,7 +40,14 @@ const AppointmentSchema = new mongoose.Schema<Appointment>(
        service:{
         type: String,
         required: true,
-       }
+       },
+       _id: {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+       },
+    },
+    {
+        collection: "Appointment"
     }
 )
 

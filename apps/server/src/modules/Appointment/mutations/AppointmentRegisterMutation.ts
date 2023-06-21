@@ -1,10 +1,10 @@
+import { GraphQLContext } from './../../../graphql/context';
 import { GraphQLNonNull, GraphQLString } from 'graphql';
 import { mutationWithClientMutationId, toGlobalId } from "graphql-relay";
-import { GraphQLContext } from "../../../graphql/Context";
 import { AppointmentConnection } from '../AppointmentType';
-import { successField } from '@entria/graphql-mongo-helpers';
 import { Appointment, AppointmentModel } from '../AppointmentModel';
 import { AppointmentLoader } from '../AppointmentLoader';
+import { successField } from '@entria/graphql-mongo-helpers';
 
 
 const appointmentRegisterMutation = mutationWithClientMutationId({
@@ -16,17 +16,17 @@ const appointmentRegisterMutation = mutationWithClientMutationId({
         graphicLocation: { type: new GraphQLNonNull(GraphQLString)},
         service: { type: new GraphQLNonNull(GraphQLString)},
 
-
     },
-    mutateAndGetPayload: async (args: Appointment, { ctx }: GraphQLContext ) => {
-        const { _id, clientName, date, graphicLocation, hour, service } = args;
+    mutateAndGetPayload: async (args: Appointment,  ctx : GraphQLContext ) => {
+        const { clientName, date, graphicLocation, hour, service } = args;
 
-        if(!ctx?.user){
-            throw new Error("User not logged in");
+        console.log(ctx.user);
+        if(!ctx.user){
+            throw new Error("You must be logged in to register an appointment");
         }
-
+        
        const newAppointment = await new AppointmentModel({
-            _id,
+            _id: ctx?.user?._id,
             clientName,
             date,
             graphicLocation,
@@ -34,28 +34,27 @@ const appointmentRegisterMutation = mutationWithClientMutationId({
             service,
        }).save();
 
+
        return {
-        id: newAppointment._id,
+        id: newAppointment._id.toString(),
         success: "New appointment has been created"
        }
     
     },
     outputFields: {
-        me:{
+        appointmentEdge:{
             type: AppointmentConnection.edgeType,
-            resolve: async ({ id, _, context}) => {
+            resolve: async ({ id }, _, context) => {
               const appointment = await AppointmentLoader.load(context, id);
-
               if(!appointment) return null;
 
               return {
                 cursor: toGlobalId("Appointment", appointment._id),
                 node: appointment
               }
-            
+            },
+            ...successField,
         },
-        ...successField
-    }
 }});
 
-export default appointmentRegisterMutation
+export { appointmentRegisterMutation }

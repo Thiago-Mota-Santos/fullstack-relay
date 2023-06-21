@@ -2,10 +2,11 @@ import { createAppointment } from './../fixture/createAppointment';
 import { clearDatabaseAndRestartCounters } from "../../../../test/clearDatabase";
 import { mongooseConnection } from "../../../../test/mongooseConnection";
 import { mongooseDisconnect } from "../../../../test/mongooseDisconnect";
-import { graphql } from 'graphql';
 import { schema } from '../../../schema/schema';
 import { getContext } from '../../../getContext';
 import { createUser } from '../../User/fixture/createUser';
+import { AppointmentMutationResult } from '../../../../test/InterfaceTest';
+import { getGraphqlResult } from '../../../../test/getGraphqlResult';
 
 beforeAll(mongooseConnection)
 beforeEach(clearDatabaseAndRestartCounters)
@@ -49,17 +50,15 @@ it("should register a appointment", async() => {
     }
 
 
-    const result = await graphql({
-        schema: schema,
-        source: mutation,
-        variableValues: variableValues,
-        contextValue: getContext ({ user }),
-    }) as any;
+    const result = await getGraphqlResult<AppointmentMutationResult>
+      ({ schema: schema, source: mutation, 
+         variableValues: variableValues, contextValue: getContext({ user })
+    })
 
 
     expect(result.errors).toBeUndefined();
 
-    const { appointmentEdge } = result?.data?.appointmentRegisterMutation
+    const { appointmentEdge } = result?.data?.appointmentRegisterMutation!
     expect(appointmentEdge.node.clientName).toBe(variableValues.clientName);
     expect(appointmentEdge.node.service).toBe(variableValues.service);
     expect(appointmentEdge.node.date).toBe(variableValues.date);
