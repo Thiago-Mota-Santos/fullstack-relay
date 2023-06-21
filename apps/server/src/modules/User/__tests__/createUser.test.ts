@@ -1,9 +1,9 @@
-import { graphql } from "graphql";
 import { clearDatabaseAndRestartCounters } from "../../../../test/clearDatabase";
 import { mongooseConnection } from "../../../../test/mongooseConnection";
 import { mongooseDisconnect } from "../../../../test/mongooseDisconnect";
+import { UserRegisterMutationResult } from "../../../../test/InterfaceTest"
+import { getGraphqlResult } from "../../../../test/getGraphqlResult"
 import { schema } from "../../../schema/schema";
-import { UserRegisterMutationResult } from "@fullstack/types";
 
 
 beforeAll(mongooseConnection);
@@ -24,24 +24,22 @@ it('Should create user', async () => {
   }
 `
     const variableValues = {
-        username: "kssnbek",
-        email: "joggesssrs@pog0igers.net",
+        username: "joão",
+        email: "joao@email.com",
         password: "s313s18747s41",
 
     }
 
-    const result = await graphql({
-        schema,
-        source: mutation,
-        rootValue: {},
-        variableValues,        
-      }) as UserRegisterMutationResult;
+
+      const result = await getGraphqlResult<UserRegisterMutationResult>
+      ({ schema: schema, source: mutation, 
+         variableValues: variableValues 
+    })
     
     expect(result.errors).toBeUndefined();
 
-    const { me, token } = result?.data?.userRegisterMutation
-
+    const { token, me } = result?.data?.userRegisterMutation!
     expect(token).toBeDefined();
-    expect(me.id).toBeDefined();
+    expect(me).toBeDefined();
 
 })

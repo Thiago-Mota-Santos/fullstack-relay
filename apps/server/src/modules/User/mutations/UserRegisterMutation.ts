@@ -1,11 +1,11 @@
 import { GraphQLNonNull, GraphQLString } from "graphql";
 import { mutationWithClientMutationId } from "graphql-relay";
-import { generateJwtToken } from "../../../Auth";
 import { successField } from '@entria/graphql-mongo-helpers';
 import { UserType } from '../UserType';
 import { UserModel } from '../UserModel';
+import { generateJwtToken } from "../../../auth";
 
-export const userRegisterMutation = mutationWithClientMutationId({
+const userRegisterMutation = mutationWithClientMutationId({
     name: "UserRegister",
     description: "Register a new user",
     inputFields: {
@@ -14,7 +14,7 @@ export const userRegisterMutation = mutationWithClientMutationId({
         password: { type: new GraphQLNonNull(GraphQLString)},
     },
 
-    mutateAndGetPayload: async({ username, email, password,  ...rest}) => {
+    mutateAndGetPayload: async({ username, email, password, ...rest}) => {
 
 
         const hasUser = (await UserModel.countDocuments({email: email.trim()})) > 0;
@@ -53,3 +53,5 @@ export const userRegisterMutation = mutationWithClientMutationId({
         
     }
 })
+
+export { userRegisterMutation };

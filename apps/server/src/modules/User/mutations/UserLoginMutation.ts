@@ -1,10 +1,10 @@
 import { GraphQLNonNull, GraphQLString } from "graphql";
 import { mutationWithClientMutationId } from "graphql-relay";
-import { UserLoader } from "../UserLoader";
-import { generateJwtToken} from "../../../Auth";
 import { successField } from "@entria/graphql-mongo-helpers";
 import { UserType } from '../UserType'
 import { UserModel } from "../UserModel";
+import { UserLoader } from "../UserLoader";
+import { generateJwtToken } from "../../../auth";
 
 interface UserLogin {
     email: string;
@@ -52,10 +52,10 @@ const userLoginMutation = mutationWithClientMutationId({
             type: GraphQLString,
             resolve: ({ token }) => token
         },
-        me: {
-          type: UserType,
-          resolve: async ({ id }) => await UserModel.findById(id),
-        },
+        me:{
+            type: UserType,
+            resolve: async ({ id }) => await UserModel.findById(id),
+          },
         ...successField,
       },
 })

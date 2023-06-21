@@ -4,7 +4,8 @@ import { mongooseConnection } from "../../../../test/mongooseConnection";
 import { mongooseDisconnect } from "../../../../test/mongooseDisconnect";
 import { schema } from "../../../schema/schema";
 import { createUser } from '../fixture/createUser'
-import { UserLoginMutationResult } from "@fullstack/types"
+import { UserLoginMutationResult } from "../../../../test/InterfaceTest"
+import { getGraphqlResult } from "../../../../test/getGraphqlResult";
 
 beforeAll(mongooseConnection)
 beforeEach(clearDatabaseAndRestartCounters)
@@ -13,8 +14,8 @@ afterAll(mongooseDisconnect)
 
 it("should login a registered user", async () => {
     const { email } = await createUser({
-        email: "test@email.com",
-        password: "1234567"
+        email: "joao@email.com",
+        password: "joao12345"
     })
 
 
@@ -31,18 +32,17 @@ it("should login a registered user", async () => {
 
     const variableValues = {
         email,
-        password: "1234567"
+        password: "joao12345"
     }
 
-    const result = await graphql({
-        schema: schema,
-        source: mutation,
-        variableValues
-    }) as UserLoginMutationResult
+    const result = await getGraphqlResult<UserLoginMutationResult>
+      ({ schema: schema, source: mutation, 
+         variableValues: variableValues 
+    })
 
     expect(result.errors).toBeUndefined();
 
-    const { me, token } = result?.data?.userLoginMutation
+    const { me, token } = result?.data?.userLoginMutation!
     expect(token).toBeDefined();
     expect(me?.id).toBeDefined();
 
@@ -66,11 +66,14 @@ it("should login a registered user", async () => {
         password: '1234567'
     }
 
+    
+
      const result = await graphql({
         schema,
         source: mutation,
         variableValues,
      })
+
 
      expect(result.data?.userLoginMutation).toBeNull();
 

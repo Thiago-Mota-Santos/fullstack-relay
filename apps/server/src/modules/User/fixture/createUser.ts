@@ -1,4 +1,3 @@
-import { Types } from "mongoose";
 import { DeepPartial } from "../../../../../../packages/types/src/DeepPartial";
 import { getCounter } from "../../../../test/counters";
 import { User, UserDocument, UserModel } from "../UserModel";
