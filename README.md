@@ -43,6 +43,8 @@ Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
 
 Clone the repo
 
+For now, only the "server" is finalized
+
 ```sh
 git clone https://github.com/Thiago-Mota-Santos/fullstack-relay.git
 ```
@@ -52,6 +54,7 @@ git clone https://github.com/Thiago-Mota-Santos/fullstack-relay.git
    ```
 2. Copy the .env.example
    ```sh
+   cd apps/server
    yarn copy-env
    ```
 3. Fill the .env file
