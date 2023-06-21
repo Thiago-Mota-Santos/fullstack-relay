@@ -2,7 +2,6 @@ import { GraphQLNonNull, GraphQLObjectType, GraphQLString } from "graphql";
 import { Appointment } from "./AppointmentModel";
 import { connectionDefinitions, globalIdField } from "graphql-relay";
 import { nodeInterface, registerTypeLoader } from "../../node/typeRegister";
-import { connectionArgs, withFilter } from '@entria/graphql-mongo-helpers'
 import { AppointmentLoader } from "./AppointmentLoader";
 
 export const AppointmentType = new GraphQLObjectType<Appointment>({
