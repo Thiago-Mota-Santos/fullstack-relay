@@ -1,20 +1,20 @@
-import { GraphQLContext } from "./graphql/Context"
 import { getDataLoaders } from "./modules/loader/loaderRegister"
 import { UserDocument } from "./modules/User/UserModel";
 import { Maybe } from "../../../packages/types/src/Maybe";
-import { Request } from 'koa'
+import { Context } from 'koa'
+import { GraphQLContext } from "./graphql/context";
 
 type ContextVars = {
-    req?: Request
-    user?: Maybe<UserDocument>
+    ctx?: Context;
+    user: Maybe<UserDocument>;
 }
 
-export const getContext = (ctx?: ContextVars) => {
+export const getContext = ({ ctx, user }: ContextVars) => {
   const dataloaders = getDataLoaders();
 
   return {
-    req: ctx?.req,
+    ctx,
     dataloaders,
-    user: ctx?.user || null,
+    user,
   } as GraphQLContext;
 };
