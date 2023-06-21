@@ -51,8 +51,8 @@ it("should register a appointment", async() => {
 
 
     const result = await getGraphqlResult<AppointmentMutationResult>
-      ({ schema: schema, source: mutation, 
-         variableValues: variableValues, contextValue: getContext({ user })
+      ({ schema, source: mutation, 
+         variableValues, contextValue: getContext({ user })
     })
 
 

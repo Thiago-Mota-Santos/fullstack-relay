@@ -31,11 +31,10 @@ it('Should create user', async () => {
     }
 
 
-      const result = await getGraphqlResult<UserRegisterMutationResult>
-      ({ schema: schema, source: mutation, 
-         variableValues: variableValues 
-    })
-    
+    const result = await getGraphqlResult<UserRegisterMutationResult>
+    ({ schema, source: mutation, 
+       variableValues
+  })
     expect(result.errors).toBeUndefined();
 
     const { token, me } = result?.data?.userRegisterMutation!

@@ -36,9 +36,9 @@ it("should login a registered user", async () => {
     }
 
     const result = await getGraphqlResult<UserLoginMutationResult>
-      ({ schema: schema, source: mutation, 
-         variableValues: variableValues 
-    })
+    ({ schema, source: mutation, 
+       variableValues
+  })
 
     expect(result.errors).toBeUndefined();
 
