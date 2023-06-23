@@ -5,11 +5,11 @@ import "ui/styles.css";
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode;
-}) {
+  children: React.ReactNode;}) {
   return (
-    <html lang="en" className="bg-zinc-900">
+    <html lang="pt-BR" className="bg-zinc-700">
       <body>{children}</body>
     </html>
+
   );
 }
