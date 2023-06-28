@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { Button } from "../../../../packages/ui/src";
 //import { Button, Card } from "ui";
 
 export const metadata: Metadata = {
@@ -53,10 +54,7 @@ export default function Home() {
                   </div>
                   <p className="hidden text-xs text-red-600 mt-2" id="password-error">8+ characters required</p>
                 </div>
-
-               
-
-                <button type="submit" className="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800">Sign in</button>
+                <Button>Sign in</Button>            
               </div>
             </form>
           </div>

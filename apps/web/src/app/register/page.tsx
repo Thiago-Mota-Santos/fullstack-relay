@@ -1,3 +1,5 @@
+import { Button } from "../../../../../packages/ui/src";
+
 export default function Register() {
   return (
     <main className="w-full max-w-md mx-auto p-6">
@@ -66,8 +68,7 @@ export default function Register() {
                     <label htmlFor="remember-me" className="text-sm dark:text-white">I accept the <a className="text-blue-600 decoration-2 hover:underline font-medium" href="#">Terms and Conditions</a></label>
                   </div>
                 </div>
-
-                <button type="submit" className="py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800">Sign up</button>
+              <Button>Sign up</Button>            
               </div>
             </form>
           </div>
