@@ -1,18 +1,19 @@
 'use client'
-import { Plus } from '@phosphor-icons/react'
 import { Table } from '../components/Table'
 import { TableDetails } from '../components/TableDetails'
+import DialogButton from '../components/DialogButton'
 
 export default function Dashboard() {
-  const bool = false
+  const bool = true
 
   return (
     <main className="h-full">
       <div className="ml-40 mr-40 mt-10 flex items-center justify-between ">
-        <div className="flex h-9 w-[136px] items-center justify-center rounded-lg bg-blue-300 py-3 hover:cursor-pointer">
+        {/* <button className="flex h-9 w-[136px] items-center justify-center gap-0.5 rounded-lg bg-blue-300 py-3 transition-all hover:cursor-pointer hover:bg-blue-400">
           <Plus size={16} />
-          <span className="text-sm">Appointment</span>
-        </div>
+          <span className="text-sm font-semibold">Appointment</span>
+        </button> */}
+        <DialogButton />
         <form className="flex items-center">
           <label htmlFor="simple-search" className="sr-only">
             Search
@@ -58,10 +59,9 @@ export default function Dashboard() {
       ) : (
         <div className="items center flex items-center justify-center gap-2">
           <p className="text-sm text-white">No entry, create one:</p>
-          <div className="flex h-9 w-[136px] items-center justify-center rounded-lg bg-blue-300 py-3 hover:cursor-pointer">
-            <Plus size={16} />
-            <span className="text-sm">Appointment</span>
-          </div>
+          <button className="flex h-9 w-[136px] items-center justify-center gap-0.5 rounded-lg bg-blue-300 py-3 transition-all hover:cursor-pointer hover:bg-blue-400">
+            <DialogButton />
+          </button>
         </div>
       )}
     </main>

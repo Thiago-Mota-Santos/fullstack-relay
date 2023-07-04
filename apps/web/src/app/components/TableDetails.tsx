@@ -8,28 +8,6 @@ interface TableContentProps {
   service: 'Internet' | 'Xerox' | 'Other' | 'Banner'
 }
 
-// function TableContent() {
-//   return (
-//     <table className="h-20 w-2/3 divide-y divide-gray-300 rounded-lg bg-gray-900 py-4">
-//       <tr>
-//         <td>
-//           <div className="flex flex-1 items-center justify-between">
-//             <span className="ml-4 flex flex-col items-center justify-center">
-//               <p className="text-white">13-03-2021</p>
-//               <p className="mr-12 text-gray-600 dark:text-gray-400">9:05</p>
-//             </span>
-//             <p className="text-white">Grande</p>
-//             <p className="text-white">Thiago</p>
-//             <p className="text-white">Banner</p>
-//             <NotePencil color="#c4baba" size={28} />
-//             <Trash className="mr-8" size={28} color="#ff0000" />
-//           </div>
-//         </td>
-//       </tr>
-//     </table>
-//   )
-// }
-
 function TableDetails({
   day,
   hour,
