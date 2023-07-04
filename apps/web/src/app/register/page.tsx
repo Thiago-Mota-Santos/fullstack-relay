@@ -37,7 +37,7 @@ export default function Register() {
                       type="email"
                       id="email"
                       name="email"
-                      className="block w-full rounded-md border-gray-200 px-4 py-3 text-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400"
+                      className="block w-full rounded-md border border-gray-600 px-4 py-3 text-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400"
                       required
                       aria-describedby="email-error"
                     />
@@ -75,7 +75,7 @@ export default function Register() {
                       type="password"
                       id="password"
                       name="password"
-                      className="block w-full rounded-md border-gray-200 px-4 py-3 text-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400"
+                      className="block w-full rounded-md border border-gray-600 px-4 py-3 text-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400"
                       required
                       aria-describedby="password-error"
                     />
@@ -112,7 +112,7 @@ export default function Register() {
                       type="password"
                       id="confirm-password"
                       name="confirm-password"
-                      className="block w-full rounded-md border-gray-200 px-4 py-3 text-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400"
+                      className="block w-full rounded-md border border-gray-600 px-4 py-3 text-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400"
                       required
                       aria-describedby="confirm-password-error"
                     />
@@ -137,30 +137,6 @@ export default function Register() {
                   </p>
                 </div>
 
-                <div className="flex items-center">
-                  <div className="flex">
-                    <input
-                      id="remember-me"
-                      name="remember-me"
-                      type="checkbox"
-                      className="pointer-events-none mt-0.5 shrink-0 rounded border-gray-200 text-blue-600 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800 dark:checked:border-blue-500 dark:checked:bg-blue-500 dark:focus:ring-offset-gray-800"
-                    />
-                  </div>
-                  <div className="ml-3">
-                    <label
-                      htmlFor="remember-me"
-                      className="text-sm dark:text-white"
-                    >
-                      I accept the{' '}
-                      <a
-                        className="font-medium text-blue-600 decoration-2 hover:underline"
-                        href="#"
-                      >
-                        Terms and Conditions
-                      </a>
-                    </label>
-                  </div>
-                </div>
                 <Button>Sign up</Button>
               </div>
             </form>

@@ -4,6 +4,8 @@ import { Table } from '../components/Table'
 import { TableDetails } from '../components/TableDetails'
 
 export default function Dashboard() {
+  const bool = false
+
   return (
     <main className="h-full">
       <div className="ml-40 mr-40 mt-10 flex items-center justify-between ">
@@ -41,16 +43,27 @@ export default function Dashboard() {
           </div>
         </form>
       </div>
-      <div className="flex flex-col items-center justify-center">
-        <Table />
-        <TableDetails
-          day={'20-02-22'}
-          hour={'10:03'}
-          graphic={'Campo grande'}
-          client={'Emersu'}
-          service={'Internet'}
-        />
-      </div>
+
+      {bool ? (
+        <div className="flex flex-col items-center justify-center">
+          <Table />
+          <TableDetails
+            day={'20-02-22'}
+            hour={'10:03'}
+            graphic={'Campo grande'}
+            client={'Emersu'}
+            service={'Internet'}
+          />
+        </div>
+      ) : (
+        <div className="items center flex items-center justify-center gap-2">
+          <p className="text-sm text-white">No entry, create one:</p>
+          <div className="flex h-9 w-[136px] items-center justify-center rounded-lg bg-blue-300 py-3 hover:cursor-pointer">
+            <Plus size={16} />
+            <span className="text-sm">Appointment</span>
+          </div>
+        </div>
+      )}
     </main>
   )
 }
