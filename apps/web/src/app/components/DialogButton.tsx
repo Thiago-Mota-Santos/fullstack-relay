@@ -31,6 +31,7 @@ export default function DialogButton() {
             <input
               className="inline-flex h-9 w-full flex-1 items-center rounded px-2.5 py-0 text-base text-gray-500 shadow-sm dark:text-gray-700"
               id="Date"
+              type="date"
             />
           </fieldset>
           <fieldset className="mb-4 flex items-center gap-5">
@@ -43,6 +44,7 @@ export default function DialogButton() {
             <input
               className="inline-flex h-9 w-full flex-1 items-center rounded px-2.5 py-0 text-base text-gray-500 shadow-sm dark:text-gray-700"
               id="Hour"
+              type="time"
             />
           </fieldset>
           <fieldset className="mb-4 flex items-center gap-5">
@@ -55,6 +57,7 @@ export default function DialogButton() {
             <input
               className="inline-flex h-9 w-full flex-1 items-center rounded px-2.5 py-0 text-base text-gray-500 shadow-sm dark:text-gray-700"
               id="Client"
+              type="text"
             />
           </fieldset>
           <fieldset className="mb-4 flex items-center gap-5">
@@ -67,6 +70,7 @@ export default function DialogButton() {
             <input
               className="inline-flex h-9 w-full flex-1 items-center rounded px-2.5 py-0 text-base text-gray-500 shadow-sm dark:text-gray-700"
               id="Graphic"
+              type="text"
             />
           </fieldset>
           <fieldset className="mb-4 flex items-center gap-5">
@@ -79,6 +83,7 @@ export default function DialogButton() {
             <input
               className="inline-flex h-9 w-full flex-1 items-center rounded px-2.5 py-0 text-base text-gray-500 shadow-sm dark:text-gray-700"
               id="Service"
+              type="text"
             />
           </fieldset>
           <div className="mt-6 flex justify-end">
