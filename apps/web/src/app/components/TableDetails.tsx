@@ -1,4 +1,5 @@
 import { NotePencil, Trash } from '@phosphor-icons/react'
+import DeleteModal from './DeleteModal'
 
 interface TableContentProps {
   day: string
@@ -57,7 +58,7 @@ function TableDetails({
             className="px-6 py-4 text-left text-sm font-medium text-gray-500  dark:text-gray-400"
           >
             <span>
-              <Trash className="mr-2" size={28} color="#ff0000" />
+              <DeleteModal />
             </span>
           </td>
         </tr>
