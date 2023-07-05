@@ -3,7 +3,7 @@ import { Button } from '../../../../../packages/ui/src'
 export default function Register() {
   return (
     <main className="mx-auto w-full max-w-md p-6">
-      <div className="mt-7 rounded-xl border border-gray-200 bg-white shadow-sm dark:border-gray-700 dark:bg-gray-800">
+      <div className="shadow-sm mt-7 rounded-xl border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800">
         <div className="p-4 sm:p-7">
           <div className="text-center">
             <h1 className="block text-2xl font-bold text-gray-800 dark:text-white">
@@ -37,7 +37,7 @@ export default function Register() {
                       type="email"
                       id="email"
                       name="email"
-                      className="block w-full rounded-md border border-gray-600 px-4 py-3 text-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400"
+                      className="block w-full rounded-md border border-gray-600 px-4 py-3 text-sm focus:shadow-sm-0 focus:outline-none focus:ring-1 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400"
                       required
                       aria-describedby="email-error"
                     />
@@ -75,7 +75,7 @@ export default function Register() {
                       type="password"
                       id="password"
                       name="password"
-                      className="block w-full rounded-md border border-gray-600 px-4 py-3 text-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400"
+                      className="block w-full rounded-md border border-gray-600 px-4 py-3 text-sm focus:shadow-sm-0 focus:outline-none focus:ring-1 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400"
                       required
                       aria-describedby="password-error"
                     />
@@ -112,7 +112,7 @@ export default function Register() {
                       type="password"
                       id="confirm-password"
                       name="confirm-password"
-                      className="block w-full rounded-md border border-gray-600 px-4 py-3 text-sm focus:border-blue-500 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400"
+                      className="block w-full rounded-md border border-gray-600 px-4 py-3 text-sm focus:shadow-sm-0 focus:outline-none focus:ring-1 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400"
                       required
                       aria-describedby="confirm-password-error"
                     />

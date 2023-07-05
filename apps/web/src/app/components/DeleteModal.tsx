@@ -21,13 +21,13 @@ export default function DeleteModal() {
           </AlertDialog.Description>
           <div className="flex justify-end gap-6">
             <AlertDialog.Cancel asChild>
-              <button className="inline-flex h-9 items-center rounded bg-gray-700 px-4 text-base font-medium text-gray-400 transition-all hover:bg-gray-500 focus:shadow-mauve">
+              <button className="inline-flex h-9 items-center rounded bg-gray-700 px-4 text-base font-medium text-gray-400 transition-all hover:bg-gray-500 focus:shadow-mauve-0 focus:outline-none">
                 Cancel
               </button>
             </AlertDialog.Cancel>
             <AlertDialog.Action asChild>
-              <button className="inline-flex  h-9 items-center rounded bg-red-200 px-4 text-base font-medium text-red-500 transition-all hover:bg-red-300 focus:shadow-red">
-                Yes, delete account
+              <button className="inline-flex h-9 items-center rounded bg-red-200 px-4 text-base font-medium text-red-500 transition-all  hover:bg-red-300 focus:shadow-red-0 focus:outline-none">
+                Yes, delete appointment
               </button>
             </AlertDialog.Action>
           </div>

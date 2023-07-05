@@ -1,103 +1,38 @@
 'use client'
 
-import { Plus, X } from '@phosphor-icons/react'
-import * as Dialog from '@radix-ui/react-dialog'
+import { Trash } from '@phosphor-icons/react'
+import * as AlertDialog from '@radix-ui/react-alert-dialog'
 
-export default function Dialoging() {
+export default function DeleteModal() {
   return (
-    <Dialog.Root>
-      <Dialog.Trigger asChild>
-        <button className="flex h-9 w-[136px] items-center justify-center gap-0.5 rounded-lg bg-blue-300 py-3 transition-all hover:cursor-pointer hover:bg-blue-400">
-          <Plus size={16} />
-          <span className="text-sm font-semibold">Appointment</span>
-        </button>
-      </Dialog.Trigger>
-      <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 animate-overlay bg-gray-700 focus:outline-none" />
-        <Dialog.Content className="fixed left-1/2 top-1/2 max-h-[85vh] w-[90vw] max-w-md -translate-x-1/2 -translate-y-1/2 transform animate-content rounded-md  bg-transparent p-6 shadow-custom-0 focus:outline-none ">
-          <Dialog.Title className="m-0 text-base font-medium text-gray-800 ">
-            Create Appointment
-          </Dialog.Title>
-          <Dialog.Description className="mx-0 my-2.5 mb-5 text-base text-gray-400">
-            Add the necessary information
-          </Dialog.Description>
-          <fieldset className="mb-4 flex items-center gap-5">
-            <label
-              className="w-20 text-right text-base text-violet-400"
-              htmlFor="Date"
-            >
-              Date
-            </label>
-            <input
-              className="inline-flex h-9 w-full flex-1 items-center rounded px-2.5 py-0 text-base text-violet-400 shadow-sm "
-              id="Date"
-            />
-          </fieldset>
-          <fieldset className="mb-4 flex items-center gap-5">
-            <label
-              className="w-20 text-right text-base text-violet-400"
-              htmlFor="Hour"
-            >
-              Hour
-            </label>
-            <input
-              className="inline-flex h-9 w-full flex-1 items-center rounded px-2.5 py-0 text-base text-violet-400 shadow-sm"
-              id="Hour"
-            />
-          </fieldset>
-          <fieldset className="mb-4 flex items-center gap-5">
-            <label
-              className="w-20 text-right text-base text-violet-400"
-              htmlFor="Client"
-            >
-              Client
-            </label>
-            <input
-              className="inline-flex h-9 w-full flex-1 items-center rounded px-2.5 py-0 text-base text-violet-400 shadow-sm"
-              id="Client"
-            />
-          </fieldset>
-          <fieldset className="mb-4 flex items-center gap-5">
-            <label
-              className="w-20 text-right text-base text-violet-400"
-              htmlFor="Graphic"
-            >
-              Graphic
-            </label>
-            <input
-              className="inline-flex h-9 w-full flex-1 items-center rounded px-2.5 py-0 text-base text-violet-400 shadow-sm"
-              id="Graphic"
-            />
-          </fieldset>
-          <fieldset className="mb-4 flex items-center gap-5">
-            <label
-              className="w-20 text-right text-base text-violet-400"
-              htmlFor="Service"
-            >
-              Service
-            </label>
-            <input
-              className="inline-flex h-9 w-full flex-1 items-center rounded px-2.5 py-0 text-base text-violet-400 shadow-sm"
-              id="Service"
-            />
-          </fieldset>
-          <div className="mt-6 flex justify-end">
-            <Dialog.Close asChild>
-              <button className="shadow-green inline-flex h-9 items-center justify-center rounded bg-blue-400 px-4 text-base font-medium hover:bg-blue-50">
-                Save changes
+    <AlertDialog.Root>
+      <AlertDialog.Trigger asChild>
+        <Trash className="mr-2 cursor-pointer" size={28} color="#ff0000" />
+      </AlertDialog.Trigger>
+      <AlertDialog.Portal>
+        <AlertDialog.Overlay className="fixed inset-0 animate-overlay bg-zinc-700 " />
+        <AlertDialog.Content className="fixed left-1/2 top-1/2 max-h-[85vh] w-[90vh] max-w-md -translate-x-1/2 -translate-y-1/2 transform animate-content rounded-md bg-white p-6 shadow-custom-0 focus:outline-none dark:bg-gray-800">
+          <AlertDialog.Title className="color-black m-0 text-base font-medium dark:text-white">
+            Are you absolutely sure?
+          </AlertDialog.Title>
+          <AlertDialog.Description className="color-black mb-5 text-sm dark:text-gray-400">
+            This action cannot be undone. This will permanently delete your
+            appointment and remove your data from our servers.
+          </AlertDialog.Description>
+          <div className="flex justify-end gap-6">
+            <AlertDialog.Cancel asChild>
+              <button className="focus:shadow-mauve inline-flex h-9 items-center rounded bg-gray-700 px-4 text-base font-medium text-gray-400 transition-all hover:bg-gray-500">
+                Cancel
               </button>
-            </Dialog.Close>
+            </AlertDialog.Cancel>
+            <AlertDialog.Action asChild>
+              <button className="focus:shadow-red inline-flex h-9 items-center rounded bg-red-200 px-4 text-base font-medium text-red-500 transition-all hover:bg-red-300">
+                Yes, delete account
+              </button>
+            </AlertDialog.Action>
           </div>
-          <Dialog.Close asChild>
-            <button
-              className="focus:shadow absolute right-2.5 top-2.5 inline-flex h-6 w-6 items-center justify-center rounded-full text-violet-400 hover:text-violet-500"
-              aria-label="Close"
-            >
-              <X />
-            </button>
-          </Dialog.Close>
-        </Dialog.Content>
-      </Dialog.Portal>
-    </Dialog.Root>
+        </AlertDialog.Content>
+      </AlertDialog.Portal>
+    </AlertDialog.Root>
   )
 }

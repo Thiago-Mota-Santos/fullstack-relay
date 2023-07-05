@@ -29,7 +29,7 @@ export default function DialogButton() {
               Date
             </label>
             <input
-              className="inline-flex h-9 w-full flex-1 items-center rounded px-2.5 py-0 text-base text-gray-500 shadow-sm dark:text-gray-700"
+              className="inline-flex h-9 w-full flex-1 items-center rounded px-2.5 py-0 text-base text-gray-500 shadow-sm-0 dark:text-gray-700"
               id="Date"
               type="date"
             />
@@ -42,7 +42,7 @@ export default function DialogButton() {
               Hour
             </label>
             <input
-              className="inline-flex h-9 w-full flex-1 items-center rounded px-2.5 py-0 text-base text-gray-500 shadow-sm dark:text-gray-700"
+              className="inline-flex h-9 w-full flex-1 items-center rounded px-2.5 py-0 text-base text-gray-500 shadow-sm-0 dark:text-gray-700"
               id="Hour"
               type="time"
             />
@@ -55,7 +55,7 @@ export default function DialogButton() {
               Client
             </label>
             <input
-              className="inline-flex h-9 w-full flex-1 items-center rounded px-2.5 py-0 text-base text-gray-500 shadow-sm dark:text-gray-700"
+              className="inline-flex h-9 w-full flex-1 items-center rounded px-2.5 py-0 text-base text-gray-500 shadow-sm-0 dark:text-gray-700"
               id="Client"
               type="text"
             />
@@ -68,7 +68,7 @@ export default function DialogButton() {
               Graphic
             </label>
             <input
-              className="inline-flex h-9 w-full flex-1 items-center rounded px-2.5 py-0 text-base text-gray-500 shadow-sm dark:text-gray-700"
+              className="inline-flex h-9 w-full flex-1 items-center rounded px-2.5 py-0 text-base text-gray-500 shadow-sm-0 dark:text-gray-700"
               id="Graphic"
               type="text"
             />
@@ -81,7 +81,7 @@ export default function DialogButton() {
               Service
             </label>
             <input
-              className="inline-flex h-9 w-full flex-1 items-center rounded px-2.5 py-0 text-base text-gray-500 shadow-sm dark:text-gray-700"
+              className="inline-flex h-9 w-full flex-1 items-center rounded px-2.5 py-0 text-base text-gray-500 shadow-sm-0 dark:text-gray-700"
               id="Service"
               type="text"
             />
