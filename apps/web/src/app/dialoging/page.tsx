@@ -14,7 +14,7 @@ export default function Dialoging() {
       </Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 animate-overlay bg-gray-700 focus:outline-none" />
-        <Dialog.Content className="fixed left-1/2 top-1/2 max-h-[85vh] w-[90vw] max-w-md -translate-x-1/2 -translate-y-1/2 transform animate-content rounded-md  bg-white p-6 shadow-custom-0 focus:outline-none ">
+        <Dialog.Content className="fixed left-1/2 top-1/2 max-h-[85vh] w-[90vw] max-w-md -translate-x-1/2 -translate-y-1/2 transform animate-content rounded-md  bg-transparent p-6 shadow-custom-0 focus:outline-none ">
           <Dialog.Title className="m-0 text-base font-medium text-gray-800 ">
             Create Appointment
           </Dialog.Title>
