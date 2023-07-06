@@ -1,0 +1,131 @@
+"""root of all queries"""
+type Query {
+  """Fetches an object given its ID"""
+  node(
+    """The ID of an object"""
+    id: ID!
+  ): Node
+
+  """Fetches objects given their IDs"""
+  nodes(
+    """The IDs of objects"""
+    ids: [ID!]!
+  ): [Node]!
+  appointments(after: String, first: Int, before: String, last: Int): AppointmentConnection!
+
+  """user logged"""
+  me: User
+}
+
+"""An object with an ID"""
+interface Node {
+  """The id of the object."""
+  id: ID!
+}
+
+"""A connection to a list of items."""
+type AppointmentConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [AppointmentEdge]
+}
+
+"""Information about pagination in a connection."""
+type PageInfo {
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: String
+
+  """When paginating forwards, the cursor to continue."""
+  endCursor: String
+}
+
+"""An edge in a connection."""
+type AppointmentEdge {
+  """The item at the end of the edge"""
+  node: Appointment
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+"""Represent an Appointment list"""
+type Appointment implements Node {
+  """The ID of an object"""
+  id: ID!
+  clientName: String!
+  service: String!
+  date: String!
+  hour: String!
+  graphicLocation: String!
+}
+
+"""Represents an authenticating user"""
+type User implements Node {
+  """The ID of an object"""
+  id: ID!
+  username: String!
+  email: String!
+  password: String!
+}
+
+"""Root of mutations"""
+type Mutation {
+  userLoginMutation(input: UserLoginMutationInput!): UserLoginMutationPayload
+
+  """Register a new user"""
+  userRegisterMutation(input: UserRegisterInput!): UserRegisterPayload
+  appointmentRegisterMutation(input: AppointmentRegisterInput!): AppointmentRegisterPayload
+}
+
+type UserLoginMutationPayload {
+  token: String
+  me: User
+
+  """Default success field resolver."""
+  success: String
+  clientMutationId: String
+}
+
+input UserLoginMutationInput {
+  email: String!
+  password: String!
+  clientMutationId: String
+}
+
+type UserRegisterPayload {
+  me: User
+  token: String
+
+  """Default success field resolver."""
+  success: String
+  clientMutationId: String
+}
+
+input UserRegisterInput {
+  username: String!
+  email: String!
+  password: String!
+  clientMutationId: String
+}
+
+type AppointmentRegisterPayload {
+  appointmentEdge: AppointmentEdge
+  clientMutationId: String
+}
+
+input AppointmentRegisterInput {
+  clientName: String!
+  date: String!
+  hour: String!
+  graphicLocation: String!
+  service: String!
+  clientMutationId: String
+}
