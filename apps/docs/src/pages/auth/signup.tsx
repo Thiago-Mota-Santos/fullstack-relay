@@ -1,11 +1,40 @@
 import { useForm } from 'react-hook-form'
 import { Button } from '@fullstack/ui'
-import React from 'react'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { z } from 'zod'
+import React, { useContext } from 'react'
+import { useMutation } from 'react-relay'
+import { SignInMutation } from '@/context/SigninMutation'
+import { AuthContext } from '@/context/AuthContext'
+
+const createUserFormSchema = z
+  .object({
+    email: z
+      .string()
+      .email('Invalid email format')
+      .nonempty('Email is required'),
+    password: z.string().min(6, 'password must be at least 6 characters'),
+    confirm: z.string(),
+  })
+  .refine((data) => data.password === data.confirm, {
+    message: 'Passwords do not match',
+    path: ['confirm'],
+  })
+
+type CreateUserData = z.infer<typeof createUserFormSchema>
 
 export default function SignUp() {
-  const { register, handleSubmit } = useForm()
+  const [request] = useMutation(SignInMutation)
+  const { signIn } = useContext(AuthContext)
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<CreateUserData>({
+    resolver: zodResolver(createUserFormSchema),
+  })
 
-  function handleRegister(data) {
+  function handleRegister(data: CreateUserData) {
     console.log(data)
   }
 
@@ -36,7 +65,7 @@ export default function SignUp() {
                 <div>
                   <label
                     htmlFor="email"
-                    className="mb-2 block text-sm dark:text-white"
+                    className="mb-2 text-sm dark:text-white"
                   >
                     Email address
                   </label>
@@ -75,10 +104,11 @@ export default function SignUp() {
                 <div>
                   <label
                     htmlFor="password"
-                    className="mb-2 block text-sm dark:text-white"
+                    className="mb-2 flex flex-col-reverse  text-sm dark:text-white"
                   >
                     Password
                   </label>
+
                   <div className="relative">
                     <input
                       {...register('password')}
@@ -89,6 +119,12 @@ export default function SignUp() {
                       required
                       aria-describedby="password-error"
                     />
+                    {errors.password && (
+                      <span className="text-sm text-red-600">
+                        {errors.password.message}
+                      </span>
+                    )}
+
                     <div className="pointer-events-none absolute inset-y-0 right-0 hidden items-center pr-3">
                       <svg
                         className="h-5 w-5 text-red-500"
@@ -112,14 +148,14 @@ export default function SignUp() {
 
                 <div>
                   <label
-                    htmlFor="confirm-password"
-                    className="mb-2 block text-sm dark:text-white"
+                    htmlFor="confirmPassword"
+                    className="mb-2 flex flex-col-reverse  text-sm dark:text-white"
                   >
                     Confirm Password
                   </label>
                   <div className="relative">
                     <input
-                      {...register('confirm-password')}
+                      {...register('confirm')}
                       type="password"
                       id="confirm-password"
                       name="confirm-password"
@@ -127,6 +163,11 @@ export default function SignUp() {
                       required
                       aria-describedby="confirm-password-error"
                     />
+                    {errors.confirm && (
+                      <span className="text-sm text-red-600">
+                        {errors.confirm.message}
+                      </span>
+                    )}
                     <div className="pointer-events-none absolute inset-y-0 right-0 hidden items-center pr-3">
                       <svg
                         className="h-5 w-5 text-red-500"
