@@ -1,29 +1,46 @@
 {
-  "name": "@monorepo-playground/docs",
-  "version": "1.0.0",
+  "name": "docs",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --port 3001",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "copy-env": "cp .env.example .env"
   },
   "dependencies": {
-    "next": "^13.4.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "ui": "*"
+    "@phosphor-icons/react": "^2.0.10",
+    "@radix-ui/react-alert-dialog": "^1.0.4",
+    "@radix-ui/react-dialog": "^1.0.4",
+    "@types/node": "20.4.1",
+    "@types/react": "18.2.14",
+    "@types/react-dom": "18.2.6",
+    "autoprefixer": "10.4.14",
+    "eslint": "8.44.0",
+    "eslint-config-next": "13.4.9",
+    "next": "13.4.9",
+    "nookies": "^2.5.2",
+    "postcss": "8.4.25",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-hook-form": "^7.45.1",
+    "react-relay": "^15.0.0",
+    "relay-runtime": "^15.0.0",
+    "tailwindcss": "3.3.2",
+    "typescript": "5.1.6",
+    "ui": "*",
+    "zod": "^3.21.4"
   },
   "devDependencies": {
-    "@types/node": "^18.11.17",
-    "@types/react": "^18.2.5",
-    "@types/react-dom": "^18.2.4",
-    "autoprefixer": "^10.4.13",
-    "eslint-config-custom": "*",
-    "postcss": "^8.4.20",
-    "tailwind-config": "*",
-    "tailwindcss": "^3.2.4",
-    "tsconfig": "*",
-    "typescript": "^4.9.4"
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^14.0.0",
+    "@testing-library/user-event": "^14.4.3",
+    "@types/cookies": "^0.7.7",
+    "@types/react-relay": "^14.1.4",
+    "babel-plugin-relay": "^15.0.0",
+    "relay-compiler": "^15.0.0",
+    "relay-config": "^12.0.1",
+    "tsconfig": "*"
   }
 }
