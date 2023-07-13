@@ -1,4 +1,4 @@
-import mongoose, { Document, Model, Types } from 'mongoose'
+import mongoose, { Document, Types } from 'mongoose'
 import bcrypt from 'bcryptjs'
 import { Maybe } from '@fullstack/types'
 
