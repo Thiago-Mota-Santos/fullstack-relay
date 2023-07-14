@@ -13,20 +13,44 @@ export function ToastTable() {
 
   return (
     <ToastProvider>
-      {toasts.map(function ({ id, title, description, action, ...props }) {
+      {toasts.map(function ({
+        id,
+        variant,
+        title,
+        description,
+        action,
+        ...props
+      }) {
         return (
-          <Toast key={id} {...props} className="bg-[#7F1D1D]">
-            <div className="grid gap-1">
-              {title && <ToastTitle className="text-white">{title}</ToastTitle>}
-              {description && (
-                <ToastDescription className="text-white">
-                  {description}
-                </ToastDescription>
-              )}
-            </div>
-            {action}
-            <ToastClose />
-          </Toast>
+          <div key={id}>
+            {variant === 'destructive' ? (
+              <Toast {...props} className="bg-[#7F1D1D]">
+                <div className="grid gap-1">
+                  {title && (
+                    <ToastTitle className="text-white">{title}</ToastTitle>
+                  )}
+                  {description && (
+                    <ToastDescription className="text-white">
+                      {description}
+                    </ToastDescription>
+                  )}
+                </div>
+                {action}
+                <ToastClose />
+              </Toast>
+            ) : (
+              <Toast {...props}>
+                <div className="grid gap-1">
+                  {title && <ToastTitle>{title}</ToastTitle>}
+                  {description && (
+                    <ToastDescription>{description}</ToastDescription>
+                  )}
+                </div>
+                {action}
+                <ToastClose />
+              </Toast>
+            )}
+          </div>
         )
       })}
       <ToastViewport />
