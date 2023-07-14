@@ -12,6 +12,8 @@ import { data } from 'autoprefixer'
 import { toast, useToast } from '@/hooks/useToast'
 import router from 'next/router'
 import { AuthContext } from '@/context/AuthContext'
+import { GetServerSideProps } from 'next'
+import { parseCookies } from 'nookies'
 
 const UserLoginFormSchema = z.object({
   email: z.string().email('Invalid email format').nonempty('Email is required'),
@@ -33,23 +35,30 @@ export default function SignIn() {
   const [submit] = useMutation<SigninMutation>(SignInMutation)
 
   function handleLogin({ email, password }: UserLoginFormData) {
-    console.log(data)
     submit({
       variables: {
         email,
         password,
       },
-      onError() {
-        toast({
-          title: 'Error',
-          description: 'Login failed',
-        })
+      onError(error) {
+        if (error.name === 'TypeError') {
+          toast({
+            variant: 'destructive',
+            title: 'Uh oh! Something went wrong',
+            description: 'connection failed',
+          })
+        } else {
+          toast({
+            variant: 'destructive',
+            title: 'Uh oh! Something went wrong',
+            description: 'Login failed',
+          })
+        }
       },
       onCompleted({ userLoginMutation }: SigninMutation$data) {
         const token = userLoginMutation?.token ?? ''
-        console.log(token)
         signIn(token)
-        // router.push('/')
+        router.push('/')
       },
     })
   }
@@ -65,7 +74,7 @@ export default function SignIn() {
               Do not have an account yet?
               <a
                 className="ml-[2px] font-medium text-blue-600 decoration-2 hover:underline"
-                href="/register"
+                href="/auth/signup"
               >
                 Sign up here
               </a>
@@ -170,4 +179,21 @@ export default function SignIn() {
       </div>
     </main>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { 'graphic-token': token } = parseCookies(ctx)
+
+  if (token) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    }
+  }
+
+  return {
+    props: {},
+  }
 }

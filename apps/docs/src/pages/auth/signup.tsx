@@ -17,10 +17,8 @@ import { parseCookies } from 'nookies'
 
 const createUserFormSchema = z.object({
   email: z.string().email('Invalid email format').nonempty('Email is required'),
-  username: z
-    .string()
-    .min(3, 'Username must be at least 3 characters')
-    .nonempty('Email is required'),
+  username: z.string().min(3, 'username must be at least 3 characters'),
+
   password: z.string().min(6, 'password must be at least 6 characters'),
 })
 
@@ -74,7 +72,7 @@ export default function SignUp() {
               Already have an account?
               <a
                 className="ml-[2px] font-medium text-blue-600 decoration-2 hover:underline"
-                href="/"
+                href="/auth/signin"
               >
                 Sign in here
               </a>
