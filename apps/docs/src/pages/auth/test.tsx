@@ -15,7 +15,7 @@ const validationSchema = z
     email: string().email(),
     website: string().optional(),
     country: string(),
-    password: string(),
+    password: string().min(6, 'A senha deve ter no minimo 6 digitos'),
     confirm: string(),
   })
   .refine((data) => data.password === data.confirm, {
