@@ -1,19 +1,19 @@
 import { useForm } from 'react-hook-form'
-import { Button } from '../../../../../packages/ui'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import React, { useContext } from 'react'
 import { useMutation } from 'react-relay'
-import { SignInMutation } from '@/context/SigninMutation'
 import { AuthContext } from '@/context/AuthContext'
 import { useRouter } from 'next/router'
-import {
-  SigninMutation,
-  SigninMutation$data,
-} from '@/context/__generated__/SigninMutation.graphql'
+
 import { useToast } from '@/hooks/useToast'
-import { ToastTable } from '@/components/ToastTable'
-import { Toast } from '@radix-ui/react-toast'
+import {
+  SignupMutation,
+  SignupMutation$data,
+} from '@/context/user/__generated__/SignupMutation.graphql'
+import { SignUpMutation } from '@/context/user/SignupMutation'
+import { GetServerSideProps } from 'next'
+import { parseCookies } from 'nookies'
 
 const createUserFormSchema = z.object({
   email: z.string().email('Invalid email format').nonempty('Email is required'),
@@ -28,7 +28,7 @@ type CreateUserData = z.infer<typeof createUserFormSchema>
 
 export default function SignUp() {
   const { toast } = useToast()
-  const [request] = useMutation<SigninMutation>(SignInMutation)
+  const [request] = useMutation<SignupMutation>(SignUpMutation)
   const { signIn } = useContext(AuthContext)
   const router = useRouter()
   const {
@@ -53,7 +53,7 @@ export default function SignUp() {
           description: 'User already exists, try again.',
         })
       },
-      onCompleted({ userRegisterMutation }: SigninMutation$data) {
+      onCompleted({ userRegisterMutation }: SignupMutation$data) {
         const token = userRegisterMutation?.token ?? ''
 
         signIn(token)
@@ -204,4 +204,21 @@ export default function SignUp() {
       </div>
     </main>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { 'graphic.token': token } = parseCookies(ctx)
+
+  if (token) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    }
+  }
+
+  return {
+    props: {},
+  }
 }

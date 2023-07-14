@@ -1,22 +1,57 @@
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
-import React from 'react'
+import React, { useContext } from 'react'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useMutation } from 'react-relay'
+import { SignInMutation } from '@/context/user/SigninMutation'
+import {
+  SigninMutation,
+  SigninMutation$data,
+} from '@/context/user/__generated__/SigninMutation.graphql'
+import { data } from 'autoprefixer'
+import { toast, useToast } from '@/hooks/useToast'
+import router from 'next/router'
+import { AuthContext } from '@/context/AuthContext'
 
-interface Form {
-  email: string
-  password: string
-}
-
-const schema = z.object({
-  email: z.string().email('Invalid email').trim(),
-  password: z.string().min(4),
+const UserLoginFormSchema = z.object({
+  email: z.string().email('Invalid email format').nonempty('Email is required'),
+  password: z.string().min(6, 'Password must be at least 6 characters'),
 })
 
-export default function SignIn() {
-  const { register, handleSubmit } = useForm<Form>()
+type UserLoginFormData = z.infer<typeof UserLoginFormSchema>
 
-  function handleLogin(data) {
+export default function SignIn() {
+  const { toast } = useToast()
+  const { signIn } = useContext(AuthContext)
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<UserLoginFormData>({
+    resolver: zodResolver(UserLoginFormSchema),
+  })
+  const [submit] = useMutation<SigninMutation>(SignInMutation)
+
+  function handleLogin({ email, password }: UserLoginFormData) {
     console.log(data)
+    submit({
+      variables: {
+        email,
+        password,
+      },
+      onError() {
+        toast({
+          title: 'Error',
+          description: 'Login failed',
+        })
+      },
+      onCompleted({ userLoginMutation }: SigninMutation$data) {
+        const token = userLoginMutation?.token ?? ''
+        console.log(token)
+        signIn(token)
+        // router.push('/')
+      },
+    })
   }
   return (
     <main className="mx-auto h-full max-w-md p-6">
@@ -55,7 +90,7 @@ export default function SignIn() {
                       type="email"
                       id="email"
                       name="email"
-                      className="focus:shadow-sm-0 block w-full rounded-md border border-gray-600 px-4 py-3 text-sm focus:outline-none focus:ring-1 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400"
+                      className="block w-full rounded-md border border-gray-600 px-4 py-3 text-sm focus:shadow-sm-0 focus:outline-none focus:ring-1 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400"
                       required
                       aria-describedby="email-error"
                     />
@@ -89,12 +124,6 @@ export default function SignIn() {
                     >
                       Password
                     </label>
-                    <a
-                      className="text-sm font-medium text-blue-600 decoration-2 hover:underline"
-                      href="../examples/html/recover-account.html"
-                    >
-                      Forgot password?
-                    </a>
                   </div>
                   <div className="relative">
                     <input
@@ -102,10 +131,15 @@ export default function SignIn() {
                       type="password"
                       id="password"
                       name="password"
-                      className="focus:shadow-sm-0 block w-full rounded-md border border-gray-600 px-4 py-3 text-sm focus:outline-none focus:ring-1 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400"
+                      className="block w-full rounded-md border border-gray-600 px-4 py-3 text-sm focus:shadow-sm-0 focus:outline-none focus:ring-1 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400"
                       required
                       aria-describedby="password-error"
                     />
+                    {errors.password && (
+                      <span className="text-sm text-red-600">
+                        {errors.password.message}
+                      </span>
+                    )}
                     <div className="pointer-events-none absolute inset-y-0 right-0 hidden items-center pr-3">
                       <svg
                         className="h-5 w-5 text-red-500"
@@ -126,7 +160,7 @@ export default function SignIn() {
                     8+ characters required
                   </p>
                 </div>
-                <button className="bg-brandblue inline-flex items-center justify-center gap-2 rounded-md border border-transparent px-4 py-3 text-sm font-semibold text-white transition-all hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800">
+                <button className="inline-flex items-center justify-center gap-2 rounded-md border border-transparent bg-brandblue px-4 py-3 text-sm font-semibold text-white transition-all hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800">
                   Sign In
                 </button>
               </div>
