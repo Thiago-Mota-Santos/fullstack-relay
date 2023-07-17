@@ -1,7 +1,53 @@
-import { Plus, X } from '@phosphor-icons/react'
 import * as Dialog from '@radix-ui/react-dialog'
+import { Plus, X } from '@phosphor-icons/react'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useRef } from 'react'
+
+const InfoTableSchema = z.object({
+  Date: z.string().refine((value) => {
+    const currentDate = new Date().toISOString().split('T')[0]
+    return value >= currentDate
+  }, 'Date must be today or a future date'),
+  Hour: z.string(),
+  Client: z
+    .string()
+    .min(3, 'must be at least 3 characters')
+    .nonempty('Required'),
+  Graphic: z
+    .string()
+    .min(3, 'must be at least 3 characters')
+    .nonempty('Required'),
+  Service: z
+    .string()
+    .min(3, 'must be at least 3 characters')
+    .nonempty('Required'),
+})
+
+type InfoTableSchemaData = z.infer<typeof InfoTableSchema>
 
 export default function DialogButton() {
+  const {
+    formState: { errors },
+    register,
+    handleSubmit,
+  } = useForm<InfoTableSchemaData>({
+    resolver: zodResolver(InfoTableSchema),
+  })
+
+  const formRef = useRef(null)
+
+  const handleInfo = (data) => {
+    console.log(data)
+  }
+
+  const handleSaveChanges = () => {
+    formRef.current.dispatchEvent(
+      new Event('submit', { cancelable: true, bubbles: true }),
+    )
+  }
+
   return (
     <Dialog.Root>
       <Dialog.Trigger asChild>
@@ -19,86 +65,122 @@ export default function DialogButton() {
           <Dialog.Description className="mx-0 my-2.5 mb-5 text-base text-gray-400">
             Add the necessary information
           </Dialog.Description>
-          <fieldset className="mb-4 flex items-center gap-5">
-            <label
-              className="w-20 text-right text-base text-violet-400 dark:text-violet-500"
-              htmlFor="Date"
-            >
-              Date
-            </label>
-            <input
-              className="inline-flex h-9 w-full flex-1 items-center rounded px-2.5 py-0 text-base text-gray-500 shadow-sm-0 dark:text-gray-700"
-              id="Date"
-              type="date"
-            />
-          </fieldset>
-          <fieldset className="mb-4 flex items-center gap-5">
-            <label
-              className="w-20 text-right text-base text-violet-400 dark:text-violet-500"
-              htmlFor="Hour"
-            >
-              Hour
-            </label>
-            <input
-              className="inline-flex h-9 w-full flex-1 items-center rounded px-2.5 py-0 text-base text-gray-500 shadow-sm-0 dark:text-gray-700"
-              id="Hour"
-              type="time"
-            />
-          </fieldset>
-          <fieldset className="mb-4 flex items-center gap-5">
-            <label
-              className="w-20 text-right text-base text-violet-400 dark:text-violet-500"
-              htmlFor="Client"
-            >
-              Client
-            </label>
-            <input
-              className="inline-flex h-9 w-full flex-1 items-center rounded px-2.5 py-0 text-base text-gray-500 shadow-sm-0 dark:text-gray-700"
-              id="Client"
-              type="text"
-            />
-          </fieldset>
-          <fieldset className="mb-4 flex items-center gap-5">
-            <label
-              className="w-20 text-right text-base text-violet-400 dark:text-violet-500"
-              htmlFor="Graphic"
-            >
-              Graphic
-            </label>
-            <input
-              className="inline-flex h-9 w-full flex-1 items-center rounded px-2.5 py-0 text-base text-gray-500 shadow-sm-0 dark:text-gray-700"
-              id="Graphic"
-              type="text"
-            />
-          </fieldset>
-          <fieldset className="mb-4 flex items-center gap-5">
-            <label
-              className="w-20 text-right text-base text-violet-400 dark:text-violet-500"
-              htmlFor="Service"
-            >
-              Service
-            </label>
-            <input
-              className="inline-flex h-9 w-full flex-1 items-center rounded px-2.5 py-0 text-base text-gray-500 shadow-sm-0 dark:text-gray-700"
-              id="Service"
-              type="text"
-            />
-          </fieldset>
-          <div className="mt-6 flex justify-end">
+          <form ref={formRef} onSubmit={handleSubmit(handleInfo)}>
+            <fieldset className="mb-4 flex items-center gap-5">
+              <label
+                className="w-20 text-right text-base text-violet-400 dark:text-violet-500"
+                htmlFor="Date"
+              >
+                Date
+              </label>
+              <input
+                {...register('Date')}
+                className="inline-flex h-9 w-full flex-1 items-center rounded px-2.5 py-0 text-base text-gray-500 shadow-sm-0 dark:text-gray-700"
+                id="Date"
+                type="date"
+              />
+              {errors.Date && (
+                <span className="text-sm text-red-600 ">
+                  {errors.Date.message}
+                </span>
+              )}
+            </fieldset>
+            <fieldset className="mb-4 flex items-center gap-5">
+              <label
+                className="w-20 text-right text-base text-violet-400 dark:text-violet-500"
+                htmlFor="Hour"
+              >
+                Hour
+              </label>
+              <input
+                {...register('Hour')}
+                className="inline-flex h-9 w-full flex-1 items-center rounded px-2.5 py-0 text-base text-gray-500 shadow-sm-0 dark:text-gray-700"
+                id="Hour"
+                type="time"
+              />
+              {errors.Hour && (
+                <span className="text-sm text-red-600">
+                  {errors.Hour.message}
+                </span>
+              )}
+            </fieldset>
+            <fieldset className="mb-4 flex items-center gap-5">
+              <label
+                className="w-20 text-right text-base text-violet-400 dark:text-violet-500"
+                htmlFor="Client"
+              >
+                Client
+              </label>
+              <input
+                {...register('Client')}
+                className="inline-flex h-9 w-full flex-1 items-center rounded px-2.5 py-0 text-base text-gray-500 shadow-sm-0 dark:text-gray-700"
+                id="Client"
+                type="text"
+              />
+              {errors.Client && (
+                <span className="text-sm text-red-600">
+                  {errors.Client.message}
+                </span>
+              )}
+            </fieldset>
+            <fieldset className="mb-4 flex items-center gap-5">
+              <label
+                className="w-20 text-right text-base text-violet-400 dark:text-violet-500"
+                htmlFor="Graphic"
+              >
+                Graphic
+              </label>
+
+              <input
+                {...register('Graphic')}
+                className="inline-flex h-9 w-full flex-1  items-center rounded px-2.5 py-0 text-base text-gray-500 shadow-sm-0 dark:text-gray-700"
+                id="Graphic"
+                type="text"
+              />
+              {errors.Graphic && (
+                <span className="text-sm text-red-600">
+                  {errors.Graphic.message}
+                </span>
+              )}
+            </fieldset>
+            <fieldset className="mb-4 flex items-center gap-5">
+              <label
+                className="w-20 text-right text-base text-violet-400 dark:text-violet-500"
+                htmlFor="Service"
+              >
+                Service
+              </label>
+              <input
+                {...register('Service')}
+                className="inline-flex h-9 w-full flex-1 items-center rounded px-2.5 py-0 text-base text-gray-500 shadow-sm-0 dark:text-gray-700"
+                id="Service"
+                type="text"
+              />
+              {errors.Service && (
+                <span className="text-sm text-red-600">
+                  {errors.Service.message}
+                </span>
+              )}
+            </fieldset>
+            <div className="mt-6 flex justify-end">
+              <Dialog.Close asChild>
+                <button
+                  onClick={handleSaveChanges}
+                  className="inline-flex h-9 items-center justify-center rounded bg-[#b8f3ff] px-4 text-base font-medium transition-all hover:bg-[#8ac6d0]"
+                >
+                  Save changes
+                </button>
+              </Dialog.Close>
+            </div>
             <Dialog.Close asChild>
-              <button className="inline-flex h-9 items-center justify-center rounded bg-[#b8f3ff] px-4 text-base font-medium transition-all hover:bg-[#8ac6d0]">
-                Save changes
+              <button
+                className="focus:shadow absolute right-2.5 top-2.5 inline-flex h-6 w-6 items-center justify-center rounded-full text-violet-400 hover:text-violet-500 dark:text-violet-500"
+                aria-label="Close"
+              >
+                <X />
               </button>
             </Dialog.Close>
-          </div>
-          <Dialog.Close asChild>
-            <button
-              className="focus:shadow absolute right-2.5 top-2.5 inline-flex h-6 w-6 items-center justify-center rounded-full text-violet-400 hover:text-violet-500 dark:text-violet-500"
-              aria-label="Close"
-            >
-              <X />
-            </button>
-          </Dialog.Close>
+          </form>
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>
