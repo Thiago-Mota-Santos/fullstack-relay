@@ -5,10 +5,7 @@ import React from 'react'
 import { Appointment } from '../context/appointment/Appointment'
 import { useLazyLoadQuery } from 'react-relay'
 import { AppointmentQuery } from '../context/appointment/__generated__/AppointmentQuery.graphql'
-
-// import { Inter } from 'next/font/google'
-
-// const inter = Inter({ subsets: ['latin'] })
+import { NoAppointment } from '../components/NoAppointment'
 
 export default function Home() {
   const response = useLazyLoadQuery<AppointmentQuery>(Appointment, {
@@ -20,10 +17,6 @@ export default function Home() {
   return (
     <main className="h-full">
       <div className="ml-40 mr-40 mt-10 flex items-center justify-between ">
-        {/* <button className="flex h-9 w-[136px] items-center justify-center gap-0.5 rounded-lg bg-blue-300 py-3 transition-all hover:cursor-pointer hover:bg-blue-400">
-          <Plus size={16} />
-          <span className="text-sm font-semibold">Appointment</span>
-        </button> */}
         <DialogButton />
         <form className="flex items-center">
           <label htmlFor="simple-search" className="sr-only">
@@ -57,11 +50,8 @@ export default function Home() {
       </div>
 
       {appointments.edges.length === 0 ? (
-        <div className="items center flex items-center justify-center gap-2">
-          <p className="text-sm text-white">No entry, create one:</p>
-          <div className="flex h-9 w-[136px] items-center justify-center gap-0.5 rounded-lg bg-blue-300 py-3 transition-all hover:cursor-pointer hover:bg-blue-400">
-            <DialogButton />
-          </div>
+        <div className="mt-20 flex items-center justify-center">
+          <NoAppointment />
         </div>
       ) : (
         <div className="flex flex-col items-center justify-center">
