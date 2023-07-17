@@ -1,79 +1,45 @@
-'use client'
-import {
-  ReactNode,
-  SetStateAction,
-  createContext,
-  useEffect,
-  useState,
-} from 'react'
-import { useMutation } from 'react-relay'
-import { SignInMutation } from './SigninMutation'
-import Router from 'next/router'
-import { parseCookies, setCookie } from 'nookies'
+import { ReactNode, createContext, useEffect, useState } from 'react'
+import { destroyCookie, parseCookies, setCookie } from 'nookies'
 
 interface AuthProps {
   children: ReactNode
 }
 
-interface User {
-  email: string
-  password: string
-}
-
-export interface Data {
-  userRegisterMutation: {
-    user: SetStateAction<User>
-    token: string
-  }
-}
-
 interface AuthContextProps {
-  signIn: (data: signInProps) => Promise<void>
+  signIn: (token: string) => void
   isAuth: boolean
-  user: User
-}
-
-interface signInProps {
-  email: string
-  password: string
+  logOut: () => void
 }
 
 export const AuthContext = createContext({} as AuthContextProps)
 
 export function AuthProvider({ children }: AuthProps) {
-  const [user, setUser] = useState<User | null>(null)
-  const isAuth = !!user
-  const [signInRequest] = useMutation(SignInMutation)
+  const [isAuth, setIsAuth] = useState(false)
 
   useEffect(() => {
-    const isLogin = Router.pathname === '/login'
     const { 'graphic-token': token } = parseCookies()
-    if (isLogin && token) {
-      console.log('Already logged in') // TODO -> implement toast component, RADIX UI
+
+    if (token) {
+      setIsAuth(true)
+    } else {
+      destroyCookie(undefined, 'graphic-token')
     }
-    Router.push('/login')
   }, [])
 
-  async function signIn({ email, password }: signInProps) {
-    // relay fetch
-    signInRequest({
-      variables: {
-        email,
-        password,
-      },
-      onError(error) {
-        console.log(error.message) // implements toast
-      },
-      onCompleted(data: Data) {
-        setCookie(undefined, 'graphic-token', data?.userRegisterMutation.token)
-        setUser(data.userRegisterMutation.user)
-        Router.push('/dashboard')
-      },
+  function signIn(token: string) {
+    setCookie(undefined, 'graphic-token', token, {
+      maxAge: 60 * 60 * 48, //48 hours
     })
+    setIsAuth(true)
+  }
+
+  function logOut() {
+    destroyCookie(undefined, 'graphic-token')
+    setIsAuth(false)
   }
 
   return (
-    <AuthContext.Provider value={{ isAuth, signIn, user }}>
+    <AuthContext.Provider value={{ isAuth, signIn, logOut }}>
       {children}
     </AuthContext.Provider>
   )

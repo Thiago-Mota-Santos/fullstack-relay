@@ -1,5 +1,3 @@
-'use client'
-
 import { Trash } from '@phosphor-icons/react'
 import * as AlertDialog from '@radix-ui/react-alert-dialog'
 

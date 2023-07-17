@@ -1,7 +1,11 @@
 import { graphql } from 'react-relay'
 
-const SignInMutation = graphql`
-  mutation user($username: String!, $email: String!, $password: String!) {
+const SignUpMutation = graphql`
+  mutation SignupMutation(
+    $username: String!
+    $email: String!
+    $password: String!
+  ) {
     userRegisterMutation(
       input: { username: $username, password: $password, email: $email }
     ) {
@@ -14,4 +18,4 @@ const SignInMutation = graphql`
   }
 `
 
-export { SignInMutation }
+export { SignUpMutation }

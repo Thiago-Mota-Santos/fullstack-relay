@@ -1,4 +1,4 @@
-import { NotePencil, Trash } from '@phosphor-icons/react'
+import { NotePencil } from '@phosphor-icons/react'
 import DeleteModal from './DeleteModal'
 
 interface TableContentProps {
@@ -6,7 +6,7 @@ interface TableContentProps {
   hour: string
   graphic: string
   client: string
-  service: 'Internet' | 'Xerox' | 'Other' | 'Banner'
+  service: string
 }
 
 function TableDetails({

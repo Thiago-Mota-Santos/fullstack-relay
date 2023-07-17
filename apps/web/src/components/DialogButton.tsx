@@ -1,5 +1,3 @@
-'use client'
-
 import { Plus, X } from '@phosphor-icons/react'
 import * as Dialog from '@radix-ui/react-dialog'
 

@@ -26,7 +26,8 @@ function createNetwork() {
     const forceFetch = cacheConfig && cacheConfig.force
 
     if (isQuery && !forceFetch) {
-      const fromCache = responseCache.get(id as string, variables)
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+      const fromCache = responseCache.get(id!, variables)
       if (fromCache != null) {
         return Promise.resolve(fromCache)
       }
@@ -47,16 +48,17 @@ function createNetwork() {
  * https://relay.dev/docs/en/quick-start-guide#relay-environment.
  */
 
-const GRAPHQL_ENPOINT = process.env.API_BASE_URL as string
-
+const GRAPHQL_ENPOINT = process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT as string
 async function networkFetch(
   params: RequestParameters,
   variables: Variables,
   headers?: HeadersInit,
 ) {
-  // Fetch data from GraphQL API:
+  // Fetch data from GitHub's GraphQL API:
+  // TODO: Add GraphQL Endpoint
   const response = await fetch(GRAPHQL_ENPOINT, {
     method: 'POST',
+    credentials: 'include',
     headers: {
       ...headers,
       'Content-Type': 'application/json',

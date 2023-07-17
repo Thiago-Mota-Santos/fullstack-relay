@@ -1,12 +1,74 @@
-import { Metadata } from 'next'
-import { Button } from '../../../../packages/ui/src'
-//import { Button, Card } from "ui";
+import { z } from 'zod'
+import { useForm } from 'react-hook-form'
+import React, { useContext } from 'react'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useMutation } from 'react-relay'
 
-export const metadata: Metadata = {
-  title: 'Graphic Appointment Service',
-}
+import router from 'next/router'
+import { GetServerSideProps } from 'next'
+import { parseCookies } from 'nookies'
+import { AuthContext } from '../../context/AuthContext'
+import {
+  SigninMutation,
+  SigninMutation$data,
+} from '../../context/user/__generated__/SigninMutation.graphql'
+import { SignInMutation } from '../../context/user/SigninMutation'
+import { useToast } from '../../hooks/useToast'
 
-export default function Home() {
+const UserLoginFormSchema = z.object({
+  email: z.string().email('Invalid email format').nonempty('Email is required'),
+  password: z.string().min(6, 'Password must be at least 6 characters'),
+})
+
+type UserLoginFormData = z.infer<typeof UserLoginFormSchema>
+
+export default function SignIn() {
+  const { toast } = useToast()
+  const { signIn } = useContext(AuthContext)
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<UserLoginFormData>({
+    resolver: zodResolver(UserLoginFormSchema),
+  })
+  const [submit] = useMutation<SigninMutation>(SignInMutation)
+
+  function handleLogin({ email, password }: UserLoginFormData) {
+    submit({
+      variables: {
+        email,
+        password,
+      },
+      onError(error) {
+        if (error.name === 'TypeError') {
+          toast({
+            variant: 'destructive',
+            title: 'Uh oh! Something went wrong',
+            description: 'connection failed',
+          })
+        } else {
+          toast({
+            variant: 'destructive',
+            title: 'Uh oh! Something went wrong',
+            description: 'Login failed',
+          })
+        }
+      },
+      onCompleted({ userLoginMutation }: SigninMutation$data) {
+        const token = userLoginMutation?.token ?? ''
+        const username = userLoginMutation?.me?.username
+
+        toast({
+          title: `Welcome ${username} 🚀`,
+          description: 'Make an appointment now!',
+        })
+
+        signIn(token)
+        router.push('/')
+      },
+    })
+  }
   return (
     <main className="mx-auto h-full max-w-md p-6">
       <div className="mt-7 rounded-xl border border-gray-200 bg-white  dark:border-gray-700 dark:bg-gray-800">
@@ -19,7 +81,7 @@ export default function Home() {
               Do not have an account yet?
               <a
                 className="ml-[2px] font-medium text-blue-600 decoration-2 hover:underline"
-                href="/register"
+                href="/auth/signup"
               >
                 Sign up here
               </a>
@@ -29,7 +91,7 @@ export default function Home() {
           <div className="mt-5">
             <div className="mb-4 border-t border-solid border-gray-200"></div>
 
-            <form>
+            <form onSubmit={handleSubmit(handleLogin)}>
               <div className="grid gap-y-4">
                 <div>
                   <label
@@ -40,6 +102,7 @@ export default function Home() {
                   </label>
                   <div className="relative">
                     <input
+                      {...register('email')}
                       type="email"
                       id="email"
                       name="email"
@@ -77,15 +140,10 @@ export default function Home() {
                     >
                       Password
                     </label>
-                    <a
-                      className="text-sm font-medium text-blue-600 decoration-2 hover:underline"
-                      href="../examples/html/recover-account.html"
-                    >
-                      Forgot password?
-                    </a>
                   </div>
                   <div className="relative">
                     <input
+                      {...register('password')}
                       type="password"
                       id="password"
                       name="password"
@@ -93,6 +151,11 @@ export default function Home() {
                       required
                       aria-describedby="password-error"
                     />
+                    {errors.password && (
+                      <span className="text-sm text-red-600">
+                        {errors.password.message}
+                      </span>
+                    )}
                     <div className="pointer-events-none absolute inset-y-0 right-0 hidden items-center pr-3">
                       <svg
                         className="h-5 w-5 text-red-500"
@@ -113,7 +176,9 @@ export default function Home() {
                     8+ characters required
                   </p>
                 </div>
-                <Button>Sign in</Button>
+                <button className="inline-flex items-center justify-center gap-2 rounded-md border border-transparent bg-brandblue px-4 py-3 text-sm font-semibold text-white transition-all hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800">
+                  Sign In
+                </button>
               </div>
             </form>
           </div>
@@ -121,4 +186,21 @@ export default function Home() {
       </div>
     </main>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { 'graphic-token': token } = parseCookies(ctx)
+
+  if (token) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    }
+  }
+
+  return {
+    props: {},
+  }
 }

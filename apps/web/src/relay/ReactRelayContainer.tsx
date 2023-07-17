@@ -1,46 +1,39 @@
-import { NextPage } from 'next'
-import React, { Suspense, useMemo } from 'react'
-import { ReactRelayContext, useRelayEnvironment } from 'react-relay'
-
+import { NextComponentType, NextPageContext } from 'next'
+import { Suspense, useMemo } from 'react'
+import { useRelayEnvironment, RelayEnvironmentProvider } from 'react-relay'
 import { createEnvironment } from './environment'
 
-type NextPageWithLayout<T> = NextPage<T> & {
-  getLayout?: (page: React.ReactElement) => React.ReactNode
-}
-
-export function ReactRelayContainer<T>({
+export function ReactRelayContainer({
   Component,
   props,
 }: {
-  Component: NextPageWithLayout<T>
+  Component: NextComponentType<NextPageContext, any, any>
   props: any
 }) {
   const environment = useMemo(() => createEnvironment(), [])
+
   return (
-    <ReactRelayContext.Provider value={{ environment }}>
+    <RelayEnvironmentProvider environment={environment}>
       <Suspense fallback={null}>
         <Hyderate Component={Component} props={props} />
       </Suspense>
-    </ReactRelayContext.Provider>
+    </RelayEnvironmentProvider>
   )
 }
 
-function Hyderate<T>({
+function Hyderate({
   Component,
   props,
 }: {
-  Component: NextPageWithLayout<T>
+  Component: NextComponentType<NextPageContext, any, any>
   props: any
 }) {
   const environment = useRelayEnvironment()
-
-  const getLayout = Component.getLayout ?? ((page) => page)
 
   const transformedProps = useMemo(() => {
     if (props == null) {
       return props
     }
-    // eslint-disable-next-line react/prop-types
     const { preloadedQueries, ...otherProps } = props
     if (preloadedQueries == null) {
       return props
@@ -50,15 +43,17 @@ function Hyderate<T>({
     for (const [queryName, { params, variables, response }] of Object.entries(
       preloadedQueries,
     ) as any) {
+      const queryId = params.id || params.text
+
       environment
         .getNetwork()
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore - seems to be a private untyped api 🤷‍♂️
-        .responseCache.set(params.id, variables, response)
+        .responseCache.set(queryId, variables, response)
       // TODO: create using a function exported from react-relay package
       queryRefs[queryName] = {
         environment,
-        fetchKey: params.id,
+        fetchKey: queryId,
         fetchPolicy: 'store-or-network',
         isDisposed: false,
         name: params.name,
@@ -70,7 +65,5 @@ function Hyderate<T>({
     return { ...otherProps, queryRefs }
   }, [props])
 
-  return <>{getLayout(<Component {...transformedProps} />)}</>
+  return <Component {...transformedProps} />
 }
-
-export type { NextPageWithLayout }

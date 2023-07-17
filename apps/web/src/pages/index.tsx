@@ -1,10 +1,21 @@
-'use client'
 import { Table } from '../components/Table'
 import { TableDetails } from '../components/TableDetails'
 import DialogButton from '../components/DialogButton'
+import React from 'react'
+import { Appointment } from '../context/appointment/Appointment'
+import { useLazyLoadQuery } from 'react-relay'
+import { AppointmentQuery } from '../context/appointment/__generated__/AppointmentQuery.graphql'
 
-export default function Dashboard() {
-  const bool = true
+// import { Inter } from 'next/font/google'
+
+// const inter = Inter({ subsets: ['latin'] })
+
+export default function Home() {
+  const response = useLazyLoadQuery<AppointmentQuery>(Appointment, {
+    fetchPolicy: 'network-only',
+  })
+
+  const { appointments } = response
 
   return (
     <main className="h-full">
@@ -45,23 +56,27 @@ export default function Dashboard() {
         </form>
       </div>
 
-      {bool ? (
-        <div className="flex flex-col items-center justify-center">
-          <Table />
-          <TableDetails
-            day={'20-02-22'}
-            hour={'10:03'}
-            graphic={'Campo grande'}
-            client={'Emersu'}
-            service={'Internet'}
-          />
-        </div>
-      ) : (
+      {appointments.edges.length === 0 ? (
         <div className="items center flex items-center justify-center gap-2">
           <p className="text-sm text-white">No entry, create one:</p>
-          <button className="flex h-9 w-[136px] items-center justify-center gap-0.5 rounded-lg bg-blue-300 py-3 transition-all hover:cursor-pointer hover:bg-blue-400">
+          <div className="flex h-9 w-[136px] items-center justify-center gap-0.5 rounded-lg bg-blue-300 py-3 transition-all hover:cursor-pointer hover:bg-blue-400">
             <DialogButton />
-          </button>
+          </div>
+        </div>
+      ) : (
+        <div className="flex flex-col items-center justify-center">
+          <Table />
+
+          {appointments.edges.map(({ node }) => (
+            <TableDetails
+              key={node.id}
+              day={node.date}
+              hour={node.hour}
+              graphic={node.graphicLocation}
+              client={node.clientName}
+              service={node.service}
+            />
+          ))}
         </div>
       )}
     </main>

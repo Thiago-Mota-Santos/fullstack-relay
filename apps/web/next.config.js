@@ -1,20 +1,6 @@
-// ** @type {import('next').NextConfig} */
-
-// module.exports = {
-//   reactStrictMode: true,
-// }
-
+/** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  swcMinity: true,
-  compiler: {
-    relay: {
-      src: './',
-      language: 'typescript',
-      artifactDirectory: '__generated__',
-    },
-  },
-  experimental: { appDir: true },
 }
 
 module.exports = nextConfig
