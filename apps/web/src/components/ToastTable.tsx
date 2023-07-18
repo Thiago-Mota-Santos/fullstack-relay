@@ -8,7 +8,7 @@ import {
   ToastViewport,
 } from './Toast'
 
-export function ToastTable() {
+function ToastTable() {
   const { toasts } = useToast()
 
   return (
@@ -61,3 +61,5 @@ export function ToastTable() {
     </ToastProvider>
   )
 }
+
+export { ToastTable }

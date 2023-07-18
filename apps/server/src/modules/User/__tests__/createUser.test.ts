@@ -1,18 +1,16 @@
-import { clearDatabaseAndRestartCounters } from "../../../../test/clearDatabase";
-import { mongooseConnection } from "../../../../test/mongooseConnection";
-import { mongooseDisconnect } from "../../../../test/mongooseDisconnect";
-import { UserRegisterMutationResult } from "../../../../test/InterfaceTest"
-import { getGraphqlResult } from "../../../../test/getGraphqlResult"
-import { schema } from "../../../schema/schema";
+import { clearDatabaseAndRestartCounters } from '../../../../test/clearDatabase'
+import { mongooseConnection } from '../../../../test/mongooseConnection'
+import { mongooseDisconnect } from '../../../../test/mongooseDisconnect'
+import { UserRegisterMutationResult } from '../../../../test/InterfaceTest'
+import { getGraphqlResult } from '../../../../test/getGraphqlResult'
+import { schema } from '../../../schema/schema'
 
-
-beforeAll(mongooseConnection);
-beforeEach(clearDatabaseAndRestartCounters);
-afterAll(mongooseDisconnect);
-
+beforeAll(mongooseConnection)
+beforeEach(clearDatabaseAndRestartCounters)
+afterAll(mongooseDisconnect)
 
 it('Should create user', async () => {
-    const mutation = `
+  const mutation = `
     mutation user($username: String!, $email: String!, $password: String!){
         userRegisterMutation(input: { username: $username, password: $password, email: $email }){
             token
@@ -23,22 +21,20 @@ it('Should create user', async () => {
         }
   }
 `
-    const variableValues = {
-        username: "joão",
-        email: "joao@email.com",
-        password: "s313s18747s41",
+  const variableValues = {
+    username: 'joão',
+    email: 'joao@email.com',
+    password: 's313s18747s41',
+  }
 
-    }
-
-
-    const result = await getGraphqlResult<UserRegisterMutationResult>
-    ({ schema, source: mutation, 
-       variableValues
+  const result = await getGraphqlResult<UserRegisterMutationResult>({
+    schema,
+    source: mutation,
+    variableValues,
   })
-    expect(result.errors).toBeUndefined();
+  expect(result.errors).toBeUndefined()
 
-    const { token, me } = result?.data?.userRegisterMutation!
-    expect(token).toBeDefined();
-    expect(me).toBeDefined();
-
+  const { me, token } = result?.data?.userRegisterMutation!
+  expect(token).toBeDefined()
+  expect(me).toBeDefined()
 })

@@ -1,18 +1,72 @@
-"""Root of mutations"""
-type Mutation {
-  UserLoginMutation(input: UserLoginMutationInput!): UserLoginMutationPayload
+"""root of all queries"""
+type Query {
+  """Fetches an object given its ID"""
+  node(
+    """The ID of an object"""
+    id: ID!
+  ): Node
 
-  """Register a new user"""
-  UserRegisterMutation(input: UserRegisterInput!): UserRegisterPayload
-  default(input: AppointmentRegisterInput!): AppointmentRegisterPayload
+  """Fetches objects given their IDs"""
+  nodes(
+    """The IDs of objects"""
+    ids: [ID!]!
+  ): [Node]!
+  appointments(after: String, first: Int, before: String, last: Int): AppointmentConnection!
+
+  """user logged"""
+  me: User
 }
 
-type UserLoginMutationPayload {
-  me: User
+"""An object with an ID"""
+interface Node {
+  """The id of the object."""
+  id: ID!
+}
 
-  """Default success field resolver."""
-  success: String
-  clientMutationId: String
+"""A connection to a list of items."""
+type AppointmentConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [AppointmentEdge]
+}
+
+"""Information about pagination in a connection."""
+type PageInfo {
+  """When paginating forwards, are there more items?"""
+  hasNextPage: Boolean!
+
+  """When paginating backwards, are there more items?"""
+  hasPreviousPage: Boolean!
+
+  """When paginating backwards, the cursor to continue."""
+  startCursor: String
+
+  """When paginating forwards, the cursor to continue."""
+  endCursor: String
+}
+
+"""An edge in a connection."""
+type AppointmentEdge {
+  """The item at the end of the edge"""
+  node: Appointment
+
+  """A cursor for use in pagination"""
+  cursor: String!
+}
+
+"""Represent an Appointment list"""
+type Appointment implements Node {
+  """The ID of an object"""
+  id: ID!
+  clientName: String!
+  service: String!
+  date: String!
+  hour: String!
+
+  """List containing Id all appointment"""
+  graphicLocation(after: String, first: Int, before: String, last: Int): String!
 }
 
 """Represents an authenticating user"""
@@ -24,10 +78,22 @@ type User implements Node {
   password: String!
 }
 
-"""An object with an ID"""
-interface Node {
-  """The id of the object."""
-  id: ID!
+"""Root of mutations"""
+type Mutation {
+  userLoginMutation(input: UserLoginMutationInput!): UserLoginMutationPayload
+
+  """Register a new user"""
+  userRegisterMutation(input: UserRegisterInput!): UserRegisterPayload
+  appointmentRegisterMutation(input: AppointmentRegisterInput!): AppointmentRegisterPayload
+}
+
+type UserLoginMutationPayload {
+  token: String
+  me: User
+
+  """Default success field resolver."""
+  success: String
+  clientMutationId: String
 }
 
 input UserLoginMutationInput {
@@ -55,28 +121,6 @@ input UserRegisterInput {
 type AppointmentRegisterPayload {
   me: AppointmentEdge
   clientMutationId: String
-}
-
-"""An edge in a connection."""
-type AppointmentEdge {
-  """The item at the end of the edge"""
-  node: Appointment
-
-  """A cursor for use in pagination"""
-  cursor: String!
-}
-
-"""Represent an Appointment list"""
-type Appointment implements Node {
-  """The ID of an object"""
-  id: ID!
-  clientName: String!
-  service: String!
-  date: String!
-  hour: String!
-
-  """List containing Id all appointment"""
-  graphicLocation(after: String, first: Int, before: String, last: Int): String!
 }
 
 input AppointmentRegisterInput {

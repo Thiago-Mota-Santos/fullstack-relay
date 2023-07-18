@@ -2,8 +2,8 @@ import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
 import { Suspense } from 'react'
 import { ReactRelayContainer } from '../relay/ReactRelayContainer'
-import { AuthProvider } from '@/context/AuthContext'
-import { ToastTable } from '@/components/ToastTable'
+import { AuthProvider } from '../context/AuthContext'
+import { ToastTable } from '../components/ToastTable'
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -15,5 +15,3 @@ export default function App({ Component, pageProps }: AppProps) {
     </AuthProvider>
   )
 }
-
-// <Component {...pageProps} />

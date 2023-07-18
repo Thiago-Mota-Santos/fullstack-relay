@@ -169,12 +169,6 @@ export default function SignIn() {
                       </svg>
                     </div>
                   </div>
-                  <p
-                    className="mt-2 hidden text-xs text-red-600"
-                    id="password-error"
-                  >
-                    8+ characters required
-                  </p>
                 </div>
                 <button className="inline-flex items-center justify-center gap-2 rounded-md border border-transparent bg-brandblue px-4 py-3 text-sm font-semibold text-white transition-all hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800">
                   Sign In

@@ -3,13 +3,19 @@ import { Plus, X } from '@phosphor-icons/react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
+import { useMutation } from 'react-relay'
+import { data } from 'autoprefixer'
+import { useToast } from '../hooks/useToast'
+import { AppointmentMutation$data } from '../context/appointment/__generated__/AppointmentMutation.graphql'
+import { Appointment } from '../context/appointment/AppointmentMutation'
 
 const InfoTableSchema = z.object({
-  Date: z.string().refine((value) => {
-    const currentDate = new Date().toISOString().split('T')[0]
-    return value >= currentDate
-  }, 'Must be today or a future date'),
+  // Date: z.string().refine((value) => {
+  //   const currentDate = new Date().toISOString().split('T')[0]
+  //   return value >= currentDate
+  // }, 'Must be today or a future Date'),
+  Date: z.string(),
   Hour: z.string(),
   Client: z
     .string()
@@ -28,6 +34,7 @@ const InfoTableSchema = z.object({
 type InfoTableSchemaData = z.infer<typeof InfoTableSchema>
 
 export default function DialogButton() {
+  const { toast } = useToast()
   const {
     formState: { errors, isValid },
     register,
@@ -35,11 +42,40 @@ export default function DialogButton() {
   } = useForm<InfoTableSchemaData>({
     resolver: zodResolver(InfoTableSchema),
   })
+  const [request] = useMutation(Appointment)
 
   const formRef = useRef(null)
 
-  const handleInfo = (data) => {
+  const handleInfo = ({
+    Client,
+    Date,
+    Graphic,
+    Hour,
+    Service,
+  }: InfoTableSchemaData) => {
     console.log(data)
+    request({
+      variables: {
+        date: Date,
+        hour: Hour,
+        clientName: Client,
+        graphicLocation: Graphic,
+        service: Service,
+      },
+      onError(error) {
+        toast({
+          title: 'Something went wrong',
+          description: error.message,
+        })
+      },
+      onCompleted({ appointmentRegisterMutation }: AppointmentMutation$data) {
+        const clientName =
+          appointmentRegisterMutation.appointmentEdge.node.clientName
+        toast({
+          title: `${clientName} was successfully registered`,
+        })
+      },
+    })
   }
 
   const handleSaveChanges = () => {
@@ -77,7 +113,7 @@ export default function DialogButton() {
                 {...register('Date')}
                 className="inline-flex h-9 w-full flex-1 items-center rounded px-2.5 py-0 text-base text-gray-500 shadow-sm-0 dark:text-gray-700"
                 id="Date"
-                type="date"
+                type="Date"
                 required
               />
               {errors.Date && (
@@ -129,7 +165,7 @@ export default function DialogButton() {
             <fieldset className="mb-4 flex items-center gap-5">
               <label
                 className="w-20 text-right text-base text-violet-400 dark:text-violet-500"
-                htmlFor="Graphic"
+                htmlFor="graphiclLocation"
               >
                 Graphic
               </label>
@@ -137,7 +173,7 @@ export default function DialogButton() {
               <input
                 {...register('Graphic')}
                 className="inline-flex h-9 w-full flex-1  items-center rounded px-2.5 py-0 text-base text-gray-500 shadow-sm-0 dark:text-gray-700"
-                id="Graphic"
+                id="graphiclLocation"
                 type="text"
                 required
               />
