@@ -1,16 +1,45 @@
 import { Table } from '../components/Table'
+
 import { TableDetails } from '../components/TableDetails'
+
 import DialogButton from '../components/DialogButton'
+
 import React from 'react'
-import { Appointment } from '../context/appointment/Appointment'
-import { useLazyLoadQuery } from 'react-relay'
-import { AppointmentQuery } from '../context/appointment/__generated__/AppointmentQuery.graphql'
+
+import {
+  PreloadedQuery,
+  fetchQuery,
+  graphql,
+  useLazyLoadQuery,
+  usePreloadedQuery,
+} from 'react-relay'
+
+import appointmentQuery, {
+  AppointmentQuery,
+} from '../context/appointment/__generated__/AppointmentQuery.graphql'
+
 import { NoAppointment } from '../components/NoAppointment'
 
-export default function Home() {
-  const response = useLazyLoadQuery<AppointmentQuery>(Appointment, {
-    fetchPolicy: 'network-only',
-  })
+import { GetServerSideProps } from 'next'
+
+import { parseCookies } from 'nookies'
+
+import { getPreloadedQuery } from '../relay/network'
+
+import { Appointment } from '../context/appointment/AppointmentMutation'
+
+interface HomeProps {
+  queryRefs: {
+    appointmentQuery: PreloadedQuery<AppointmentQuery>
+  }
+}
+
+export default function Home({ queryRefs }: HomeProps) {
+  const response = usePreloadedQuery<AppointmentQuery>(
+    Appointment,
+
+    queryRefs.appointmentQuery,
+  )
 
   const { appointments } = response
 
@@ -18,10 +47,12 @@ export default function Home() {
     <main className="h-full">
       <div className="ml-40 mr-40 mt-10 flex items-center justify-between ">
         <DialogButton />
+
         <form className="flex items-center">
           <label htmlFor="simple-search" className="sr-only">
             Search
           </label>
+
           <div className="relative w-full">
             <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
               <svg
@@ -38,10 +69,11 @@ export default function Home() {
                 ></path>
               </svg>
             </div>
+
             <input
               type="text"
               id="simple-search"
-              className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 pl-10 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500  dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+              className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 pl-10 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
               placeholder="Search by graphic"
               required
             />
@@ -71,4 +103,28 @@ export default function Home() {
       )}
     </main>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async (ctx) => {
+  const { 'graphic-token': token } = parseCookies(ctx)
+
+  if (token) {
+    return {
+      redirect: {
+        permanent: false,
+
+        destination: 'auth/signin',
+      },
+
+      props: {},
+    }
+  }
+
+  return {
+    props: {
+      preloadedQueries: {
+        pageQuery: await getPreloadedQuery(appointmentQuery, {}, ctx),
+      },
+    },
+  }
 }
