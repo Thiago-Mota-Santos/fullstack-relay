@@ -9,7 +9,7 @@ const InfoTableSchema = z.object({
   Date: z.string().refine((value) => {
     const currentDate = new Date().toISOString().split('T')[0]
     return value >= currentDate
-  }, 'Date must be today or a future date'),
+  }, 'Must be today or a future date'),
   Hour: z.string(),
   Client: z
     .string()
@@ -29,7 +29,7 @@ type InfoTableSchemaData = z.infer<typeof InfoTableSchema>
 
 export default function DialogButton() {
   const {
-    formState: { errors },
+    formState: { errors, isValid },
     register,
     handleSubmit,
   } = useForm<InfoTableSchemaData>({
@@ -78,6 +78,7 @@ export default function DialogButton() {
                 className="inline-flex h-9 w-full flex-1 items-center rounded px-2.5 py-0 text-base text-gray-500 shadow-sm-0 dark:text-gray-700"
                 id="Date"
                 type="date"
+                required
               />
               {errors.Date && (
                 <span className="text-sm text-red-600 ">
@@ -97,6 +98,7 @@ export default function DialogButton() {
                 className="inline-flex h-9 w-full flex-1 items-center rounded px-2.5 py-0 text-base text-gray-500 shadow-sm-0 dark:text-gray-700"
                 id="Hour"
                 type="time"
+                required
               />
               {errors.Hour && (
                 <span className="text-sm text-red-600">
@@ -116,6 +118,7 @@ export default function DialogButton() {
                 className="inline-flex h-9 w-full flex-1 items-center rounded px-2.5 py-0 text-base text-gray-500 shadow-sm-0 dark:text-gray-700"
                 id="Client"
                 type="text"
+                required
               />
               {errors.Client && (
                 <span className="text-sm text-red-600">
@@ -136,6 +139,7 @@ export default function DialogButton() {
                 className="inline-flex h-9 w-full flex-1  items-center rounded px-2.5 py-0 text-base text-gray-500 shadow-sm-0 dark:text-gray-700"
                 id="Graphic"
                 type="text"
+                required
               />
               {errors.Graphic && (
                 <span className="text-sm text-red-600">
@@ -155,6 +159,7 @@ export default function DialogButton() {
                 className="inline-flex h-9 w-full flex-1 items-center rounded px-2.5 py-0 text-base text-gray-500 shadow-sm-0 dark:text-gray-700"
                 id="Service"
                 type="text"
+                required
               />
               {errors.Service && (
                 <span className="text-sm text-red-600">
@@ -166,7 +171,8 @@ export default function DialogButton() {
               <Dialog.Close asChild>
                 <button
                   onClick={handleSaveChanges}
-                  className="inline-flex h-9 items-center justify-center rounded bg-[#b8f3ff] px-4 text-base font-medium transition-all hover:bg-[#8ac6d0]"
+                  disabled={!isValid}
+                  className="inline-flex h-9 items-center justify-center rounded bg-[#b8f3ff] px-4 text-base font-medium transition-all hover:bg-[#8ac6d0] disabled:cursor-not-allowed"
                 >
                   Save changes
                 </button>
