@@ -35,3 +35,5 @@ yarn-error.log*
 
 # ui
 dist/
+__generated__/
+
