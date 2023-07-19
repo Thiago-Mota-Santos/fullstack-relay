@@ -1,7 +1,5 @@
 import { Table } from '../components/Table'
 
-import { TableDetails } from '../components/TableDetails'
-
 import DialogButton from '../components/DialogButton'
 
 import React from 'react'
@@ -14,34 +12,28 @@ import {
   usePreloadedQuery,
 } from 'react-relay'
 
-import appointmentQuery, {
-  AppointmentQuery,
-} from '../context/appointment/__generated__/AppointmentQuery.graphql'
-
-import { NoAppointment } from '../components/NoAppointment'
-
 import { GetServerSideProps } from 'next'
-
 import { parseCookies } from 'nookies'
-
 import { getPreloadedQuery } from '../relay/network'
-
-import { Appointment } from '../context/appointment/AppointmentMutation'
+import { AppointmentList } from '../components/appointments/AppointmentList'
+import pageQuery, {
+  pagesQuery as pageQueryType,
+} from './__generated__/pagesQuery.graphql'
 
 interface HomeProps {
   queryRefs: {
-    appointmentQuery: PreloadedQuery<AppointmentQuery>
+    pageQuery: PreloadedQuery<pageQueryType>
   }
 }
 
+const Appointment = graphql`
+  query pagesQuery @preloadable {
+    ...AppointmentList_appointment
+  }
+`
+
 export default function Home({ queryRefs }: HomeProps) {
-  const response = usePreloadedQuery<AppointmentQuery>(
-    Appointment,
-
-    queryRefs.appointmentQuery,
-  )
-
-  const { appointments } = response
+  const query = usePreloadedQuery(Appointment, queryRefs.pageQuery)
 
   return (
     <main className="h-full">
@@ -81,26 +73,7 @@ export default function Home({ queryRefs }: HomeProps) {
         </form>
       </div>
 
-      {appointments.edges.length === 0 ? (
-        <div className="mt-20 flex items-center justify-center">
-          <NoAppointment />
-        </div>
-      ) : (
-        <div className="flex flex-col items-center justify-center">
-          <Table />
-
-          {appointments.edges.map(({ node }) => (
-            <TableDetails
-              key={node.id}
-              day={node.date}
-              hour={node.hour}
-              graphic={node.graphicLocation}
-              client={node.clientName}
-              service={node.service}
-            />
-          ))}
-        </div>
-      )}
+      <AppointmentList query={query} />
     </main>
   )
 }
@@ -123,7 +96,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   return {
     props: {
       preloadedQueries: {
-        pageQuery: await getPreloadedQuery(appointmentQuery, {}, ctx),
+        pageQuery: await getPreloadedQuery(pageQuery, {}, ctx),
       },
     },
   }
