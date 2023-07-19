@@ -1,16 +1,8 @@
-import { Table } from '../components/Table'
-
 import DialogButton from '../components/DialogButton'
 
 import React from 'react'
 
-import {
-  PreloadedQuery,
-  fetchQuery,
-  graphql,
-  useLazyLoadQuery,
-  usePreloadedQuery,
-} from 'react-relay'
+import { PreloadedQuery, graphql, usePreloadedQuery } from 'react-relay'
 
 import { GetServerSideProps } from 'next'
 import { parseCookies } from 'nookies'
