@@ -14,7 +14,6 @@ afterAll(mongooseDisconnect)
 
 it('should register a appointment', async () => {
   const user = await createUser()
-
   const { clientName, graphicLocation, service, date, hour } =
     await createAppointment({
       clientName: 'Thiago',
