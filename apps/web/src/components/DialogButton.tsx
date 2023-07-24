@@ -3,12 +3,16 @@ import { Plus, X } from '@phosphor-icons/react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useRef, useState } from 'react'
-import { useMutation } from 'react-relay'
-import { data } from 'autoprefixer'
+import { useRef } from 'react'
+import { useLazyLoadQuery, useMutation } from 'react-relay'
 import { useToast } from '../hooks/useToast'
 import { AppointmentMutation$data } from '../context/appointment/__generated__/AppointmentMutation.graphql'
-import { Appointment } from '../context/appointment/AppointmentMutation'
+import {
+  Appointment,
+  AppointmentQuery,
+  updater,
+} from '../context/appointment/Appointment'
+import { AppointmentQuery as AppointmentQueryType } from '../context/appointment/__generated__/AppointmentQuery.graphql'
 
 const InfoTableSchema = z.object({
   // Date: z.string().refine((value) => {
@@ -42,10 +46,10 @@ export default function DialogButton() {
   } = useForm<InfoTableSchemaData>({
     resolver: zodResolver(InfoTableSchema),
   })
+
   const [request] = useMutation(Appointment)
 
   const formRef = useRef(null)
-
   const handleInfo = ({
     Client,
     Date,
@@ -53,7 +57,6 @@ export default function DialogButton() {
     Hour,
     Service,
   }: InfoTableSchemaData) => {
-    console.log(data)
     request({
       variables: {
         date: Date,
@@ -68,6 +71,7 @@ export default function DialogButton() {
           description: error.message,
         })
       },
+
       onCompleted({ appointmentRegisterMutation }: AppointmentMutation$data) {
         const clientName =
           appointmentRegisterMutation.appointmentEdge.node.clientName
