@@ -4,15 +4,11 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRef } from 'react'
-import { useLazyLoadQuery, useMutation } from 'react-relay'
-import { useToast } from '../hooks/useToast'
+import { ConnectionHandler, useLazyLoadQuery, useMutation } from 'react-relay'
+import { toast, useToast } from '../hooks/useToast'
 import { AppointmentMutation$data } from '../context/appointment/__generated__/AppointmentMutation.graphql'
-import {
-  Appointment,
-  AppointmentQuery,
-  updater,
-} from '../context/appointment/Appointment'
-import { AppointmentQuery as AppointmentQueryType } from '../context/appointment/__generated__/AppointmentQuery.graphql'
+import { Appointment, updater } from '../context/appointment/Appointment'
+import error from 'next/error'
 
 const InfoTableSchema = z.object({
   // Date: z.string().refine((value) => {
@@ -65,6 +61,8 @@ export default function DialogButton() {
         graphicLocation: Graphic,
         service: Service,
       },
+      updater: updater,
+
       onError(error) {
         toast({
           title: 'Something went wrong',
