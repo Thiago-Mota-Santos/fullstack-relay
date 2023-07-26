@@ -210,7 +210,6 @@ export default function SignUp() {
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { 'graphic-token': token } = parseCookies(ctx)
-
   if (token) {
     return {
       redirect: {
