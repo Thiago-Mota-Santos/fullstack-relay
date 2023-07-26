@@ -1,8 +1,9 @@
-import { GraphQLNonNull, GraphQLString } from 'graphql'
-import { mutationWithClientMutationId } from 'graphql-relay'
+import { GraphQLID, GraphQLNonNull, GraphQLString } from 'graphql'
+import { mutationWithClientMutationId, toGlobalId } from 'graphql-relay'
 import { GraphQLContext } from '../../../graphql/context'
-import { getObjectId, getObjectId, successField } from '@entria/graphql-mongo-helpers'
+import { getObjectId, successField } from '@entria/graphql-mongo-helpers'
 import { AppointmentModel } from '../AppointmentModel'
+import { AppointmentLoader } from '../AppointmentLoader'
 
 export const AppointmentDelete = mutationWithClientMutationId({
   name: 'AppointmentDelete',
@@ -28,7 +29,17 @@ export const AppointmentDelete = mutationWithClientMutationId({
       success: 'Appointment successfully deleted',
     }
   },
-  outputFields: () => ({
+  outputFields: {
+    appointmentId: {
+      type: GraphQLID,
+      resolve: async ({ id }, _, context) => {
+        const appointment = await AppointmentLoader.load(context, id)
+
+        if (!appointment) return null
+
+        return toGlobalId('Appointment', appointment.id)
+      },
+    },
     ...successField,
-  }),
+  },
 })
