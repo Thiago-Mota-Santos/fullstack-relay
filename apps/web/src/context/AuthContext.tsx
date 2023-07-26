@@ -1,46 +1,40 @@
-import { ReactNode, createContext, useEffect, useState } from 'react'
-import { destroyCookie, parseCookies, setCookie } from 'nookies'
+import { Maybe } from '@fullstack/types'
 
-interface AuthProps {
-  children: ReactNode
+import React, { useState, useMemo, useCallback } from 'react'
+
+import { delAuthToken, getAuthToken, setAuthToken } from '../utils/getToken'
+
+interface AuthContextValue {
+  token: Maybe<string>
+  signIn: (token: Maybe<string>) => void
+  signout: () => void
 }
 
-interface AuthContextProps {
-  signIn: (token: string) => void
-  isAuth: boolean
-  logOut: () => void
-}
+export const AuthContext = React.createContext({} as AuthContextValue)
 
-export const AuthContext = createContext({} as AuthContextProps)
+export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+  const [userToken, setUserToken] = useState<AuthContextValue['token']>(() =>
+    getAuthToken(),
+  )
 
-export function AuthProvider({ children }: AuthProps) {
-  const [isAuth, setIsAuth] = useState(false)
-
-  useEffect(() => {
-    const { 'graphic-token': token } = parseCookies()
-
-    if (token) {
-      setIsAuth(true)
-    } else {
-      destroyCookie(undefined, 'graphic-token')
-    }
+  const signIn = useCallback<AuthContextValue['signIn']>((token) => {
+    setAuthToken(token || '')
+    setUserToken(token)
   }, [])
 
-  function signIn(token: string) {
-    setCookie(undefined, 'graphic-token', token, {
-      maxAge: 60 * 60 * 48, //48 hours
-    })
-    setIsAuth(true)
-  }
+  const signout = useCallback<AuthContextValue['signout']>(() => {
+    setUserToken(null)
+    delAuthToken()
+  }, [])
 
-  function logOut() {
-    destroyCookie(undefined, 'graphic-token')
-    setIsAuth(false)
-  }
-
-  return (
-    <AuthContext.Provider value={{ isAuth, signIn, logOut }}>
-      {children}
-    </AuthContext.Provider>
+  const value = useMemo<AuthContextValue>(
+    () => ({
+      token: userToken,
+      signIn,
+      signout,
+    }),
+    [userToken, signIn, signout],
   )
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }

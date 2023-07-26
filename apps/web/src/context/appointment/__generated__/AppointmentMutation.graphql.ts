@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<6f64f86f0b1f9402d95d541337f9556c>>
+ * @generated SignedSource<<2e2367984784e9fbca9fc45c31f67698>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -24,6 +24,7 @@ export type AppointmentMutation$data = {
         readonly date: string;
         readonly graphicLocation: string;
         readonly hour: string;
+        readonly id: string;
         readonly service: string;
       } | null;
     } | null;
@@ -62,72 +63,113 @@ v4 = {
 },
 v5 = [
   {
-    "fields": [
+    "alias": null,
+    "args": [
       {
-        "kind": "Variable",
-        "name": "clientName",
-        "variableName": "clientName"
-      },
-      {
-        "kind": "Variable",
-        "name": "date",
-        "variableName": "date"
-      },
-      {
-        "kind": "Variable",
-        "name": "graphicLocation",
-        "variableName": "graphicLocation"
-      },
-      {
-        "kind": "Variable",
-        "name": "hour",
-        "variableName": "hour"
-      },
-      {
-        "kind": "Variable",
-        "name": "service",
-        "variableName": "service"
+        "fields": [
+          {
+            "kind": "Variable",
+            "name": "clientName",
+            "variableName": "clientName"
+          },
+          {
+            "kind": "Variable",
+            "name": "date",
+            "variableName": "date"
+          },
+          {
+            "kind": "Variable",
+            "name": "graphicLocation",
+            "variableName": "graphicLocation"
+          },
+          {
+            "kind": "Variable",
+            "name": "hour",
+            "variableName": "hour"
+          },
+          {
+            "kind": "Variable",
+            "name": "service",
+            "variableName": "service"
+          }
+        ],
+        "kind": "ObjectValue",
+        "name": "input"
       }
     ],
-    "kind": "ObjectValue",
-    "name": "input"
+    "concreteType": "AppointmentRegisterPayload",
+    "kind": "LinkedField",
+    "name": "appointmentRegisterMutation",
+    "plural": false,
+    "selections": [
+      {
+        "alias": null,
+        "args": null,
+        "concreteType": "AppointmentEdge",
+        "kind": "LinkedField",
+        "name": "appointmentEdge",
+        "plural": false,
+        "selections": [
+          {
+            "alias": null,
+            "args": null,
+            "concreteType": "Appointment",
+            "kind": "LinkedField",
+            "name": "node",
+            "plural": false,
+            "selections": [
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "clientName",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "service",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "date",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "hour",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "graphicLocation",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "id",
+                "storageKey": null
+              }
+            ],
+            "storageKey": null
+          }
+        ],
+        "storageKey": null
+      }
+    ],
+    "storageKey": null
   }
-],
-v6 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "clientName",
-  "storageKey": null
-},
-v7 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "service",
-  "storageKey": null
-},
-v8 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "date",
-  "storageKey": null
-},
-v9 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "hour",
-  "storageKey": null
-},
-v10 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "graphicLocation",
-  "storageKey": null
-};
+];
 return {
   "fragment": {
     "argumentDefinitions": [
@@ -140,46 +182,7 @@ return {
     "kind": "Fragment",
     "metadata": null,
     "name": "AppointmentMutation",
-    "selections": [
-      {
-        "alias": null,
-        "args": (v5/*: any*/),
-        "concreteType": "AppointmentRegisterPayload",
-        "kind": "LinkedField",
-        "name": "appointmentRegisterMutation",
-        "plural": false,
-        "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "concreteType": "AppointmentEdge",
-            "kind": "LinkedField",
-            "name": "appointmentEdge",
-            "plural": false,
-            "selections": [
-              {
-                "alias": null,
-                "args": null,
-                "concreteType": "Appointment",
-                "kind": "LinkedField",
-                "name": "node",
-                "plural": false,
-                "selections": [
-                  (v6/*: any*/),
-                  (v7/*: any*/),
-                  (v8/*: any*/),
-                  (v9/*: any*/),
-                  (v10/*: any*/)
-                ],
-                "storageKey": null
-              }
-            ],
-            "storageKey": null
-          }
-        ],
-        "storageKey": null
-      }
-    ],
+    "selections": (v5/*: any*/),
     "type": "Mutation",
     "abstractKey": null
   },
@@ -194,53 +197,7 @@ return {
     ],
     "kind": "Operation",
     "name": "AppointmentMutation",
-    "selections": [
-      {
-        "alias": null,
-        "args": (v5/*: any*/),
-        "concreteType": "AppointmentRegisterPayload",
-        "kind": "LinkedField",
-        "name": "appointmentRegisterMutation",
-        "plural": false,
-        "selections": [
-          {
-            "alias": null,
-            "args": null,
-            "concreteType": "AppointmentEdge",
-            "kind": "LinkedField",
-            "name": "appointmentEdge",
-            "plural": false,
-            "selections": [
-              {
-                "alias": null,
-                "args": null,
-                "concreteType": "Appointment",
-                "kind": "LinkedField",
-                "name": "node",
-                "plural": false,
-                "selections": [
-                  (v6/*: any*/),
-                  (v7/*: any*/),
-                  (v8/*: any*/),
-                  (v9/*: any*/),
-                  (v10/*: any*/),
-                  {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
-                    "name": "id",
-                    "storageKey": null
-                  }
-                ],
-                "storageKey": null
-              }
-            ],
-            "storageKey": null
-          }
-        ],
-        "storageKey": null
-      }
-    ]
+    "selections": (v5/*: any*/)
   },
   "params": {
     "cacheID": "5c6f49433026c67850765be75b33a0e3",
@@ -253,6 +210,6 @@ return {
 };
 })();
 
-(node as any).hash = "c9bea7467873ff125b6dfed410b1bde0";
+(node as any).hash = "2a40728f263314975989118b8bbef054";
 
 export default node;

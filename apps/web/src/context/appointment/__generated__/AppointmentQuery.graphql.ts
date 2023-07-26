@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<400ca8fad5af783415defd6fa08f7032>>
+ * @generated SignedSource<<2812424690b791caa179e061ee423151>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -59,14 +59,7 @@ var v0 = [
                 "alias": null,
                 "args": null,
                 "kind": "ScalarField",
-                "name": "date",
-                "storageKey": null
-              },
-              {
-                "alias": null,
-                "args": null,
-                "kind": "ScalarField",
-                "name": "hour",
+                "name": "id",
                 "storageKey": null
               },
               {
@@ -87,14 +80,21 @@ var v0 = [
                 "alias": null,
                 "args": null,
                 "kind": "ScalarField",
-                "name": "graphicLocation",
+                "name": "date",
                 "storageKey": null
               },
               {
                 "alias": null,
                 "args": null,
                 "kind": "ScalarField",
-                "name": "id",
+                "name": "hour",
+                "storageKey": null
+              },
+              {
+                "alias": null,
+                "args": null,
+                "kind": "ScalarField",
+                "name": "graphicLocation",
                 "storageKey": null
               }
             ],
@@ -125,16 +125,16 @@ return {
     "selections": (v0/*: any*/)
   },
   "params": {
-    "cacheID": "ff723d6416e08500f8452a7462da1710",
+    "cacheID": "710dfe93666a6fe042bf677f103eab2c",
     "id": null,
     "metadata": {},
     "name": "AppointmentQuery",
     "operationKind": "query",
-    "text": "query AppointmentQuery {\n  appointments {\n    edges {\n      node {\n        date\n        hour\n        clientName\n        service\n        graphicLocation\n        id\n      }\n    }\n  }\n}\n"
+    "text": "query AppointmentQuery {\n  appointments {\n    edges {\n      node {\n        id\n        clientName\n        service\n        date\n        hour\n        graphicLocation\n      }\n    }\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "73638c4671c0055e9a79a42aaaf4e05f";
+(node as any).hash = "be9e8f2962bc370d9a3e4fdd8cdddbc5";
 
 export default node;
