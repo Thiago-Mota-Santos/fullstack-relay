@@ -1,6 +1,3 @@
-import { GetServerSidePropsContext, PreviewData } from 'next'
-import { ParsedUrlQuery } from 'querystring'
-
 import {
   CacheConfig,
   ConcreteRequest,
@@ -55,7 +52,7 @@ const GRAPHQL_ENPOINT = process.env.NEXT_PUBLIC_GRAPHQL_ENDPOINT as string
 async function networkFetch(
   params: RequestParameters,
   variables: Variables,
-  headers = {},
+  headers?: HeadersInit,
 ) {
   // Fetch data from GitHub's GraphQL API:
   // TODO: Add GraphQL Endpoint
@@ -95,9 +92,9 @@ async function networkFetch(
 async function getPreloadedQuery(
   { params }: ConcreteRequest,
   variables: Variables,
-  ctx?: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>,
+  headers?: HeadersInit,
 ) {
-  const response = await networkFetch(params, variables, ctx)
+  const response = await networkFetch(params, variables, headers)
   return {
     params,
     variables,
