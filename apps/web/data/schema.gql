@@ -83,6 +83,7 @@ type Mutation {
   """Register a new user"""
   userRegisterMutation(input: UserRegisterInput!): UserRegisterPayload
   appointmentRegisterMutation(input: AppointmentRegisterInput!): AppointmentRegisterPayload
+  AppointmentDelete(input: AppointmentDeleteInput!): AppointmentDeletePayload
 }
 
 type UserLoginMutationPayload {
@@ -127,5 +128,18 @@ input AppointmentRegisterInput {
   hour: String!
   graphicLocation: String!
   service: String!
+  clientMutationId: String
+}
+
+type AppointmentDeletePayload {
+  appointmentId: ID
+
+  """Default success field resolver."""
+  success: String
+  clientMutationId: String
+}
+
+input AppointmentDeleteInput {
+  AppointmentId: String!
   clientMutationId: String
 }
