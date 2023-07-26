@@ -1,7 +1,35 @@
 import { Trash } from '@phosphor-icons/react'
 import * as AlertDialog from '@radix-ui/react-alert-dialog'
+import { useMutation } from 'react-relay'
+import { AppointmentDelete } from '../context/appointment/AppointmentDelete'
+import { toast, useToast } from '../hooks/useToast'
 
-export default function DeleteModal() {
+interface ModalDeleteProps {
+  appointmentDelete: string
+}
+
+function DeleteModal({ appointmentDelete }: ModalDeleteProps) {
+  const { toast } = useToast()
+  const [commit] = useMutation(AppointmentDelete)
+  const handleDelete = () => {
+    commit({
+      variables: {
+        appointmentId: appointmentDelete,
+      },
+      onError(error) {
+        toast({
+          variant: 'destructive',
+          title: 'Something went wrong',
+          Description: error.message,
+        })
+      },
+      onCompleted() {
+        toast({
+          title: 'Appointment successfully deleted',
+        })
+      },
+    })
+  }
   return (
     <AlertDialog.Root>
       <AlertDialog.Trigger asChild>
@@ -24,7 +52,10 @@ export default function DeleteModal() {
               </button>
             </AlertDialog.Cancel>
             <AlertDialog.Action asChild>
-              <button className="inline-flex h-9 items-center rounded bg-red-200 px-4 text-base font-medium text-red-500 transition-all  hover:bg-red-300 focus:shadow-red-0 focus:outline-none">
+              <button
+                onClick={handleDelete}
+                className="inline-flex h-9 items-center rounded bg-red-200 px-4 text-base font-medium text-red-500 transition-all  hover:bg-red-300 focus:shadow-red-0 focus:outline-none"
+              >
                 Yes, delete appointment
               </button>
             </AlertDialog.Action>
@@ -34,3 +65,5 @@ export default function DeleteModal() {
     </AlertDialog.Root>
   )
 }
+
+export { DeleteModal }
