@@ -23,7 +23,6 @@ const appointmentRegisterMutation = mutationWithClientMutationId({
     }
 
     const newAppointment = await new AppointmentModel({
-      _id: ctx?.user?._id,
       clientName,
       date,
       graphicLocation,
