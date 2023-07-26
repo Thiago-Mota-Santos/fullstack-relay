@@ -5,7 +5,7 @@
     "dev": "tsx watch src/index.ts",
     "schema": "tsx scripts/updateSchema.ts",
     "copy-env": "cp .env.example .env",
-    "test": "jest",
+    "test": "jest --watchAll --detectOpenHandles",
     "fixture": "tsx src/modules/Appointment/fixture/createAppointment.ts"
   },
   "dependencies": {

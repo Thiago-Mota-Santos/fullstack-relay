@@ -1,7 +1,7 @@
 import { GraphQLNonNull, GraphQLString } from 'graphql'
 import { mutationWithClientMutationId } from 'graphql-relay'
 import { GraphQLContext } from '../../../graphql/context'
-import { getObjectId, successField } from '@entria/graphql-mongo-helpers'
+import { getObjectId, getObjectId, successField } from '@entria/graphql-mongo-helpers'
 import { AppointmentModel } from '../AppointmentModel'
 
 export const AppointmentDelete = mutationWithClientMutationId({

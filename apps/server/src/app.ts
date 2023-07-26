@@ -1,4 +1,4 @@
-import Koa, { Request, Response, Context, ParameterizedContext } from 'koa'
+import Koa, { Request, Response, Context } from 'koa'
 import logger from 'koa-logger'
 import cors from 'kcors'
 import bodyParser from 'koa-bodyparser'
@@ -20,11 +20,15 @@ const graphQlSettingsPerReq = async (
   ctx: Context,
 ): Promise<OptionsData> => {
   const { user } = await getUser(ctx)
+  console.log(user)
   return {
     graphiql: true,
     schema,
     pretty: true,
-    context: getContext({ ctx, user }),
+    context: getContext({
+      user,
+      ctx,
+    }),
     customFormatErrorFn: ({ message, locations, stack }) => {
       /* eslint-disable no-console */
       console.log(message)

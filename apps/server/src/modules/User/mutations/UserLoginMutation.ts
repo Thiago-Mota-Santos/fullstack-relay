@@ -3,7 +3,6 @@ import { mutationWithClientMutationId } from 'graphql-relay'
 import { successField } from '@entria/graphql-mongo-helpers'
 import { UserType } from '../UserType'
 import { UserModel } from '../UserModel'
-import { UserLoader } from '../UserLoader'
 import { generateJwtToken } from '../../../auth'
 
 interface UserLogin {
@@ -28,7 +27,6 @@ const userLoginMutation = mutationWithClientMutationId({
     }
 
     const user = await UserModel.findOne({ email })
-
     if (!user) {
       throw new Error('User not found!')
     }
@@ -40,7 +38,6 @@ const userLoginMutation = mutationWithClientMutationId({
     }
 
     const token = generateJwtToken(user._id)
-
     return {
       id: user._id,
       token,

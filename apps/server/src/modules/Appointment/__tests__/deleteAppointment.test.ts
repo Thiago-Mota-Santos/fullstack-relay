@@ -7,7 +7,6 @@ import { AppointmentDelete } from '../../../../test/InterfaceTest'
 import { schema } from '../../../schema/schema'
 import { getGraphqlResult } from '../../../../test/getGraphqlResult'
 import { createAppointment } from '../fixture/createAppointment'
-import { Types } from 'mongoose'
 
 beforeAll(mongooseConnection)
 beforeEach(clearDatabaseAndRestartCounters)
