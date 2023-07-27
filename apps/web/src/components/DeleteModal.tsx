@@ -1,8 +1,12 @@
 import { Trash } from '@phosphor-icons/react'
 import * as AlertDialog from '@radix-ui/react-alert-dialog'
 import { useMutation } from 'react-relay'
-import { AppointmentDelete } from '../context/appointment/AppointmentDelete'
-import { toast, useToast } from '../hooks/useToast'
+import { useToast } from '../hooks/useToast'
+import { AppointmentDeleteMutation } from '../context/appointment/__generated__/AppointmentDeleteMutation.graphql'
+import {
+  AppointmentDelete,
+  updaterDelete,
+} from '../context/appointment/AppointmentDelete'
 
 interface ModalDeleteProps {
   appointmentDelete: string
@@ -10,17 +14,22 @@ interface ModalDeleteProps {
 
 function DeleteModal({ appointmentDelete }: ModalDeleteProps) {
   const { toast } = useToast()
-  const [commit] = useMutation(AppointmentDelete)
+
+  const [commit] = useMutation<AppointmentDeleteMutation>(AppointmentDelete)
   const handleDelete = () => {
     commit({
       variables: {
-        appointmentId: appointmentDelete,
+        input: {
+          AppointmentId: appointmentDelete,
+        },
       },
+      updater: updaterDelete(appointmentDelete),
+
       onError(error) {
         toast({
           variant: 'destructive',
           title: 'Something went wrong',
-          Description: error.message,
+          description: error.message,
         })
       },
       onCompleted() {
