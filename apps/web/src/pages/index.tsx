@@ -5,12 +5,13 @@ import React from 'react'
 import { PreloadedQuery, graphql, usePreloadedQuery } from 'react-relay'
 
 import { GetServerSideProps } from 'next'
-import { parseCookies } from 'nookies'
 import { getPreloadedQuery } from '../relay/network'
 import { AppointmentList } from '../components/appointments/AppointmentList'
 import pageQuery, {
   pagesQuery as pageQueryType,
 } from './__generated__/pagesQuery.graphql'
+import Logout from '../components/Logout'
+import { getToken } from '../utils/getToken'
 
 interface HomeProps {
   queryRefs: {
@@ -29,7 +30,10 @@ export default function Home({ queryRefs }: HomeProps) {
 
   return (
     <main className="h-full">
-      <div className="ml-40 mr-40 mt-10 flex items-center justify-between ">
+      <div className="m-4">
+        <Logout />
+      </div>
+      <div className="ml-40 mr-40 mt-10 flex items-center justify-between">
         <DialogButton />
 
         <form className="flex items-center">
@@ -66,19 +70,21 @@ export default function Home({ queryRefs }: HomeProps) {
       </div>
 
       <AppointmentList query={query} />
+
+      <div className="mr-20 mt-[260px] flex items-center justify-end">
+        {/* <Logout /> */}
+      </div>
     </main>
   )
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { 'graphic-token': token } = parseCookies(ctx)
-
-  if (token) {
+  const token = getToken(ctx.req.headers)
+  if (!token) {
     return {
       redirect: {
         permanent: false,
-
-        destination: 'auth/signin',
+        destination: '/auth/signin',
       },
 
       props: {},
@@ -88,7 +94,7 @@ export const getServerSideProps: GetServerSideProps = async (ctx) => {
   return {
     props: {
       preloadedQueries: {
-        pageQuery: await getPreloadedQuery(pageQuery, {}, ctx),
+        pageQuery: await getPreloadedQuery(pageQuery, {}, token),
       },
     },
   }
