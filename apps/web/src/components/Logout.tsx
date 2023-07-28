@@ -1,3 +1,26 @@
+import { useContext } from 'react'
+import { AuthContext } from '../context/AuthContext'
+import router from 'next/router'
+import { SignOut } from '@phosphor-icons/react'
+
 export default function Logout() {
-  return <button>Logout</button>
+  const { signout } = useContext(AuthContext)
+
+  const handleLogout = () => {
+    setTimeout(() => {
+      signout()
+
+      router.push('/auth/signin')
+    }, 500)
+  }
+
+  return (
+    <button
+      onClick={handleLogout}
+      className="flex items-center rounded bg-blue-400 px-2 py-2 transition-all hover:bg-blue-500"
+    >
+      <SignOut size={24} />
+      Logout
+    </button>
+  )
 }
