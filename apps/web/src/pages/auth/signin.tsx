@@ -14,6 +14,7 @@ import {
 } from '../../context/user/__generated__/SigninMutation.graphql'
 import { SignInMutation } from '../../context/user/SigninMutation'
 import { useToast } from '../../hooks/useToast'
+import Link from 'next/link'
 
 const UserLoginFormSchema = z.object({
   email: z.string().email('Invalid email format').nonempty('Email is required'),
@@ -79,12 +80,12 @@ export default function SignIn() {
             </h1>
             <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
               Do not have an account yet?
-              <a
+              <Link
                 className="ml-[2px] font-medium text-blue-600 decoration-2 hover:underline"
                 href="/auth/signup"
               >
                 Sign up here
-              </a>
+              </Link>
             </p>
           </div>
 

@@ -14,6 +14,7 @@ import {
   SignupMutation$data,
 } from '../../context/user/__generated__/SignupMutation.graphql'
 import { SignUpMutation } from '../../context/user/SignupMutation'
+import Link from 'next/link'
 
 const createUserFormSchema = z.object({
   email: z.string().email('Invalid email format').nonempty('Email is required'),
@@ -74,12 +75,12 @@ export default function SignUp() {
             </h1>
             <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
               Already have an account?
-              <a
+              <Link
                 className="ml-[2px] font-medium text-blue-600 decoration-2 hover:underline"
                 href="/auth/signin"
               >
                 Sign in here
-              </a>
+              </Link>
             </p>
           </div>
 
