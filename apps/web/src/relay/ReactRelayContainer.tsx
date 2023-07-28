@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { NextComponentType, NextPageContext } from 'next'
 import { Suspense, useMemo } from 'react'
 import { useRelayEnvironment, RelayEnvironmentProvider } from 'react-relay'
@@ -63,6 +64,7 @@ function Hyderate({
     }
 
     return { ...otherProps, queryRefs }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props])
 
   return <Component {...transformedProps} />
