@@ -4,7 +4,7 @@ import { UserDocument } from './modules/User/UserModel'
 import { ParameterizedContext } from 'koa'
 
 interface ContextVars {
-  ctx: ParameterizedContext
+  ctx?: ParameterizedContext
   user: Maybe<UserDocument>
 }
 
