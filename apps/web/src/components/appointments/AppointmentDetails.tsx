@@ -17,6 +17,7 @@ function AppointmentDetails({ appointmentDetails }: AppointmentProps) {
         clientName
         service
         graphicLocation
+        id
       }
     `,
     appointmentDetails,
@@ -64,7 +65,7 @@ function AppointmentDetails({ appointmentDetails }: AppointmentProps) {
             className="px-6 py-4 text-left text-sm font-medium text-gray-500  dark:text-gray-400"
           >
             <span>
-              <DeleteModal />
+              <DeleteModal appointmentDelete={appointment.id} />
             </span>
           </td>
         </tr>

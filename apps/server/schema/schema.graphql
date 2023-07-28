@@ -132,6 +132,8 @@ input AppointmentRegisterInput {
 }
 
 type AppointmentDeletePayload {
+  appointmentId: ID
+
   """Default success field resolver."""
   success: String
   clientMutationId: String

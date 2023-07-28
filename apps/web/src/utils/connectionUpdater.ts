@@ -8,8 +8,9 @@ interface ConnectionUpdaterArgs {
   store: RecordSourceProxy
   parentId: string
   connectionName: string
-  edge: RecordProxy
+  edge?: RecordProxy
   before?: boolean
+  deleteNode?: boolean
 }
 
 const connectionUpdater = ({
@@ -32,7 +33,6 @@ const connectionUpdater = ({
   }
 
   const conn = ConnectionHandler.getConnection(parentProxy, connectionName)
-
   if (!conn) {
     return
   }

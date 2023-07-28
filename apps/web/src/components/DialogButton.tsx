@@ -5,15 +5,11 @@ import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRef } from 'react'
 import { useMutation } from 'react-relay'
-import { toast, useToast } from '../hooks/useToast'
+import { useToast } from '../hooks/useToast'
 import { AppointmentMutation$data } from '../context/appointment/__generated__/AppointmentMutation.graphql'
 import { Appointment, updater } from '../context/appointment/Appointment'
 
 const InfoTableSchema = z.object({
-  // Date: z.string().refine((value) => {
-  //   const currentDate = new Date().toISOString().split('T')[0]
-  //   return value >= currentDate
-  // }, 'Must be today or a future Date'),
   Date: z.string(),
   Hour: z.string(),
   Client: z
@@ -60,6 +56,7 @@ export default function DialogButton() {
         graphicLocation: Graphic,
         service: Service,
       },
+
       updater: updater,
 
       onError(error) {
@@ -72,6 +69,7 @@ export default function DialogButton() {
       onCompleted({ appointmentRegisterMutation }: AppointmentMutation$data) {
         const clientName =
           appointmentRegisterMutation.appointmentEdge.node.clientName
+
         toast({
           title: `${clientName} was successfully registered`,
         })

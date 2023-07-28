@@ -7,7 +7,7 @@ export interface Appointment {
   date: string
   hour: string
   graphicLocation: string
-  service: 'Internet' | 'Xerox' | 'Other' | 'Banner'
+  service: string
 }
 
 export type AppointmentDocument = Maybe<Appointment> & Document
