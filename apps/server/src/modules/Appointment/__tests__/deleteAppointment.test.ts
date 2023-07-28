@@ -12,7 +12,7 @@ beforeAll(mongooseConnection)
 beforeEach(clearDatabaseAndRestartCounters)
 afterAll(mongooseDisconnect)
 
-it('Should be delete appointment', async () => {
+it('Should be able to delete an appointment', async () => {
   const user = await createUser()
   const { _id } = await createAppointment({
     clientName: 'Thiago',

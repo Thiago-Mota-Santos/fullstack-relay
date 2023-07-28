@@ -12,7 +12,7 @@ beforeAll(mongooseConnection)
 beforeEach(clearDatabaseAndRestartCounters)
 afterAll(mongooseDisconnect)
 
-it('should register a appointment', async () => {
+it('should be able to register an appointment', async () => {
   const user = await createUser()
   const { clientName, graphicLocation, service, date, hour } =
     await createAppointment({
