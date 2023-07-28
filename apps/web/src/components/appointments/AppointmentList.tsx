@@ -1,9 +1,9 @@
 import { AppointmentDetails } from './AppointmentDetails'
 import { graphql, usePaginationFragment } from 'react-relay'
-import { AppointmentList_appointment$key } from './__generated__/AppointmentList_appointment.graphql'
 import { Table } from '../Table'
 import { NoAppointment } from '../NoAppointment'
-import { AppointmentPaginationQuery } from './__generated__/AppointmentPaginationQuery.graphql'
+import { AppointmentList_appointment$key } from '../../__generated__/AppointmentList_appointment.graphql'
+import { AppointmentPaginationQuery } from '../../__generated__/AppointmentPaginationQuery.graphql'
 
 interface AppointmentListProps {
   query: AppointmentList_appointment$key

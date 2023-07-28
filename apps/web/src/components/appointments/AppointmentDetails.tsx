@@ -1,8 +1,8 @@
 import { NotePencil } from '@phosphor-icons/react'
 import { DeleteModal } from '../DeleteModal'
 import { graphql } from 'relay-runtime'
-import { AppointmentDetails_appointment$key } from './__generated__/AppointmentDetails_appointment.graphql'
 import { useFragment } from 'react-relay'
+import { AppointmentDetails_appointment$key } from '../../__generated__/AppointmentDetails_appointment.graphql'
 
 interface AppointmentProps {
   appointmentDetails: AppointmentDetails_appointment$key

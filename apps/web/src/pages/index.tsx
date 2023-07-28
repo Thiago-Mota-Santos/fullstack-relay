@@ -3,12 +3,12 @@ import React from 'react'
 import { PreloadedQuery, graphql, usePreloadedQuery } from 'react-relay'
 import { GetServerSideProps } from 'next'
 import { getPreloadedQuery } from '../relay/network'
-import { AppointmentList } from '../components/appointments/AppointmentList'
 import pageQuery, {
   pagesQuery as pageQueryType,
-} from './__generated__/pagesQuery.graphql'
+} from '../__generated__/pagesQuery.graphql'
 import Logout from '../components/Logout'
 import { getToken } from '../utils/getToken'
+import { AppointmentList } from '../components/appointments/AppointmentList'
 
 interface HomeProps {
   queryRefs: {

@@ -6,8 +6,8 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useRef } from 'react'
 import { useMutation } from 'react-relay'
 import { useToast } from '../hooks/useToast'
-import { AppointmentMutation$data } from '../context/appointment/__generated__/AppointmentMutation.graphql'
 import { Appointment, updater } from '../context/appointment/Appointment'
+import { AppointmentMutation$data } from '../__generated__/AppointmentMutation.graphql'
 
 const InfoTableSchema = z.object({
   Date: z.string(),

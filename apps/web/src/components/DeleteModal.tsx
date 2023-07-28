@@ -2,11 +2,11 @@ import { Trash } from '@phosphor-icons/react'
 import * as AlertDialog from '@radix-ui/react-alert-dialog'
 import { useMutation } from 'react-relay'
 import { useToast } from '../hooks/useToast'
-import { AppointmentDeleteMutation } from '../context/appointment/__generated__/AppointmentDeleteMutation.graphql'
 import {
   AppointmentDelete,
   updaterDelete,
 } from '../context/appointment/AppointmentDelete'
+import { AppointmentDeleteMutation } from '../__generated__/AppointmentDeleteMutation.graphql'
 
 interface ModalDeleteProps {
   appointmentDelete: string
