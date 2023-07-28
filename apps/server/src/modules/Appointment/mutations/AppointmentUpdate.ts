@@ -21,7 +21,7 @@ const appointmentUpdateMutation = mutationWithClientMutationId({
     ctx: GraphQLContext,
   ) => {
     if (!ctx.user) {
-      throw new Error('Você precisa estar logado para atualizar um agendamento')
+      throw new Error('You must be logged in to update an appointment')
     }
 
     const updatedAppointment = await AppointmentModel.findByIdAndUpdate(
