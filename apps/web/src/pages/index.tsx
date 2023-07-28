@@ -1,9 +1,6 @@
 import DialogButton from '../components/DialogButton'
-
 import React from 'react'
-
 import { PreloadedQuery, graphql, usePreloadedQuery } from 'react-relay'
-
 import { GetServerSideProps } from 'next'
 import { getPreloadedQuery } from '../relay/network'
 import { AppointmentList } from '../components/appointments/AppointmentList'
@@ -70,10 +67,6 @@ export default function Home({ queryRefs }: HomeProps) {
       </div>
 
       <AppointmentList query={query} />
-
-      <div className="mr-20 mt-[260px] flex items-center justify-end">
-        {/* <Logout /> */}
-      </div>
     </main>
   )
 }
