@@ -1,5 +1,5 @@
 import DialogButton from '../components/DialogButton'
-import React from 'react'
+import React, { ChangeEvent, useState } from 'react'
 import { PreloadedQuery, graphql, usePreloadedQuery } from 'react-relay'
 import { GetServerSideProps } from 'next'
 import { getPreloadedQuery } from '../relay/network'
@@ -24,6 +24,10 @@ const Appointment = graphql`
 
 export default function Home({ queryRefs }: HomeProps) {
   const query = usePreloadedQuery(Appointment, queryRefs.pageQuery)
+  const [search, setSearch] = useState('')
+  const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value)
+  }
 
   return (
     <main className="h-full">
@@ -60,13 +64,14 @@ export default function Home({ queryRefs }: HomeProps) {
               id="simple-search"
               className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 pl-10 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
               placeholder="Search by graphic"
+              onChange={handleSearchChange}
               required
             />
           </div>
         </form>
       </div>
 
-      <AppointmentList query={query} />
+      <AppointmentList query={query} search={search} />
     </main>
   )
 }
