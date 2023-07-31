@@ -24,6 +24,8 @@ function AppointmentDetails({ appointmentDetails }: AppointmentProps) {
     appointmentDetails,
   )
 
+  console.log(appointment)
+
   return (
     <table className="h-20 w-2/3 rounded-lg border-b border-gray-600 bg-gray-900 py-4">
       <thead>
