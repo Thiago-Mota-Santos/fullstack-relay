@@ -1,5 +1,5 @@
 import * as Dialog from '@radix-ui/react-dialog'
-import { Plus, X } from '@phosphor-icons/react'
+import { NotePencil, Plus, X } from '@phosphor-icons/react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -8,9 +8,14 @@ import { useMutation } from 'react-relay'
 import { useToast } from '../hooks/useToast'
 import { Appointment, updater } from '../context/appointment/Appointment'
 import { AppointmentMutation$data } from '../__generated__/AppointmentMutation.graphql'
+import {
+  AppointmentEdit,
+  updaterEdit,
+} from '../context/appointment/AppointmentEdit'
 
 const InfoTableSchema = z.object({
   Date: z.string(),
+
   Hour: z.string(),
   Client: z
     .string()
@@ -24,11 +29,20 @@ const InfoTableSchema = z.object({
     .string()
     .min(3, 'must be at least 3 characters')
     .nonempty('Required'),
+  appointmentId: z.string().optional(),
 })
 
 type InfoTableSchemaData = z.infer<typeof InfoTableSchema>
 
-export default function DialogButton() {
+interface DialogButtonProps {
+  isEdit?: boolean
+  Id?: string
+}
+
+export default function DialogButton({
+  isEdit = false,
+  Id,
+}: DialogButtonProps) {
   const { toast } = useToast()
   const {
     formState: { errors, isValid },
@@ -37,9 +51,8 @@ export default function DialogButton() {
   } = useForm<InfoTableSchemaData>({
     resolver: zodResolver(InfoTableSchema),
   })
-
   const [request] = useMutation(Appointment)
-
+  const [edit] = useMutation(AppointmentEdit)
   const formRef = useRef(null)
   const handleInfo = ({
     Client,
@@ -77,6 +90,34 @@ export default function DialogButton() {
     })
   }
 
+  const handleEdit = ({
+    Client,
+    Date,
+    Graphic,
+    Hour,
+    Service,
+  }: InfoTableSchemaData) => {
+    edit({
+      variables: {
+        appointmentId: Id,
+        date: Date,
+        hour: Hour,
+        clientName: Client,
+        graphicLocation: Graphic,
+        service: Service,
+      },
+
+      updater: updaterEdit,
+
+      onError(error) {
+        toast({
+          title: 'Something went wrong',
+          description: error.message,
+        })
+      },
+    })
+  }
+
   const handleSaveChanges = () => {
     formRef.current.dispatchEvent(
       new Event('submit', { cancelable: true, bubbles: true }),
@@ -86,10 +127,20 @@ export default function DialogButton() {
   return (
     <Dialog.Root>
       <Dialog.Trigger asChild>
-        <button className="flex h-9 w-[136px] items-center justify-center gap-0.5 rounded-lg bg-blue-300 py-3 transition-all hover:cursor-pointer hover:bg-blue-400">
-          <Plus size={16} />
-          <span className="text-sm font-semibold">Appointment</span>
-        </button>
+        {!isEdit ? (
+          <button className="flex h-9 w-[136px] items-center justify-center gap-0.5 rounded-lg bg-blue-300 py-3 transition-all hover:cursor-pointer hover:bg-blue-400">
+            <Plus size={16} />
+            <span className="text-sm font-semibold">Appointment</span>
+          </button>
+        ) : (
+          <div>
+            <NotePencil
+              className="hover:cursor-pointer"
+              color="#c4baba"
+              size={28}
+            />
+          </div>
+        )}
       </Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 animate-overlay bg-zinc-700 focus:outline-none" />
@@ -100,7 +151,12 @@ export default function DialogButton() {
           <Dialog.Description className="mx-0 my-2.5 mb-5 text-base text-gray-400">
             Add the necessary information
           </Dialog.Description>
-          <form ref={formRef} onSubmit={handleSubmit(handleInfo)}>
+          <form
+            ref={formRef}
+            onSubmit={
+              isEdit ? handleSubmit(handleEdit) : handleSubmit(handleInfo)
+            }
+          >
             <fieldset className="mb-4 flex items-center gap-5">
               <label
                 className="w-20 text-right text-base text-violet-400 dark:text-violet-500"

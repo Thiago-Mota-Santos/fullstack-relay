@@ -4,12 +4,14 @@ import { Table } from '../Table'
 import { NoAppointment } from '../NoAppointment'
 import { AppointmentList_appointment$key } from '../../__generated__/AppointmentList_appointment.graphql'
 import { AppointmentPaginationQuery } from '../../__generated__/AppointmentPaginationQuery.graphql'
+import { useMemo } from 'react'
 
 interface AppointmentListProps {
   query: AppointmentList_appointment$key
+  search: string
 }
 
-function AppointmentList({ query }: AppointmentListProps) {
+function AppointmentList({ query, search }: AppointmentListProps) {
   const { data } = usePaginationFragment<
     AppointmentPaginationQuery,
     AppointmentList_appointment$key
@@ -26,6 +28,7 @@ function AppointmentList({ query }: AppointmentListProps) {
           edges {
             node {
               id
+              graphicLocation
               ...AppointmentDetails_appointment
             }
           }
@@ -36,13 +39,20 @@ function AppointmentList({ query }: AppointmentListProps) {
   )
 
   const { appointments } = data
+  const filteredData = useMemo(() => {
+    const searchToLowerCase = search.toLocaleLowerCase()
+
+    return appointments.edges.filter(({ node }) =>
+      node.graphicLocation.toLowerCase().includes(searchToLowerCase),
+    )
+  }, [search, appointments.edges])
 
   return (
     <div>
       {appointments.edges.length ? (
         <div className="flex flex-col items-center justify-center">
           <Table />
-          {appointments.edges.map(({ node }) => (
+          {filteredData.map(({ node }) => (
             <AppointmentDetails key={node.id} appointmentDetails={node} />
           ))}
         </div>

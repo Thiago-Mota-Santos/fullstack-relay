@@ -1,8 +1,9 @@
-import { NotePencil } from '@phosphor-icons/react'
 import { DeleteModal } from '../DeleteModal'
 import { graphql } from 'relay-runtime'
 import { useFragment } from 'react-relay'
 import { AppointmentDetails_appointment$key } from '../../__generated__/AppointmentDetails_appointment.graphql'
+import DialogButton from '../DialogButton'
+import React from 'react'
 
 interface AppointmentProps {
   appointmentDetails: AppointmentDetails_appointment$key
@@ -57,7 +58,7 @@ function AppointmentDetails({ appointmentDetails }: AppointmentProps) {
             className="px-6 py-4 text-left text-sm font-medium text-gray-500  dark:text-gray-400"
           >
             <span>
-              <NotePencil color="#c4baba" size={28} />
+              <DialogButton isEdit Id={appointment.id} />
             </span>
           </td>
           <td

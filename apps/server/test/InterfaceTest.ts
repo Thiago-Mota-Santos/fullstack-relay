@@ -23,7 +23,22 @@ export interface UserLoginMutationResult {
 
 export interface AppointmentDelete {
   AppointmentDelete: {
-    success: any
+    success: string
+  }
+}
+
+export interface AppointmentUpdate {
+  appointmentUpdateMutation: {
+    appointmentEdge: {
+      node: {
+        id: string
+        clientName: string
+        date: string
+        hour: string
+        graphicLocation: string
+        service: string
+      }
+    }
   }
 }
 

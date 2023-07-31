@@ -84,6 +84,7 @@ type Mutation {
   userRegisterMutation(input: UserRegisterInput!): UserRegisterPayload
   appointmentRegisterMutation(input: AppointmentRegisterInput!): AppointmentRegisterPayload
   AppointmentDelete(input: AppointmentDeleteInput!): AppointmentDeletePayload
+  appointmentUpdateMutation(input: AppointmentUpdateInput!): AppointmentUpdatePayload
 }
 
 type UserLoginMutationPayload {
@@ -141,5 +142,20 @@ type AppointmentDeletePayload {
 
 input AppointmentDeleteInput {
   AppointmentId: String!
+  clientMutationId: String
+}
+
+type AppointmentUpdatePayload {
+  appointmentEdge: AppointmentEdge
+  clientMutationId: String
+}
+
+input AppointmentUpdateInput {
+  appointmentId: String!
+  clientName: String!
+  date: String!
+  hour: String!
+  graphicLocation: String!
+  service: String!
   clientMutationId: String
 }
