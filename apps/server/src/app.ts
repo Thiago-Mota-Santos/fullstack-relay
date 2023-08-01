@@ -47,11 +47,11 @@ const graphQlSettingsPerReq = async (
 
 const graphQlServer = graphqlHTTP(graphQlSettingsPerReq)
 
-router.all('/graphql', graphQlServer)
+router.all('/', graphQlServer)
 router.all(
-  '/graphql',
+  '/',
   koaPlayground({
-    endpoint: '/graphql',
+    endpoint: '/',
   }),
 )
 
