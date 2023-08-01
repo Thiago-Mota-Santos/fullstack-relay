@@ -9,7 +9,7 @@
     "test": "jest --watchAll --detectOpenHandles",
     "fixture": "tsx src/modules/Appointment/fixture/createAppointment.ts",
     "build": "tsup src",
-    "vercel-build": "yarn start"
+    "vercel-build": "tsx src/index.ts"
   },
   "dependencies": {
     "@entria/graphql-mongo-helpers": "^1.1.2",
