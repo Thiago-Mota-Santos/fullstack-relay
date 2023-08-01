@@ -1,5 +1,6 @@
 {
   "name": "@monorepo-playground/relay",
+  "main": "dist/index.js",
   "version": "1.0.0",
   "scripts": {
     "dev": "tsx watch src/index.ts",
@@ -8,8 +9,7 @@
     "copy-env": "cp .env.example .env",
     "test": "jest --watchAll --detectOpenHandles",
     "fixture": "tsx src/modules/Appointment/fixture/createAppointment.ts",
-    "build": "tsup src",
-    "vercel-build": "tsx src/index.ts"
+    "build": "tsup src"
   },
   "dependencies": {
     "@entria/graphql-mongo-helpers": "^1.1.2",
