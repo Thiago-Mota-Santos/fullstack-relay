@@ -1,7 +1,7 @@
-import mongoose, { Document, Schema, Types } from 'mongoose'
+import mongoose, { Document, Types } from 'mongoose'
 import { Maybe } from '../../../../../packages/types/src/Maybe'
 
-export interface Appointment {
+export interface Appointment extends Document {
   _id: Types.ObjectId
   clientName: string
   date: string
@@ -10,7 +10,7 @@ export interface Appointment {
   service: string
 }
 
-export type AppointmentDocument = Maybe<Appointment> & Document
+export type AppointmentDocument = Maybe<Document> & Appointment
 
 const AppointmentSchema = new mongoose.Schema<Appointment>(
   {
