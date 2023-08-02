@@ -19,6 +19,7 @@ function createEnvironment() {
     },
   })
 
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore Private API Hackery? 🤷‍♂️
   environment.getNetwork().responseCache = network.responseCache
 

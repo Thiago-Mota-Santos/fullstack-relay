@@ -45,7 +45,11 @@ function Hyderate({
     ) as any) {
       const queryId = params.id || params.text
 
-      environment.getNetwork().responseCache.set(queryId, variables, response)
+      environment
+        .getNetwork()
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore - seems to be a private untyped api 🤷‍♂️
+        .responseCache.set(queryId, variables, response)
       queryRefs[queryName] = {
         environment,
         fetchKey: queryId,
