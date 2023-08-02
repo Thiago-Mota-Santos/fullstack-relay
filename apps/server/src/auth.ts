@@ -1,11 +1,10 @@
 import jwt from 'jsonwebtoken'
 
-import { config } from './config'
-
 import { UserDocument, UserModel } from './modules/User/UserModel'
 import { ParameterizedContext } from 'koa'
 import { Maybe } from '@fullstack/types'
 
+const JWT_KEY = process.env.JWT_KEY as string
 export const getUser = async (
   ctx: ParameterizedContext,
 ): Promise<{ user: Maybe<UserDocument> }> => {
@@ -15,7 +14,7 @@ export const getUser = async (
     if (!token) return { user: null }
 
     const subToken = token.substring(6)
-    const decodedToken = jwt.verify(subToken, config.JWT_KEY)
+    const decodedToken = jwt.verify(subToken, JWT_KEY)
     const decodedId = decodedToken as { id: string }
 
     const user = await UserModel.findOne({ _id: decodedId.id })
@@ -26,5 +25,5 @@ export const getUser = async (
 }
 
 export const generateJwtToken = (user: UserDocument) => {
-  return `JWT ${jwt.sign({ id: user._id }, config.JWT_KEY)}`
+  return `JWT ${jwt.sign({ id: user._id }, JWT_KEY)}`
 }
