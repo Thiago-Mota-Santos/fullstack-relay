@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { NextComponentType, NextPageContext } from 'next'
 import { Suspense, useMemo } from 'react'
 import { useRelayEnvironment, RelayEnvironmentProvider } from 'react-relay'
@@ -48,10 +47,8 @@ function Hyderate({
 
       environment
         .getNetwork()
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore - seems to be a private untyped api 🤷‍♂️
         .responseCache.set(queryId, variables, response)
-      // TODO: create using a function exported from react-relay package
       queryRefs[queryName] = {
         environment,
         fetchKey: queryId,
@@ -64,7 +61,6 @@ function Hyderate({
     }
 
     return { ...otherProps, queryRefs }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props])
 
   return <Component {...transformedProps} />
