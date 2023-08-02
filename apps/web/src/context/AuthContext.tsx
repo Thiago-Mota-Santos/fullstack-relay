@@ -1,8 +1,7 @@
-import { Maybe } from '@fullstack/types'
-
 import React, { useState, useMemo, useCallback } from 'react'
 
 import { delAuthToken, getAuthToken, setAuthToken } from '../utils/getToken'
+import { Maybe } from '@/interfaces/Maybe'
 
 interface AuthContextValue {
   token: Maybe<string>

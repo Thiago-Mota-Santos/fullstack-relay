@@ -1,7 +1,7 @@
-import { Maybe } from '@fullstack/types'
 import { setCookie, destroyCookie, parseCookies } from 'nookies'
 import { IncomingHttpHeaders } from 'http2'
 import { SetOption } from 'cookies'
+import { Maybe } from '@/interfaces/Maybe'
 
 const AUTH_COOKIE = 'graphic-token'
 
