@@ -8,6 +8,6 @@ import { createServer } from 'http'
   const server = createServer(app.callback())
 
   server.listen(config.PORT, () => {
-    console.log(`server running - PORT:  ${config.PORT}`)
+    console.log('Server is running')
   })
 })()
