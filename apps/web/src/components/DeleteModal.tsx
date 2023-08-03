@@ -42,7 +42,7 @@ function DeleteModal({ appointmentDelete }: ModalDeleteProps) {
   return (
     <AlertDialog.Root>
       <AlertDialog.Trigger asChild>
-        <Trash className="mr-2 cursor-pointer" size={28} color="#ff0000" />
+        <Trash className="mr-2 cursor-pointer" size={24} color="#ff0000" />
       </AlertDialog.Trigger>
       <AlertDialog.Portal>
         <AlertDialog.Overlay className="fixed inset-0 animate-overlay bg-zinc-700 " />

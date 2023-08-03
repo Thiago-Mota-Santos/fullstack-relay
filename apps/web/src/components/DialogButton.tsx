@@ -137,7 +137,7 @@ export default function DialogButton({
             <Pencil
               className="hover:cursor-pointer"
               color="#c4baba"
-              size={28}
+              size={24}
             />
           </div>
         )}
