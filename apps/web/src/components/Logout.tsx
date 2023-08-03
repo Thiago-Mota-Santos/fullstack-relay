@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import { AuthContext } from '../context/AuthContext'
 import router from 'next/router'
-import { SignOut } from '@phosphor-icons/react'
+import { LogOut } from 'lucide-react'
 
 export default function Logout() {
   const { signout } = useContext(AuthContext)
@@ -19,7 +19,7 @@ export default function Logout() {
       onClick={handleLogout}
       className="flex items-center rounded bg-blue-400 px-2 py-2 transition-all hover:bg-blue-500"
     >
-      <SignOut size={24} />
+      <LogOut size={24}/>
       Logout
     </button>
   )

@@ -1,5 +1,5 @@
 import * as Dialog from '@radix-ui/react-dialog'
-import { NotePencil, Plus, X } from '@phosphor-icons/react'
+import { Pencil, Plus, X } from 'lucide-react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -134,7 +134,7 @@ export default function DialogButton({
           </button>
         ) : (
           <div>
-            <NotePencil
+            <Pencil
               className="hover:cursor-pointer"
               color="#c4baba"
               size={28}
