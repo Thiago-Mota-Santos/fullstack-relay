@@ -17,5 +17,11 @@
       },
       "dest": "src/index.ts"
     }
+  ],
+  "rewrites": [
+    {
+      "source": "/:all*(?:_vercel.*)",
+      "destination": "/:all*"
+    }
   ]
 }
