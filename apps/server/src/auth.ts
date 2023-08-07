@@ -22,9 +22,9 @@ export const getUser = async (
     })
   }
 
-  // Agora você pode acessar o cookie 'graphic-token' usando cookies['graphic-token']
+  console.log('HEADERS : ' + cookieHeader)
   const token = cookies['graphic-token']
-  console.log(token)
+  console.log('TOKEN : ' + token)
   try {
     if (!token) return { user: null }
 

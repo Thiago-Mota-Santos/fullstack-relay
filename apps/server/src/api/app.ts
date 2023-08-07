@@ -21,6 +21,7 @@ const graphQlSettingsPerReq = async (
   ctx: VercelRequest,
 ): Promise<OptionsData> => {
   const { user } = await getUser(ctx)
+  console.log('CTX: ' + user)
   return {
     graphiql: true,
     schema,
