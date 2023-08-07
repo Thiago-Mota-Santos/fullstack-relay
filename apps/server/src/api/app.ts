@@ -3,11 +3,11 @@ import logger from 'koa-logger'
 import cors from 'kcors'
 import bodyParser from 'koa-bodyparser'
 import { OptionsData, graphqlHTTP } from 'koa-graphql'
-import { schema } from './schema/schema'
-import { getContext } from './getContext'
 import koaPlayground from 'graphql-playground-middleware-koa'
 import Router from '@koa/router'
-import { getUser } from './auth'
+import { getContext } from '../getContext'
+import { getUser } from '../auth'
+import { schema } from '../schema/schema'
 
 const router = new Router()
 const app = new Koa()
