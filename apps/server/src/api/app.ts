@@ -5,10 +5,10 @@ import bodyParser from 'koa-bodyparser'
 import { OptionsData, graphqlHTTP } from 'koa-graphql'
 import koaPlayground from 'graphql-playground-middleware-koa'
 import Router from '@koa/router'
-import { schema } from './schema/schema'
-import { getUser } from './auth'
-import { getContext } from './getContext'
 import { VercelRequest } from '@vercel/node'
+import { getUser } from '../auth'
+import { getContext } from '../getContext'
+import { schema } from '../schema/schema'
 
 const router = new Router()
 const app = new Koa()

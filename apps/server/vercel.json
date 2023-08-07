@@ -9,6 +9,7 @@
   "routes": [
     {
       "src": "/(.*)",
+      "headers": { "cache-control": "s-manage=1000"},
       "dest": "src/index.ts"
     }
   ]
