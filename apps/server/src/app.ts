@@ -8,6 +8,7 @@ import Router from '@koa/router'
 import { schema } from './schema/schema'
 import { getUser } from './auth'
 import { getContext } from './getContext'
+import { VercelRequest } from '@vercel/node'
 
 const router = new Router()
 const app = new Koa()
@@ -17,7 +18,7 @@ app.use(bodyParser())
 const graphQlSettingsPerReq = async (
   _req: Request,
   _res: Response,
-  ctx: Context,
+  ctx: VercelRequest,
 ): Promise<OptionsData> => {
   const { user } = await getUser(ctx)
   return {

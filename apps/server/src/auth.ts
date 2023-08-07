@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken'
+import type { VercelRequest, VercelResponse } from '@vercel/node'
 
 import { UserDocument, UserModel } from './modules/User/UserModel'
 import { ParameterizedContext } from 'koa'
@@ -6,10 +7,24 @@ import { Maybe } from '@fullstack/types'
 
 const JWT_KEY = process.env.JWT_KEY as string
 export const getUser = async (
-  ctx: ParameterizedContext,
+  // ctx: ParameterizedContext,
+  request: VercelRequest,
 ): Promise<{ user: Maybe<UserDocument> }> => {
-  const token = ctx.cookies.get('graphic-token')
+  // const token = ctx.cookies.get('graphic-token')
+  const cookieHeader = request.headers['cookie']
+  const cookies: { [key: string]: string } = {}
+  if (cookieHeader) {
+    cookieHeader.split(';').forEach((cookie) => {
+      const parts = cookie.split('=')
+      const key = parts[0].trim()
+      const value = parts[1].trim()
+      cookies[key] = value
+    })
+  }
 
+  // Agora você pode acessar o cookie 'graphic-token' usando cookies['graphic-token']
+  const token = cookies['graphic-token']
+  console.log(token)
   try {
     if (!token) return { user: null }
 
