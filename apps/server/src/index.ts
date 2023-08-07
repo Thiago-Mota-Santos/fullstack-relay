@@ -1,7 +1,7 @@
 import 'dotenv/config'
-import { app } from './app'
 import { connectDatabase } from './database'
 import { createServer } from 'http'
+import { app } from './api/app'
 ;(async () => {
   await connectDatabase()
   const PORT = process.env.PORT as string
