@@ -14,6 +14,21 @@ export const getUser = async (
 ): Promise<{ user: Maybe<UserDocument> }> => {
   const token = request.cookies.get('graphic-token')
 
+  const cookieHeader = request.headers['cookie']
+  const cookies: { [key: string]: string } = {}
+  if (cookieHeader) {
+    cookieHeader.split(';').forEach((cookie) => {
+      const parts = cookie.split('=')
+      const key = parts[0].trim()
+      const value = parts[1].trim()
+      cookies[key] = value
+    })
+  }
+
+  console.log('HEADERS : ' + cookieHeader)
+  const token1 = cookies['graphic-token']
+  console.log('TOKEN : ' + token1)
+
   console.log(token)
   try {
     if (!token) return { user: null }
