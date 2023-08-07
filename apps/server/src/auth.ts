@@ -12,7 +12,7 @@ export const getUser = async (
   // ctx: ParameterizedContext,
   request: ParameterizedContext,
 ): Promise<{ user: Maybe<UserDocument> }> => {
-  const token = request.cookies.get('graphic-token')
+  const token = request.cookies.get('_vercel_jwt')
 
   const cookieHeader = request.headers['cookie']
   const cookies: { [key: string]: string } = {}
@@ -27,6 +27,8 @@ export const getUser = async (
 
   console.log('HEADERS : ' + cookieHeader)
   const token1 = cookies['graphic-token']
+  const token2 = cookies['_vercel_jwt']
+  console.log('TOKEN2: ' + token2)
   console.log('TOKEN : ' + token1)
 
   console.log(token)
