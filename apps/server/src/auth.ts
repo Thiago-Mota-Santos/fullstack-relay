@@ -3,27 +3,18 @@ import type { VercelRequest } from '@vercel/node'
 
 import { UserDocument, UserModel } from './modules/User/UserModel'
 import { Maybe } from '@fullstack/types'
+import cookie from 'cookie'
+import { debugConsole } from './debugConsole'
+import { ParameterizedContext } from 'koa'
 
 const JWT_KEY = process.env.JWT_KEY as string
 export const getUser = async (
   // ctx: ParameterizedContext,
-  request: VercelRequest,
+  request: ParameterizedContext,
 ): Promise<{ user: Maybe<UserDocument> }> => {
-  // const token = ctx.cookies.get('graphic-token')
-  const cookieHeader = request.headers['cookie']
-  const cookies: { [key: string]: string } = {}
-  if (cookieHeader) {
-    cookieHeader.split(';').forEach((cookie) => {
-      const parts = cookie.split('=')
-      const key = parts[0].trim()
-      const value = parts[1].trim()
-      cookies[key] = value
-    })
-  }
+  const token = request.cookies.get('graphic-token')
 
-  console.log('HEADERS : ' + cookieHeader)
-  const token = cookies['graphic-token']
-  console.log('TOKEN : ' + token)
+  console.log(token)
   try {
     if (!token) return { user: null }
 
