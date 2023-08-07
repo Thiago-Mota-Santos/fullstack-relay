@@ -9,7 +9,9 @@
   "routes": [
     {
       "src": "/(.*)",
-      "headers": { "cache-control": "s-manage=1000"},
+      "headers": {
+        "Access-Control-Allow-Origin": "*"
+      },
       "dest": "src/index.ts"
     }
   ]
