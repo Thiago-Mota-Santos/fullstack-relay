@@ -1,25 +1,22 @@
 import { Maybe } from '@/interfaces/Maybe';
-import { destroyCookie, parseCookies, setCookie } from 'nookies';
+import { destroyCookie, setCookie } from 'nookies';
+import { getAuthToken } from '@/utils/getToken'
 
 import React, { useState, useMemo, useCallback } from 'react';
 
 interface AuthContextValue {
   token: Maybe<string>;
-  signin: (token: Maybe<string>) => void;
+  signIn: (token: Maybe<string>) => void;
   signout: () => void;
 }
 
 const AUTH_COOKIE = 'graphic-token'
 export const AuthContext = React.createContext({} as AuthContextValue);
 
-const getAuthToken = (): Maybe<string> => {
-  const { AUTH_COOKIE: token } = parseCookies()
-  return token
-}
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const [userToken, setUserToken] = useState<AuthContextValue['token']>(() => getAuthToken());
-  const signin = useCallback<AuthContextValue['signin']>((token) => {
+  const signIn = useCallback<AuthContextValue['signIn']>((token) => {
     setCookie(undefined, AUTH_COOKIE, token, {
       maxAge: 3600 * 24 * 7,
       path: '/',
@@ -35,10 +32,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const value = useMemo<AuthContextValue>(
     () => ({
       token: userToken,
-      signin,
+      signIn,
       signout,
     }),
-    [userToken, signin, signout],
+    [userToken, signIn, signout],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

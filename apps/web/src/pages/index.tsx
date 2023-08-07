@@ -7,8 +7,8 @@ import pageQuery, {
   pagesQuery as pageQueryType,
 } from '../__generated__/pagesQuery.graphql'
 import Logout from '../components/Logout'
-import { getToken } from '../utils/getToken'
 import { AppointmentList } from '../components/appointments/AppointmentList'
+import { getCookie } from '@/utils/getToken'
 
 interface HomeProps {
   queryRefs: {
@@ -77,7 +77,7 @@ export default function Home({ queryRefs }: HomeProps) {
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const token = getToken(ctx.req.headers)
+  const token = getCookie(ctx.req.headers)
   if (!token) {
     return {
       redirect: {
