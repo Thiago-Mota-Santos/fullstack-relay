@@ -18,6 +18,8 @@ const appointmentRegisterMutation = mutationWithClientMutationId({
   mutateAndGetPayload: async (args: Appointment, ctx: GraphQLContext) => {
     const { clientName, date, graphicLocation, hour, service } = args
 
+    console.log('appointment registration: ' + ctx.user)
+
     if (!ctx.user) {
       throw new Error('You must be logged in to register an appointment')
     }
