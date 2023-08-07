@@ -5,9 +5,9 @@ import bodyParser from 'koa-bodyparser'
 import { OptionsData, graphqlHTTP } from 'koa-graphql'
 import koaPlayground from 'graphql-playground-middleware-koa'
 import Router from '@koa/router'
-import { getContext } from '../getContext'
-import { getUser } from '../auth'
-import { schema } from '../schema/schema'
+import { schema } from './schema/schema'
+import { getUser } from './auth'
+import { getContext } from './getContext'
 
 const router = new Router()
 const app = new Koa()

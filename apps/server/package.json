@@ -9,8 +9,7 @@
     "copy-env": "cp .env.example .env",
     "test": "jest --watchAll --detectOpenHandles",
     "fixture": "tsx src/modules/Appointment/fixture/createAppointment.ts",
-    "build": "tsup src",
-    "vercel-build": "node dist/index.js"
+    "build": "tsup src"
   },
   "dependencies": {
     "@entria/graphql-mongo-helpers": "^1.1.2",
