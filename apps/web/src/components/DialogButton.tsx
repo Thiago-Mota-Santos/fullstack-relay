@@ -130,6 +130,7 @@ export default function DialogButton({
         {!isEdit ? (
           <button className="flex h-9 w-[136px] items-center justify-center gap-0.5 rounded-lg bg-blue-300 py-3 transition-all hover:cursor-pointer hover:bg-blue-400">
             <Plus size={16} />
+            <p>+</p>
             <span className="text-sm font-semibold">Appointment</span>
           </button>
         ) : (

@@ -1,5 +1,4 @@
 import * as AlertDialog from '@radix-ui/react-alert-dialog'
-import { Trash } from 'lucide-react'
 import { useMutation } from 'react-relay'
 import { useToast } from '../hooks/useToast'
 import {
@@ -7,6 +6,7 @@ import {
   updaterDelete,
 } from '../context/appointment/AppointmentDelete'
 import { AppointmentDeleteMutation } from '../__generated__/AppointmentDeleteMutation.graphql'
+import { Trash } from 'lucide-react'
 
 interface ModalDeleteProps {
   appointmentDelete: string
