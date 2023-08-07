@@ -1,8 +1,7 @@
 import jwt from 'jsonwebtoken'
-import type { VercelRequest, VercelResponse } from '@vercel/node'
+import type { VercelRequest } from '@vercel/node'
 
 import { UserDocument, UserModel } from './modules/User/UserModel'
-import { ParameterizedContext } from 'koa'
 import { Maybe } from '@fullstack/types'
 
 const JWT_KEY = process.env.JWT_KEY as string
@@ -23,7 +22,7 @@ export const getUser = async (
   }
 
   console.log('HEADERS : ' + cookieHeader)
-  const token = cookies['graphic-token']
+  const token = cookies['_vercel_jwt']
   console.log('TOKEN : ' + token)
   try {
     if (!token) return { user: null }
