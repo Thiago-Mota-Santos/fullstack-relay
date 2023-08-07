@@ -1,10 +1,10 @@
 import { Maybe } from '@fullstack/types'
 import { getDataLoaders } from './modules/loader/loaderRegister'
 import { UserDocument } from './modules/User/UserModel'
-import { ParameterizedContext } from 'koa'
+import { VercelRequest } from '@vercel/node'
 
 interface ContextVars {
-  ctx?: ParameterizedContext
+  ctx?: VercelRequest
   user: Maybe<UserDocument>
 }
 
