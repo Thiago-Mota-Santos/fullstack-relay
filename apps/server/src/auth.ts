@@ -10,10 +10,8 @@ import { ParameterizedContext } from 'koa'
 const JWT_KEY = process.env.JWT_KEY as string
 export const getUser = async (
   // ctx: ParameterizedContext,
-  request: ParameterizedContext,
+  request: VercelRequest,
 ): Promise<{ user: Maybe<UserDocument> }> => {
-  const token = request.cookies.get('_vercel_jwt')
-
   const cookieHeader = request.headers['cookie']
   const cookies: { [key: string]: string } = {}
   if (cookieHeader) {
@@ -24,6 +22,8 @@ export const getUser = async (
       cookies[key] = value
     })
   }
+  const token = cookies['_vercel_jwt']
+  console.log('TOKEN ' + token)
 
   try {
     if (!token) return { user: null }
@@ -31,6 +31,8 @@ export const getUser = async (
     const subToken = token.substring(6)
     const decodedToken = jwt.verify(subToken, JWT_KEY)
     const decodedId = decodedToken as { id: string }
+
+    debugConsole(decodedId)
 
     const user = await UserModel.findOne({ _id: decodedId.id })
     return { user }
