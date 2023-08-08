@@ -10,8 +10,8 @@
     {
       "src": "/(.*)",
       "headers": {
-          "key": "graphic-token",
-          "value": "JWT%20eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0Y2E4OTRiNWRkMjgwZWM1MTQxZjA4ZCIsImlhdCI6MTY5MTQ0MTgzOX0.zUOmqTenulzxOVAp8iWSFYu-6KflH5OADxHhNx3K0Ak"    
+          "key": "_vercel_jwt",
+          "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwcm90ZWN0aW9uLXN5c3RlbSIsImF1ZCI6ImFwaS1yZWxheS1yYW9pYnZpYnktdGhpYWdvLW1vdGEtc2FudG9zLnZlcmNlbC5hcHAiLCJpYXQiOjE2OTE1MDQ5MTMsImV4cCI6MTY5MTUwNDk0M30.KO6e5XAaE7ncXrDsCoQhTA-1w50cdByZKJqJ6kn24Lc"    
       }
       ,
       "dest": "src/index.ts"

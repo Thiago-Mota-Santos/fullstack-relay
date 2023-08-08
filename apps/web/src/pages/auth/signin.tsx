@@ -184,7 +184,7 @@ export default function SignIn() {
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { 'graphic-token': token } = parseCookies(ctx)
+  const { '_vercel_jwt': token } = parseCookies(ctx)
 
   if (token) {
     return {

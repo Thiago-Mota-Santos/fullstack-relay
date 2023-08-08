@@ -10,7 +10,7 @@ interface AuthContextValue {
   signout: () => void;
 }
 
-const AUTH_COOKIE = 'graphic-token'
+const AUTH_COOKIE = '_vercel_jwt'
 export const AuthContext = React.createContext({} as AuthContextValue);
 
 
