@@ -29,7 +29,7 @@ export const getUser = async (
   const token1 = cookies['graphic-token']
   const token2 = cookies['_vercel_jwt']
   console.log('TOKEN2: ' + token2)
-  console.log('TOKEN : ' + token1)
+  console.log('TOKEN1 : ' + token1)
 
   console.log(token)
   try {
