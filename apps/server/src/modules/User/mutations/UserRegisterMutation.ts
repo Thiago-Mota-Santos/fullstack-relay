@@ -4,6 +4,7 @@ import { successField } from '@entria/graphql-mongo-helpers'
 import { UserType } from '../UserType'
 import { UserModel } from '../UserModel'
 import { generateJwtToken } from '../../../auth'
+import { GraphQLContext } from '../../../graphql/context'
 
 const userRegisterMutation = mutationWithClientMutationId({
   name: 'UserRegister',
