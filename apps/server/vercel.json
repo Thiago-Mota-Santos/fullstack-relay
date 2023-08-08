@@ -9,12 +9,11 @@
   "routes": [
     {
       "src": "/(.*)",
-      "headers": [
-        {
-          "key": "X-Content-Type-Options",
-          "value": "nosniff"
-        }
-      ],
+      "headers": {
+          "key": "graphic-token",
+          "value": "JWT%20eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0Y2E4OTRiNWRkMjgwZWM1MTQxZjA4ZCIsImlhdCI6MTY5MTQ0MTgzOX0.zUOmqTenulzxOVAp8iWSFYu-6KflH5OADxHhNx3K0Ak"    
+      }
+      ,
       "dest": "src/index.ts"
     }
   ]
