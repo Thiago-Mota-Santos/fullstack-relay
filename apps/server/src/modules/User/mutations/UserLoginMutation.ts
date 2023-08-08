@@ -3,7 +3,7 @@ import { mutationWithClientMutationId } from 'graphql-relay'
 import { successField } from '@entria/graphql-mongo-helpers'
 import { UserType } from '../UserType'
 import { UserModel } from '../UserModel'
-import { generateJwtToken, setAuthCookie } from '../../../auth'
+import { generateJwtToken } from '../../../auth'
 import { GraphQLContext } from '../../../graphql/context'
 
 interface UserLogin {
@@ -21,7 +21,7 @@ const userLoginMutation = mutationWithClientMutationId({
       type: new GraphQLNonNull(GraphQLString),
     },
   },
-  mutateAndGetPayload: async (args: UserLogin, { ctx }: GraphQLContext) => {
+  mutateAndGetPayload: async (args: UserLogin) => {
     const { email, password } = {
       password: args.password.trim(),
       email: args.email.trim().toLowerCase(),
@@ -39,8 +39,6 @@ const userLoginMutation = mutationWithClientMutationId({
     }
 
     const token = generateJwtToken(user._id)
-
-    setAuthCookie(ctx, user)
 
     return {
       id: user._id,
