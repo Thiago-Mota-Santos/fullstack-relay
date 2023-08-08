@@ -25,13 +25,6 @@ export const getUser = async (
     })
   }
 
-  console.log('HEADERS : ' + cookieHeader)
-  const token1 = cookies['graphic-token']
-  const token2 = cookies['_vercel_jwt']
-  console.log('TOKEN2: ' + token2)
-  console.log('TOKEN1 : ' + token1)
-
-  console.log(token)
   try {
     if (!token) return { user: null }
 

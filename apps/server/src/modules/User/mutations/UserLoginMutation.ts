@@ -38,6 +38,9 @@ const userLoginMutation = mutationWithClientMutationId({
     }
 
     const token = generateJwtToken(user._id)
+    console.log('TOKEN  : ' + token)
+    console.log('USER_ID : ' + user._id)
+
     return {
       id: user._id,
       token,
