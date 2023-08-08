@@ -11,7 +11,7 @@
       "src": "/(.*)",
       "headers": {
           "key": "_vercel_jwt",
-          "value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwcm90ZWN0aW9uLXN5c3RlbSIsImF1ZCI6ImFwaS1yZWxheS1yYW9pYnZpYnktdGhpYWdvLW1vdGEtc2FudG9zLnZlcmNlbC5hcHAiLCJpYXQiOjE2OTE1MDQ5MTMsImV4cCI6MTY5MTUwNDk0M30.KO6e5XAaE7ncXrDsCoQhTA-1w50cdByZKJqJ6kn24Lc"    
+          "value": "JWT eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwcm90ZWN0aW9uLXN5c3RlbSIsImF1ZCI6ImFwaS1yZWxheS1yYW9pYnZpYnktdGhpYWdvLW1vdGEtc2FudG9zLnZlcmNlbC5hcHAiLCJpYXQiOjE2OTE1MDQ5MTMsImV4cCI6MTY5MTUwNDk0M30.KO6e5XAaE7ncXrDsCoQhTA-1w50cdByZKJqJ6kn24Lc"    
       }
       ,
       "dest": "src/index.ts"

@@ -31,6 +31,8 @@ const userRegisterMutation = mutationWithClientMutationId({
 
     const token = generateJwtToken(user)
 
+    setAuthCookie(ctx, user)
+
     return {
       token,
       id: user._id,

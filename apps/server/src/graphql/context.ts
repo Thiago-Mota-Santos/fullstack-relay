@@ -4,7 +4,7 @@ import { DataLoaders } from '../modules/loader/loaderRegister'
 import { Maybe } from '../../../../packages/types/src/Maybe'
 
 export interface GraphQLContext {
-  ctx?: ParameterizedContext
+  ctx: ParameterizedContext
   user?: Maybe<UserDocument>
   dataloaders: DataLoaders
 }
