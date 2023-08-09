@@ -9,6 +9,7 @@ import pageQuery, {
 import Logout from '../components/Logout'
 import { AppointmentList } from '../components/appointments/AppointmentList'
 import { getCookie } from '@/utils/getToken'
+import { parseCookies } from 'nookies'
 
 interface HomeProps {
   queryRefs: {
@@ -78,7 +79,7 @@ export default function Home({ queryRefs }: HomeProps) {
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const token = getCookie(ctx.req.headers)
-  console.log(token)
+ 
   if (!token) {
     return {
       redirect: {
