@@ -68,7 +68,7 @@ git clone https://github.com/Thiago-Mota-Santos/fullstack-relay.git
    yarn copy-envs 
    ```
 
-4. Start Aplication 
+4.Start Aplication 
    (In root folder)
    ```sh
    yarn dev
