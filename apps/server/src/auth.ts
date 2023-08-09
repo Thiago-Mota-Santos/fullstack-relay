@@ -15,7 +15,7 @@ const getUser = async (
   if (cookieHeader) {
     cookieHeader.split(';').forEach((cookie) => {
       console.log(cookie)
-      const parts = cookie[1].split('=')
+      const parts = cookie.split('=')
       const key = parts[0].trim()
       const value = parts[1].trim()
       cookies[key] = value
