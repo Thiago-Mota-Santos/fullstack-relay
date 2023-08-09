@@ -1,28 +1,40 @@
-# Turborepo Tailwind CSS starter
 
-This is an official starter Turborepo.
 
-## Using this example
+## Fullstack relay
 
-Run the following command:
+- CRUD made with relay, graphql, koa, next, tailwind
 
-```sh
-npx create-turbo@latest -e with-tailwind
-```
+Project that simulates a scheduling control panel for a graphic. Where can you manage appointments
 
-## What's inside?
+## Resources
+- [x] Create Appointment
+- [x] Edit Appointment
+- [x] Delete Appointment
+- [x] Search by Graphic
+- [x] Authentication
+- [x] Authorization - Protect routes
+- [x] Register User
+- [x] Login
 
-This Turborepo includes the following packages/apps:
+### Screens:
 
-### Apps and Packages
+- Dashboard: 
+   ![image](https://github.com/Thiago-Mota-Santos/fullstack-relay/assets/75326612/1e56185d-9914-426e-a516-cd13179af19a)
 
-- `docs`: a [Next.js](https://nextjs.org/) app with [Tailwind CSS](https://tailwindcss.com/)
-- `web`: another [Next.js](https://nextjs.org/) app with [Tailwind CSS](https://tailwindcss.com/)
-- `ui`: a stub React component library with [Tailwind CSS](https://tailwindcss.com/) shared by both `web` and `docs` applications
-- `eslint-config-custom`: `eslint` configurations (includes `eslint-config-next` and `eslint-config-prettier`)
-- `tsconfig`: `tsconfig.json`s used throughout the monorepo
+- Appointment List:
+   ![image](https://github.com/Thiago-Mota-Santos/fullstack-relay/assets/75326612/e80ef6c1-fbed-483a-8932-2d5585b772d6)
+  
+## Aplication
 
-Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
+ - SignIn
+   ![image](https://github.com/Thiago-Mota-Santos/fullstack-relay/assets/75326612/2da2b467-07e1-49a0-b55c-1b8e22a1d0ba)
+ - SignOut
+   ![image](https://github.com/Thiago-Mota-Santos/fullstack-relay/assets/75326612/8e82ce5a-d64f-4e45-a88d-34ca0c89c84c)
+ - Appointment screens:
+   ![image](https://github.com/Thiago-Mota-Santos/fullstack-relay/assets/75326612/d8c4dd53-59a0-4be5-b2cb-8e6666effad8)
+   ![image](https://github.com/Thiago-Mota-Santos/fullstack-relay/assets/75326612/a8b057dc-adcc-45c7-b878-87ee842024a2)
+   ![image](https://github.com/Thiago-Mota-Santos/fullstack-relay/assets/75326612/ce591ba9-dc81-4e34-8498-8caf3db932a1)
+
 
 ### How to use
 
@@ -43,8 +55,6 @@ Each package/app is 100% [TypeScript](https://www.typescriptlang.org/).
 
 Clone the repo
 
-For now, only the "server" is finalized
-
 ```sh
 git clone https://github.com/Thiago-Mota-Santos/fullstack-relay.git
 ```
@@ -52,30 +62,37 @@ git clone https://github.com/Thiago-Mota-Santos/fullstack-relay.git
    ```sh
    yarn install
    ```
-2. Copy the .env.example
+2. Fill .env.example in apps/server and apps/web
+   (In root folder)
    ```sh
-   cd apps/server
-   yarn copy-env
+   yarn copy-envs 
    ```
-3. Fill the .env file
-   ```sh
-   PORT=
-   JWT_SECRET=
-   MONGO_URI=
-   ```
-4. Start the server
+
+4. Start Aplication 
+   (In root folder)
    ```sh
    yarn dev
    ```
 
+## Stacks 
+
+Front:
+   - NextJS (turborepo)
+   - TailwindCSS
+   - Relay
+   - React Hook Form
+   - Zod
+
+Back: 
+   - NodeJS
+   - Graphql
+   - Relay
+   - Moongose
+   - Jest
+
+Feel free to contribute to the project!
+<a href="https://www.linkedin.com/in/thiago-mota-907970251/" target="_blank"><img src="https://img.shields.io/badge/-LinkedIn-%230077B5?style=for-the-badge&logo=linkedin&logoColor=white" target="_blank"></a> 
+<a href="https://twitter.com/Thzinhdev" target="_blank"><img src="https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" target="_blank"></a> 
+
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-
-### Utilities
-
-This Turborepo has some additional tools already setup for you:
-
-- [Tailwind CSS](https://tailwindcss.com/) for styles
-- [TypeScript](https://www.typescriptlang.org/) for static type checking
-- [ESLint](https://eslint.org/) for code linting
-- [Prettier](https://prettier.io) for code formatting
