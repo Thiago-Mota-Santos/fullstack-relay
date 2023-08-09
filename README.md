@@ -24,7 +24,7 @@ Project that simulates a scheduling control panel for a graphic. Where can you m
 - Appointment List:
    ![image](https://github.com/Thiago-Mota-Santos/fullstack-relay/assets/75326612/e80ef6c1-fbed-483a-8932-2d5585b772d6)
   
-## Aplication
+## Application
 
  - SignIn
    ![image](https://github.com/Thiago-Mota-Santos/fullstack-relay/assets/75326612/2da2b467-07e1-49a0-b55c-1b8e22a1d0ba)
