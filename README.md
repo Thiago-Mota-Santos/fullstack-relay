@@ -1,4 +1,7 @@
 
+<div align="center">
+   ![image](https://github.com/Thiago-Mota-Santos/fullstack-relay/assets/75326612/788453d0-678c-495f-b678-b826ac5593d7)
+</div>
 
 ## Fullstack relay
 
