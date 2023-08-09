@@ -1,7 +1,7 @@
 
 
 <div align="center">
-<img src="https://imgur.com/sNeHufT" alt="project stack">
+<img src="https://cdn.discordapp.com/attachments/859483678082072616/1138843309364756480/sNeHufT.png" alt="project stack">
 </div>
 
 
