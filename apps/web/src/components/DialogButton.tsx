@@ -14,8 +14,10 @@ import {
 } from '../context/appointment/AppointmentEdit'
 
 const InfoTableSchema = z.object({
-  Date: z.string(),
-
+  Date: z.string().refine((value) => {
+    const currentDate = new Date().toISOString().split('T')[0]
+    return value >= currentDate
+    }, 'Must be today or a future Date'),
   Hour: z.string(),
   Client: z
     .string()
