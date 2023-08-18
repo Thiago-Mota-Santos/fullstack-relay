@@ -1,7 +1,7 @@
 import * as Dialog from '@radix-ui/react-dialog'
 import { Pencil, Plus, X } from 'lucide-react'
 import { useForm } from 'react-hook-form'
-import { z } from 'zod'
+import { isValid, z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRef } from 'react'
 import { useMutation } from 'react-relay'
@@ -45,7 +45,7 @@ export default function DialogButton({
 }: DialogButtonProps) {
   const { toast } = useToast()
   const {
-    formState: { errors, isValid },
+    formState: { errors },
     register,
     handleSubmit,
   } = useForm<InfoTableSchemaData>({
@@ -259,15 +259,12 @@ export default function DialogButton({
               )}
             </fieldset>
             <div className="mt-6 flex justify-end">
-              <Dialog.Close asChild>
                 <button
                   onClick={handleSaveChanges}
-                  disabled={!isValid}
                   className="inline-flex h-9 items-center justify-center rounded bg-[#b8f3ff] px-4 text-base font-medium transition-all hover:bg-[#8ac6d0] disabled:cursor-not-allowed"
                 >
                   Save changes
                 </button>
-              </Dialog.Close>
             </div>
             <Dialog.Close asChild>
               <button
