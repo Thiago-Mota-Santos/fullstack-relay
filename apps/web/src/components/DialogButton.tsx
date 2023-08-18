@@ -1,7 +1,7 @@
 import * as Dialog from '@radix-ui/react-dialog'
 import { Pencil, Plus, X } from 'lucide-react'
 import { useForm } from 'react-hook-form'
-import { isValid, z } from 'zod'
+import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRef } from 'react'
 import { useMutation } from 'react-relay'
