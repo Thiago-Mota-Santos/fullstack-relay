@@ -55,6 +55,7 @@ export default function DialogButton({
   })
   const [request] = useMutation(Appointment)
   const [edit] = useMutation(AppointmentEdit)
+ const formRef = useRef(null)
   const handleInfo = ({
     Client,
     Date,
@@ -119,6 +120,12 @@ export default function DialogButton({
     })
   }
 
+  const handleSaveChanges = () => {
+    formRef.current.dispatchEvent(
+      new Event('submit', { cancelable: true, bubbles: true }),
+    )
+  }
+
   return (
     <Dialog.Root>
       <Dialog.Trigger asChild>
@@ -147,6 +154,7 @@ export default function DialogButton({
             Add the necessary information
           </Dialog.Description>
           <form
+            ref={formRef}
             onSubmit={
               isEdit ? handleSubmit(handleEdit) : handleSubmit(handleInfo)
             }
@@ -254,6 +262,7 @@ export default function DialogButton({
             </fieldset>
             <div className="mt-6 flex justify-end">
                 <button
+                  onClick={handleSaveChanges}
                   className="inline-flex h-9 items-center justify-center rounded bg-[#b8f3ff] px-4 text-base font-medium transition-all hover:bg-[#8ac6d0] disabled:cursor-not-allowed"
                 >
                   Save changes
