@@ -50,6 +50,7 @@ export default function DialogButton({
   const {
     formState: { errors },
     register,
+    reset,
     handleSubmit,
   } = useForm<InfoTableSchemaData>({
     resolver: zodResolver(InfoTableSchema),
@@ -91,6 +92,7 @@ export default function DialogButton({
         })
       },
     })
+     reset()
   }
 
   const handleEdit = ({
