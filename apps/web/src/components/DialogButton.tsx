@@ -3,7 +3,7 @@ import { Pencil, Plus, X } from 'lucide-react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useRef } from 'react'
+import { useState } from 'react'
 import { useMutation } from 'react-relay'
 import { useToast } from '../hooks/useToast'
 import { Appointment, updater } from '../context/appointment/Appointment'
@@ -12,6 +12,7 @@ import {
   AppointmentEdit,
   updaterEdit,
 } from '../context/appointment/AppointmentEdit'
+import { DialogClose } from '@radix-ui/react-dialog'
 
 const InfoTableSchema = z.object({
   Date: z.string().refine((value) => {
@@ -55,7 +56,6 @@ export default function DialogButton({
   })
   const [request] = useMutation(Appointment)
   const [edit] = useMutation(AppointmentEdit)
- const formRef = useRef(null)
   const handleInfo = ({
     Client,
     Date,
@@ -63,6 +63,7 @@ export default function DialogButton({
     Hour,
     Service,
   }: InfoTableSchemaData) => {
+    closeModal()
     request({
       variables: {
         date: Date,
@@ -99,6 +100,7 @@ export default function DialogButton({
     Hour,
     Service,
   }: InfoTableSchemaData) => {
+    closeModal(),
     edit({
       variables: {
         appointmentId: Id,
@@ -108,7 +110,7 @@ export default function DialogButton({
         graphicLocation: Graphic,
         service: Service,
       },
-
+     
       updater: updaterEdit,
 
       onError(error) {
@@ -120,14 +122,16 @@ export default function DialogButton({
     })
   }
 
-  const handleSaveChanges = () => {
-    formRef.current.dispatchEvent(
-      new Event('submit', { cancelable: true, bubbles: true }),
-    )
+  const [isOpenModal, setIsOpenModal] = useState(false)
+
+
+  const closeModal = () => {
+    setIsOpenModal(false)
   }
 
+
   return (
-    <Dialog.Root>
+    <Dialog.Root open={isOpenModal} onOpenChange={setIsOpenModal}>
       <Dialog.Trigger asChild>
         {!isEdit ? (
           <button className="flex h-9 w-[136px] items-center justify-center gap-0.5 rounded-lg bg-blue-300 py-3 transition-all hover:cursor-pointer hover:bg-blue-400">
@@ -154,7 +158,6 @@ export default function DialogButton({
             Add the necessary information
           </Dialog.Description>
           <form
-            ref={formRef}
             onSubmit={
               isEdit ? handleSubmit(handleEdit) : handleSubmit(handleInfo)
             }
@@ -262,20 +265,20 @@ export default function DialogButton({
             </fieldset>
             <div className="mt-6 flex justify-end">
                 <button
-                  onClick={handleSaveChanges}
                   className="inline-flex h-9 items-center justify-center rounded bg-[#b8f3ff] px-4 text-base font-medium transition-all hover:bg-[#8ac6d0] disabled:cursor-not-allowed"
                 >
                   Save changes
                 </button>
             </div>
-            <Dialog.Close asChild>
+            <DialogClose asChild>
               <button
                 className="focus:shadow absolute right-2.5 top-2.5 inline-flex h-6 w-6 items-center justify-center rounded-full text-violet-400 hover:text-violet-500 dark:text-violet-500"
                 aria-label="Close"
+                // onClick={closeModal}
               >
                 <X />
               </button>
-            </Dialog.Close>
+            </DialogClose>
           </form>
         </Dialog.Content>
       </Dialog.Portal>
