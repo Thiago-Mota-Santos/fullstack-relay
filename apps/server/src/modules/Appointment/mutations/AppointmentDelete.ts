@@ -23,7 +23,7 @@ export const AppointmentDelete = mutationWithClientMutationId({
       throw new Error('This appointment does not exist')
     }
 
-    await AppointmentModel.findOneAndDelete({ _id: getObjectId(AppointmentId) })
+    await AppointmentModel.findOneAndDelete({ _id: foundAppointment })
 
     return {
       success: 'Appointment successfully deleted',
