@@ -9,6 +9,8 @@ const getUser = async (
 ): Promise<{ user: Maybe<UserDocument> }> => {
   const token = ctx.cookies.get('_vercel_jwt')
 
+  console.log(token)
+
   try {
     if (!token) return { user: null }
 
