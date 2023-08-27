@@ -10,7 +10,6 @@ const getUser = async (
 ): Promise<{ user: Maybe<UserDocument> }> => {
   const token = ctx.cookies.get('graphic-token')
 
-  console.log(token)
   try {
     if (!token) return { user: null }
 

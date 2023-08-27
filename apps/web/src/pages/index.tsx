@@ -79,7 +79,6 @@ export default function Home({ queryRefs }: HomeProps) {
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const token = getCookie(ctx.req.headers)
-  console.log(token)
   if (!token) {
     return {
       redirect: {
