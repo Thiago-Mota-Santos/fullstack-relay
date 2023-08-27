@@ -19,6 +19,7 @@ const appointmentRegisterMutation = mutationWithClientMutationId({
     const { clientName, date, graphicLocation, hour, service } = args
 
     console.log('CONTEXT : ' + ctx.user)
+    console.log('APPOINTMENTE CREATE')
 
     if (!ctx.user) {
       throw new Error('You must be logged in to register an appointment')
