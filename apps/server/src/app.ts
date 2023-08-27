@@ -26,8 +26,8 @@ const graphQlSettingsPerReq = async (
     schema,
     pretty: true,
     context: getContext({
-      user,
       ctx,
+      user,
     }),
     customFormatErrorFn: ({ message, locations, stack }) => {
       /* eslint-disable no-console */
