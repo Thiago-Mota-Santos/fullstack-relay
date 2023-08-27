@@ -18,10 +18,8 @@ module.exports = {
     },
     extend: {
       animation: {
-        'accordion-down': 'accordion-down 0.2s ease-out',
-        'accordion-up': 'accordion-up 0.2s ease-out',
         overlay: 'overlayShow 150ms cubic-bezier(0.16, 1, 0.3, 1)',
-        content: 'contentShow 150ms cubic-bezier(0.16, 1, 0.3, 1)',
+        content: 'contentShow 200ms cubic-bezier(0.16, 1, 0.3, 1)',
       },
       keyframes: {
         overlayShow: {
@@ -33,16 +31,7 @@ module.exports = {
           '100%': { opacity: 1, translate: ('-50%', '-50'), scale: '1' },
         },
       },
-      'accordion-down': {
-        from: { height: 0 },
-
-        to: { height: 'var(--radix-accordion-content-height)' },
-      },
-      'accordion-up': {
-        from: { height: 'var(--radix-accordion-content-height)' },
-
-        to: { height: 0 },
-      },
+     
       colors: {
         brandblue: colors.blue[500],
         brandred: colors.red[500],

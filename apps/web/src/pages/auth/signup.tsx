@@ -210,7 +210,7 @@ export default function SignUp() {
 }
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const { '_vercel_jwt': token } = parseCookies(ctx)
+  const { 'graphic-token': token } = parseCookies(ctx)
   if (token) {
     return {
       redirect: {

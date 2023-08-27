@@ -3,15 +3,12 @@ import { UserDocument, UserModel } from './modules/User/UserModel'
 import { Maybe } from '@fullstack/types'
 import { ParameterizedContext } from 'koa'
 
-const kk =
-  'JWT%20eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwcm90ZWN0aW9uLXN5c3RlbSIsImF1ZCI6ImZ1bGxzdGFjay1yZWxheS02M2Y3dGlqdzAtdGhpYWdvLW1vdGEtc2FudG9zLnZlcmNlbC5hcHAiLCJpYXQiOjE2OTMwODQyNzcsImV4cCI6MTY5MzA4NDMwN30._JXy2Ycv_TucuoYjmtiGgFPvRksX9Eb7e-V06ODBdbc'
-
 const JWT_KEY = process.env.JWT_KEY as string
 
 const getUser = async (
   ctx: ParameterizedContext,
 ): Promise<{ user: Maybe<UserDocument> }> => {
-  const token = ctx.cookies.get('_vercel_jwt')
+  const token = ctx.cookies.get('graphic-token')
 
   console.log(token)
   try {

@@ -276,7 +276,6 @@ export default function DialogButton({
               <button
                 className="focus:shadow absolute right-2.5 top-2.5 inline-flex h-6 w-6 items-center justify-center rounded-full text-violet-400 hover:text-violet-500 dark:text-violet-500"
                 aria-label="Close"
-                // onClick={closeModal}
               >
                 <X />
               </button>
