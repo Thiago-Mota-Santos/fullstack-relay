@@ -1,4 +1,5 @@
 import '@/styles/globals.css'
+import '@radix-ui/themes/styles.css';
 import type { AppProps } from 'next/app'
 import { Suspense } from 'react'
 import { ReactRelayContainer } from '../relay/ReactRelayContainer'

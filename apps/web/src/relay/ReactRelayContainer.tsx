@@ -1,70 +1,63 @@
-/*eslint-disable @typescript-eslint/no-unused-vars*/
-/*eslint-disable @typescript-eslint/no-explicit-any*/
-import { NextComponentType, NextPageContext } from 'next'
-import { Suspense, useMemo } from 'react'
-import { useRelayEnvironment, RelayEnvironmentProvider } from 'react-relay'
-import { createEnvironment } from './environment'
+import type { NextComponentType, NextPage, NextPageContext } from 'next';
+import React, { Suspense, useMemo } from 'react';
+import { ReactRelayContext, useRelayEnvironment } from 'react-relay';
+
+import Providers from '../components/providers/Providers';
+import { createEnvironment } from './RelayEnvironment';
+
+type NextPageWithLayout<T> = NextPage<T> & {
+  getLayout?: (page: React.ReactElement) => React.ReactNode;
+};
 
 export function ReactRelayContainer({
   Component,
   props,
 }: {
-  Component: NextComponentType<NextPageContext, any, any>
-  props: any
+  Component: NextComponentType<NextPageContext, any, any>;
+  props: any;
 }) {
-  const environment = useMemo(() => createEnvironment(), [])
-
+  const environment = useMemo(() => createEnvironment(), []);
   return (
-    <RelayEnvironmentProvider environment={environment}>
+    <ReactRelayContext.Provider value={{ environment }}>
       <Suspense fallback={null}>
-        <Hyderate Component={Component} props={props} />
+        <Hydrate Component={Component} props={props} />
       </Suspense>
-    </RelayEnvironmentProvider>
-  )
+    </ReactRelayContext.Provider>
+  );
 }
 
-function Hyderate({
-  Component,
-  props,
-}: {
-  Component: NextComponentType<NextPageContext, any, any>
-  props: any
-}) {
-  const environment = useRelayEnvironment()
+function Hydrate<T>({ Component, props }: { Component: NextPageWithLayout<T>; props: any }) {
+  const environment = useRelayEnvironment();
+
+  const getLayout = Component.getLayout ?? ((page) => page);
 
   const transformedProps = useMemo(() => {
     if (props == null) {
-      return props
+      return props;
     }
-    const { preloadedQueries, ...otherProps } = props
+    // eslint-disable-next-line react/prop-types
+    const { preloadedQueries, ...otherProps } = props;
     if (preloadedQueries == null) {
-      return props
+      return props;
     }
 
-    const queryRefs: any = {}
-    for (const [queryName, { params, variables, response }] of Object.entries(
-      preloadedQueries,
-    ) as any) {
-      const queryId = params.id || params.text
-
-      environment
-        .getNetwork()
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore - seems to be a private untyped api 🤷‍♂️
-        .responseCache.set(queryId, variables, response)
+    const queryRefs: any = {};
+    for (const [queryName, { params, variables, response }] of Object.entries(preloadedQueries) as any) {
+      environment.getNetwork().responseCache.set(params.id, variables, response);
+      // TODO: create using a function exported from react-relay package
       queryRefs[queryName] = {
         environment,
-        fetchKey: queryId,
+        fetchKey: params.id,
         fetchPolicy: 'store-or-network',
         isDisposed: false,
         name: params.name,
         kind: 'PreloadedQuery',
         variables,
-      }
+      };
     }
 
-    return { ...otherProps, queryRefs }
-  }, [props])
+    return { ...otherProps, queryRefs };
+  }, [props]);
 
-  return <Component {...transformedProps} />
+  return <Providers>{getLayout(<Component {...transformedProps} />)}</Providers>;
 }
