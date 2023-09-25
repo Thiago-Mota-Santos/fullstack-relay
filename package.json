@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
+    "relay": "node scripts/generateArtifactDirectory.ts && cd apps/web && yarn relay",
     "build": "turbo build",
     "dev": "turbo dev",
     "lint": "turbo lint",
