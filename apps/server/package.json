@@ -8,7 +8,8 @@
     "schema": "tsx scripts/updateSchema.ts",
     "copy-env": "cp .env.example .env",
     "test": "jest --watchAll --detectOpenHandles",
-    "fixture": "tsx src/modules/Appointment/fixture/createAppointment.ts",
+    "fixture:appointment": "tsx src/modules/Appointment/fixture/createAppointment.ts",
+    "fixture:user" : "tsx src/modules/User/fixture/createUser.ts",
     "build": "tsup src"
   },
   "dependencies": {
