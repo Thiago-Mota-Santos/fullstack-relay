@@ -41,7 +41,7 @@
     "set-cookie-parser": "^2.6.0",
     "supertest": "^6.3.3",
     "types": "^0.1.1",
-    "typescript": "^5.1.3"
+    "typescript": "^5.2.2"
   },
   "devDependencies": {
     "@flydotio/dockerfile": "^0.4.8",
