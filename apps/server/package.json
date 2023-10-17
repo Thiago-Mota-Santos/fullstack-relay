@@ -9,7 +9,7 @@
     "copy-env": "cp .env.example .env",
     "test": "jest --watchAll --detectOpenHandles",
     "fixture:appointment": "tsx src/modules/Appointment/fixture/createAppointment.ts",
-    "fixture:user" : "tsx src/modules/User/fixture/createUser.ts",
+    "fixture:user": "tsx src/modules/User/fixture/createUser.ts",
     "build": "tsup src"
   },
   "dependencies": {
@@ -38,6 +38,8 @@
     "koa-router": "^12.0.0",
     "mongodb-memory-server": "^8.12.2",
     "mongoose": "^7.5.1",
+    "serverless": "^3.35.2",
+    "serverless-http": "^3.2.0",
     "set-cookie-parser": "^2.6.0",
     "supertest": "^6.3.3",
     "types": "^0.1.1",

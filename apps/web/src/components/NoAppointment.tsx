@@ -1,4 +1,3 @@
-import { Button } from '@radix-ui/themes'
 import DialogButton from './DialogButton'
 
 function NoAppointment() {
@@ -9,7 +8,6 @@ function NoAppointment() {
           Welcome! 🚀 Create your first Appointment
         </h2>
         <DialogButton />
-        <Button>Teste </Button>
       </div>
     </div>
   )

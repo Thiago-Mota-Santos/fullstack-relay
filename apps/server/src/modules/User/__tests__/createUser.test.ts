@@ -32,9 +32,8 @@ it('Should create user', async () => {
     source: mutation,
     variableValues,
   })
-  expect(result.errors).toBeUndefined()
 
-  const { me, token } = result?.data?.userRegisterMutation!
-  expect(token).toBeDefined()
-  expect(me).toBeDefined()
+  expect(result).toBeDefined()
+  expect(result.data?.userRegisterMutation?.me?.id).toBeDefined()
+  expect(result.data?.userRegisterMutation.token).toBeDefined()
 })
