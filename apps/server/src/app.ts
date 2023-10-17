@@ -22,7 +22,10 @@ const graphQlSettingsPerReq = async (
   const { user } = await getUser(ctx)
   console.log(user)
   return {
-    graphiql: true,
+    graphiql: {
+      headerEditorEnabled: true,
+      shouldPersistHeaders: true,
+    },
     schema,
     pretty: true,
     context: getContext({
