@@ -51,8 +51,9 @@ function Hydrate<T>({
     for (const [queryName, { params, variables, response }] of Object.entries(
       preloadedQueries,
     ) as any) {
-      // environment.getNetwork().responseCache.set(params.id, variables, response)
-      // TODO: create using a function exported from react-relay package
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore - seems to be a private untyped api
+      environment.getNetwork().responseCache.set(params.id, variables, response)
       queryRefs[queryName] = {
         environment,
         fetchKey: params.id,
