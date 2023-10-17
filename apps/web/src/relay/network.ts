@@ -36,6 +36,9 @@ export function createNetwork() {
   }
 
   const network = Network.create(fetchResponse)
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore - seems to be a private untyped api
+
   network.responseCache = responseCache
   return network
 }
