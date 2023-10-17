@@ -27,8 +27,6 @@ const userLoginMutation = mutationWithClientMutationId({
       email: args.email.trim().toLowerCase(),
     }
 
-    console.log('USER LOGIN SUCESSFUL')
-
     const user = await UserModel.findOne({ email })
     if (!user) {
       throw new Error('User not found!')

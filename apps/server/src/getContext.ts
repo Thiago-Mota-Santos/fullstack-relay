@@ -10,6 +10,7 @@ interface ContextVars {
 
 export const getContext = ({ ctx, user }: ContextVars) => {
   const dataloaders = getDataLoaders()
+
   return {
     ctx,
     dataloaders,
