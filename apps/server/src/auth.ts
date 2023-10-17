@@ -12,10 +12,9 @@ const getUser = async (
 
   try {
     if (!token) return { user: null }
-
+    console.log('token : ' + token)
     const subToken = token.replace('JWT%20', '')
     const decodedToken = jwt.verify(subToken, JWT_KEY)
-    console.log(subToken)
 
     const decodedId = decodedToken as { id: string }
 
