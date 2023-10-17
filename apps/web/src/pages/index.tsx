@@ -1,5 +1,5 @@
 import DialogButton from '../components/DialogButton'
-import React, { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useState } from 'react'
 import { PreloadedQuery, graphql, usePreloadedQuery } from 'react-relay'
 import { GetServerSideProps } from 'next'
 import { getPreloadedQuery } from '../relay/network'
@@ -35,7 +35,6 @@ export default function Home({ queryRefs }: HomeProps) {
         <Logout />
       </div>
       <div className="ml-40 mr-40 mt-10 flex items-center justify-between">
-        
         <DialogButton />
 
         <form className="flex items-center">

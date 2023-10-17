@@ -1,49 +1,57 @@
-import type { NextComponentType, NextPage, NextPageContext } from 'next';
-import React, { Suspense, useMemo } from 'react';
-import { ReactRelayContext, useRelayEnvironment } from 'react-relay';
+import type { NextComponentType, NextPage, NextPageContext } from 'next'
+import React, { Suspense, useMemo } from 'react'
+import { ReactRelayContext, useRelayEnvironment } from 'react-relay'
 
-import Providers from '../components/providers/Providers';
-import { createEnvironment } from './RelayEnvironment';
+import Providers from '../components/providers/Providers'
+import { createEnvironment } from './RelayEnvironment'
 
 type NextPageWithLayout<T> = NextPage<T> & {
-  getLayout?: (page: React.ReactElement) => React.ReactNode;
-};
+  getLayout?: (page: React.ReactElement) => React.ReactNode
+}
 
 export function ReactRelayContainer({
   Component,
   props,
 }: {
-  Component: NextComponentType<NextPageContext, any, any>;
-  props: any;
+  Component: NextComponentType<NextPageContext, any, any>
+  props: any
 }) {
-  const environment = useMemo(() => createEnvironment(), []);
+  const environment = useMemo(() => createEnvironment(), [])
   return (
     <ReactRelayContext.Provider value={{ environment }}>
       <Suspense fallback={null}>
         <Hydrate Component={Component} props={props} />
       </Suspense>
     </ReactRelayContext.Provider>
-  );
+  )
 }
 
-function Hydrate<T>({ Component, props }: { Component: NextPageWithLayout<T>; props: any }) {
-  const environment = useRelayEnvironment();
+function Hydrate<T>({
+  Component,
+  props,
+}: {
+  Component: NextPageWithLayout<T>
+  props: any
+}) {
+  const environment = useRelayEnvironment()
 
-  const getLayout = Component.getLayout ?? ((page) => page);
+  const getLayout = Component.getLayout ?? ((page) => page)
 
   const transformedProps = useMemo(() => {
     if (props == null) {
-      return props;
+      return props
     }
     // eslint-disable-next-line react/prop-types
-    const { preloadedQueries, ...otherProps } = props;
+    const { preloadedQueries, ...otherProps } = props
     if (preloadedQueries == null) {
-      return props;
+      return props
     }
 
-    const queryRefs: any = {};
-    for (const [queryName, { params, variables, response }] of Object.entries(preloadedQueries) as any) {
-      environment.getNetwork().responseCache.set(params.id, variables, response);
+    const queryRefs: any = {}
+    for (const [queryName, { params, variables, response }] of Object.entries(
+      preloadedQueries,
+    ) as any) {
+      environment.getNetwork().responseCache.set(params.id, variables, response)
       // TODO: create using a function exported from react-relay package
       queryRefs[queryName] = {
         environment,
@@ -53,11 +61,11 @@ function Hydrate<T>({ Component, props }: { Component: NextPageWithLayout<T>; pr
         name: params.name,
         kind: 'PreloadedQuery',
         variables,
-      };
+      }
     }
 
-    return { ...otherProps, queryRefs };
-  }, [props]);
+    return { ...otherProps, queryRefs }
+  }, [props])
 
-  return <Providers>{getLayout(<Component {...transformedProps} />)}</Providers>;
+  return <Providers>{getLayout(<Component {...transformedProps} />)}</Providers>
 }

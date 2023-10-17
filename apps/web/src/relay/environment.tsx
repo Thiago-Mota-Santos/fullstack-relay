@@ -1,6 +1,5 @@
-import type { FetchFunction } from 'relay-runtime';
-import { Environment, Network, RecordSource, Store } from 'relay-runtime';
-
+import type { FetchFunction } from 'relay-runtime'
+import { Environment, Network, RecordSource, Store } from 'relay-runtime'
 
 /**
  *
@@ -24,18 +23,18 @@ const fetchQuery: FetchFunction = async (
       query: operation.text,
       variables,
     }),
-  });
+  })
 
-  return await response.json();
-};
+  return await response.json()
+}
 
 /**
  * Create a network layer from the fetch function
  */
-const network = Network.create(fetchQuery);
-const store = new Store(new RecordSource());
+const network = Network.create(fetchQuery)
+const store = new Store(new RecordSource())
 
 export const environment = new Environment({
   network,
   store,
-});
+})

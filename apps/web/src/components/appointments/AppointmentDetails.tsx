@@ -1,9 +1,8 @@
 import { DeleteModal } from '../DeleteModal'
 import { graphql } from 'relay-runtime'
 import { useFragment } from 'react-relay'
-import { AppointmentDetails_appointment$data, AppointmentDetails_appointment$key } from '../../__generated__/AppointmentDetails_appointment.graphql'
+import { AppointmentDetails_appointment$key } from '../../__generated__/AppointmentDetails_appointment.graphql'
 import DialogButton from '../DialogButton'
-import React, { useState } from 'react'
 
 interface AppointmentProps {
   appointmentDetails: AppointmentDetails_appointment$key

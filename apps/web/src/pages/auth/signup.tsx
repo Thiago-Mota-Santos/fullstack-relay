@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import { useMutation } from 'react-relay'
 import { useRouter } from 'next/router'
 

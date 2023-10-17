@@ -18,7 +18,7 @@ const InfoTableSchema = z.object({
   Date: z.string().refine((value) => {
     const currentDate = new Date().toISOString().split('T')[0]
     return value >= currentDate
-    }, 'Must be today or a future Date'),
+  }, 'Must be today or a future Date'),
   Hour: z.string(),
   Client: z
     .string()
@@ -92,7 +92,7 @@ export default function DialogButton({
         })
       },
     })
-     reset()
+    reset()
   }
 
   const handleEdit = ({
@@ -103,34 +103,32 @@ export default function DialogButton({
     Service,
   }: InfoTableSchemaData) => {
     closeModal(),
-    edit({
-      variables: {
-        appointmentId: Id,
-        date: Date,
-        hour: Hour,
-        clientName: Client,
-        graphicLocation: Graphic,
-        service: Service,
-      },
-     
-      updater: updaterEdit,
+      edit({
+        variables: {
+          appointmentId: Id,
+          date: Date,
+          hour: Hour,
+          clientName: Client,
+          graphicLocation: Graphic,
+          service: Service,
+        },
 
-      onError(error) {
-        toast({
-          title: 'Something went wrong',
-          description: error.message,
-        })
-      },
-    })
+        updater: updaterEdit,
+
+        onError(error) {
+          toast({
+            title: 'Something went wrong',
+            description: error.message,
+          })
+        },
+      })
   }
 
   const [isOpenModal, setIsOpenModal] = useState(false)
 
-
   const closeModal = () => {
     setIsOpenModal(false)
   }
-
 
   return (
     <Dialog.Root open={isOpenModal} onOpenChange={setIsOpenModal}>
@@ -266,11 +264,9 @@ export default function DialogButton({
               )}
             </fieldset>
             <div className="mt-6 flex justify-end">
-                <button
-                  className="inline-flex h-9 items-center justify-center rounded bg-[#b8f3ff] px-4 text-base font-medium transition-all hover:bg-[#8ac6d0] disabled:cursor-not-allowed"
-                >
-                  Save changes
-                </button>
+              <button className="inline-flex h-9 items-center justify-center rounded bg-[#b8f3ff] px-4 text-base font-medium transition-all hover:bg-[#8ac6d0] disabled:cursor-not-allowed">
+                Save changes
+              </button>
             </div>
             <DialogClose asChild>
               <button
