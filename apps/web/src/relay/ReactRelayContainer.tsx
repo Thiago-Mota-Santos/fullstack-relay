@@ -51,7 +51,7 @@ function Hydrate<T>({
     for (const [queryName, { params, variables, response }] of Object.entries(
       preloadedQueries,
     ) as any) {
-      environment.getNetwork().responseCache.set(params.id, variables, response)
+      // environment.getNetwork().responseCache.set(params.id, variables, response)
       // TODO: create using a function exported from react-relay package
       queryRefs[queryName] = {
         environment,
